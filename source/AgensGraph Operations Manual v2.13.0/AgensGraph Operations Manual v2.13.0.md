@@ -1,37 +1,66 @@
 ﻿# **AgensGraph Operations Manual**
-## **Copyright Notice**
-### **Copyright © 2016-2022, Bitnine Inc. All Rights Reserved.**
-#### Restricted Rights Legend
-#### PostgreSQL is Copyright © 1996-2022 by the PostgreSQL Global Development Group.
-#### Postgres95 is Copyright © 1994-5 by the Regents of the University of California.
-#### AgensGraph is Copyright © 2016-2022 by Bitnine Inc.
-####   Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
-####   IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-####   THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN ”AS-IS” BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+**Copyright Notice**
+
+**Copyright © 2016-2022, Bitnine Inc. All Rights Reserved.**
+
+Restricted Rights Legend
+
+PostgreSQL is Copyright © 1996-2022 by the PostgreSQL Global Development Group.
+
+Postgres95 is Copyright © 1994-5 by the Regents of the University of California.
+
+AgensGraph is Copyright © 2016-2022 by Bitnine Inc.
+
+Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN ”AS-IS” BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
 ### **Trademarks**
-#### AgensGraph® is a registered trademark of Bitnine Global Inc. Other products, titles or services may be registered trademarks of their respective companies. 
+
+AgensGraph® is a registered trademark of Bitnine Global Inc. Other products, titles or services may be registered trademarks of their respective companies. 
+
 ### **Open Source Software Notice**
-#### Some modules or files of this product are subject to the terms of the following licenses. : OpenSSL, RSA Data Security, Inc., Apache Foundation, Jean-loup Gailly and Mark Adler, Paul Hsieh’s hash. 
-### **Information of technical documentation**
-#### Title : AgensGraph Operations Manual
-#### Published date : 11 10, 2022
-#### S/W version : AgensGraph v2.13.0
-#### Technical documentation version : v1.0
+
+Some modules or files of this product are subject to the terms of the following licenses. : OpenSSL, RSA Data Security, Inc., Apache Foundation, Jean-loup Gailly and Mark Adler, Paul Hsieh’s hash. 
+
+**Information of technical documentation**
+
+Title : AgensGraph Operations Manual
+
+Published date : 11 10, 2022
+
+S/W version : AgensGraph v2.13.0
+
+Technical documentation version : v1.0
+
 # **Introduction**
+
 ## **What is AgensGraph?**
 AgensGraph is a new generation multi-model graph database for the modern complex data environment. Based on PostgreSQL, AgensGraph supports both relational and graph data models simultaneously. This enables developers to integrate the legacy relational data model and the flexible graph data model in one database. AgensGraph supports ANSI-SQL and OpenCypher ([https://www.opencypher.org](https://www.opencypher.org/)). The SQL and Cypher queries can be integrated into a single query in AgensGraph.
 
 AgensGraph is robust, fully-featured, and ready for enterprise use. It is optimized for handling complex connected graph data and provides plenty of powerful database features essential to the enterprise database environment including ACID transactions, multi-version concurrency control, stored procedure, triggers, constraints, sophisticated monitoring, and a flexible data model (JSON). Moreover, AgensGraph leverages the rich eco-systems of PostgreSQL and can be extended with many outstanding external modules, like PostGIS.
+
 # **Deployment**
+
 ## **System Requirements**
 AgensGraph requires at least 4GB of RAM and 2.5GB of disk space to run. It may run on any general Unix-compatible platforms, but the officially-certified platforms are Linux series (Centos, Ubuntu, RHEL) and Windows series (Windows Server 2008 64bits, Windows Server 2012 64bits, Windows 7 64bits).
-## **Pre-install tasks**
-### **User account**
-Like other externally-accessible server daemons, it is recommended to run AgensGraph with a separate user account. If you are on Unix-compatible platforms, you can add a user account using useradd or adduser command.
 
-`  `$ useradd agens
+## **Pre-install tasks**
+
+### **User account**
+
+Like other externally-accessible server daemons, it is recommended to run AgensGraph with a separate user account. If you are on Unix-compatible platforms, you can add a user account using `useradd` or `adduser` command.
+```
+  $ useradd agens
+```
+
 ### **Kernel resource management**
+
 #### **Shared memory and Semaphores**
+
 Shared memory and semaphores are collectively referred to as “System V IPC”, which is required to run AgensGraph. In the case where the size requested by AgensGraph exceeds the IPC limit, the server fails to start.
 
 |**Name**|**Description**|**Reasonable values**|
@@ -59,85 +88,89 @@ SEMMSL that determines the number of semaphores to be included in a set should b
 
 Other settings related to “semaphore undo” such as SEMMNU and SEMUME do not affect AgensGraph.
 
-*Note: If you encounter a “Warning: Out of Shared Memory” error while performing some queries, visit Bitnine’s website(<https://bitnine.net/contact>) and request a technical support; the team will provide you with a guide on the memory settings suitable for your site environment.*
+> *Note: If you encounter a “Warning: Out of Shared Memory” error while performing some queries, visit Bitnine’s website(<https://bitnine.net/contact>) and request a technical support; the team will provide you with a guide on the memory settings suitable for your site environment.*
+
 ## **Single instance install**
 There are two ways to install AgensGraph. You can download the binary from the official website and download the source code and build/install it. Either way, we recommend that you work with an account for managing AgensGraph.
+
 ### **Installing via binary download**
 Download the binary or installer suitable for your operating system from the [S/W Download](https://bitnine.net/downloads/) menu of the official AgensGraph website.
+
 #### **Linux**
 Linux binaries are compressed with tarball. After unzipping them to the desired location, perform the post-installation task to complete the installation.
+
 #### **Windows**
 Coming soon.
+
 ### **Installation by Source Code Build**
-Install the following essential libraries according to each OS By root account or user account with sudo.
-\# CENTOS 
+1.Install the following essential libraries according to each OS By root account or user account with sudo.
+```
+  # CENTOS 
+    $ sudo yum install gcc glibc glib-common readline readline-devel zlib zlib-devel
 
-`  `$ sudo yum install gcc glibc glib-common readline readline-devel zlib zlib-devel
+  # Fedora 
+    $ sudo dnf install gcc glibc bison flex readline readline-devel zlib zlib-devel
 
-\# Fedora 
+  # Ubuntu
+    $ sudo apt-get install **build**-essential libreadline-dev zlib1g-dev flex bison
 
-`  `$ sudo dnf install gcc glibc bison flex readline readline-devel zlib zlib-devel
+  # macOS (install Xcode) 
+    $ sudo xcode-**select** --install
+```
 
-\# Ubuntu
+2. make the User Account(Normally ‘agens’) to install the agensgraph, Connect to the [github](https://github.com/bitnine-oss/agensgraph) of AgensGraph and clone the source code.
 
-`  `$ sudo apt-get install **build**-essential libreadline-dev zlib1g-dev flex bison
+```
+  $ sudo useradd agens
+  $ sudo passwd agens
+  $ su - agens
 
-\# macOS (install Xcode) 
+  $ git **clone** https://github.com/bitnine-oss/agensgraph.git
+```
 
-1. `  `$ sudo xcode-**select** --install
+3. Move to the clone location and run configure on the source tree. At this time, you can set the location where AgensGraph will be installed via –prefix.
 
-make the User Account(Normally ‘agens’) to install the agensgraph, Connect to the [github](https://github.com/bitnine-oss/agensgraph) of AgensGraph and clone the source code.
-$ sudo useradd agens
+```
+If the Installation Path is /home/agens/agensgraph-2.13.0
 
-$ sudo passwd agens
+Normal
+  $ ./configure --prefix=/home/agens/agensgraph-2.13.0
 
-$ su - agens
+If Use of XML 
+  $ ./configure --prefix=/home/agens/agensgraph-2.13.0 --with-libxml
 
-1. $ git **clone** https://github.com/bitnine-oss/agensgraph.git
+If Use of Python 
+  $ ./configure --prefix=/home/agens/agensgraph-2.13.0 --with-python
+```
 
-Move to the clone location and run configure on the source tree. At this time, you can set the location where AgensGraph will be installed via –prefix.
-\### **If** **the** Installation Path **is** /home/agens/agensgraph-2.13.0
-
-\# **Normal**
-
-$ ./configure --prefix=/home/agens/agensgraph-2.13.0
-
-\# **If** **Use** **of** XML 
-
-$ ./configure --prefix=/home/agens/agensgraph-2.13.0 --with-libxml
-
-\# **If** **Use** **of** Python 
-
-1. $ ./configure --prefix=/home/agens/agensgraph-2.13.0 --with-python
-1. Perform a build.
-
-$ make install
+4. Perform a build.
+```
+  $ make install
+```
 
 5. Install the extension module and binaries.
+```
+  $ make install-world
+```
 
-$ make install-world
 ### **Post-Installation Tasks (Linux)**
 In the case of Unix series and Linux, if you do not register an environment variable, you will not be able to read/activate the installed libraries properly, and you will have to enter the absolute path when making a call. You need to make the Data Cluster Directory(=Database Path) and add an environment variable to bash\_profile of the user with AgensGraph installed as follows:
 
+```
 $ sudo mkdir -p /AGDATA
-
 $ sudo chown -R agens:agens /AGDATA
-
 $ sudo chmod -R 0700 /AGDATA
-
 $ vi ~/.bash\_profile
 
 export AGHOME=/home/agens/agensgraph-2.13.0                
-
 export AGDATA=/AGDATA             
-
 export PATH=\$AGHOME/bin:\$PATH  
-
 export LD\\_LIBRARY\\_PATH=\$AGHOME/lib:$LD\\_LIBRARY\\_PATH  
 
 :wq
 
-$ **source** ~/.bash\_profile
+$ source ~/.bash\_profile
+```
 
 |**Environment**|**Description**|
 | :- | :- |
@@ -145,52 +178,55 @@ $ **source** ~/.bash\_profile
 |AGDATA|Location of the data directory|
 |PATH|Set $AGHOME/bin as the directory path to use AgensGraph.|
 |LD\_LIBRARY\_PATH|<p>This is the path where the shared library needed for using AgensGraph</p><p>is located Set $AGHOME/lib.</p>|
+
 ## **Operations**
 ### **initDB**
 To run AgensGraph, you need to initialize the database storage area using *initdb*. Such an area is called a database cluster, which is a collection of databases managed by a single instance of a running database server. A database cluster consists of a single directory where all the data is stored. From the file system perspective, it is considered a data directory or a data area. You can set where to store this data with the -D option.
 
-\```sql
+```
+sql
 
-\# Normal
+Normal
+  $ initdb -E UTF8 --locale=en\_US.UTF-8 -U agens -D $AGDATA 
 
-$ initdb -E UTF8 --locale=en\_US.UTF-8 -U agens -D $AGDATA 
+Change the WAL SIZE 
+  $ initdb -E UTF8 --locale=en\_US.UTF-8 -U agens -D $AGDATA --wal-segsize=SIZE
 
-\# Change the WAL SIZE 
+Change the WAL Directory 
+  $ initdb -E UTF8 --locale=en\_US.UTF-8 -U agens -D $AGDATA --waldir=WALDIR
 
-$ initdb -E UTF8 --locale=en\_US.UTF-8 -U agens -D $AGDATA --wal-segsize=SIZE
-
-\# Change the WAL Directory 
-
-$ initdb -E UTF8 --locale=en\_US.UTF-8 -U agens -D $AGDATA --waldir=WALDIR
-
-\```
+```
 
 Or, you can initialize the database storage area using ag\_ctl.
 
-*$ ag\_ctl initdb -D $AGDATA*
+> *$ ag\_ctl initdb -D $AGDATA*
 
 initdb creates a directory if the specified directory does not exist, and denies execution if it is already initialized.
+
 ### **Create a role**
+
 Roles can be considered a database user(s), or a group of database users, depending on how the database is set up. As a role can own a database object, it may assign permissions for the object to other roles to control who can access the object. As the membership of a role can be granted to other roles, you may make the member role use the permissions assigned to other roles. To create/delete a role, you should use the following SQL command.
 
-*db=# CREATE ROLE name;
-db=# DROP ROLE name;*
+>db=# CREATE ROLE name;</br>
+db=# DROP ROLE name;</br>
 
 For your convenience, *createuser* and *dropuser* can be invoked from the shell command line (serving as the wrapper of SQL commands).
 
-*$ createuser name
-$ dropuser name*
+>$ createuser name; </br>
+$ dropuser name; </br>
+
 ### **createdb**
 To create/remove a database, start the AgensGraph server and create it using SQL commands *CREATE DATABASE* and *DROP DATABASE*.
 
-*db=# CREATE DATABASE name; db=# DROP DATABASE name;*
+> *db=# CREATE DATABASE name; db=# DROP DATABASE name;*
 
 The current role that has performed *CREATE DATABASE* automatically becomes the owner of the new database.
 
 For your convenience, you may create/remove databases by calling *createdb* and *dropdb* from the shell command line. You may use the *-O* option to designate the owner of the new database that you are creating.
 
-*$ createdb dbname [-O rolename]
+> *$ createdb dbname [-O rolename] </br>
 $ dropdb dbname*
+
 ### **Startup**
 You should start the database server before accessing the database using *ag\_ctl*. You need an initialized database repository to start, and have to specify the corresponding directory with -D option. If you set the database repository location via AGDATA, an environment variable, you may start the server without the -D option. Using -l option, you may set a logfile that will contain logs.
 
