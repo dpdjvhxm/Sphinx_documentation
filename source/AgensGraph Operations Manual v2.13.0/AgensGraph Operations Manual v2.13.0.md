@@ -207,30 +207,41 @@ initdb creates a directory if the specified directory does not exist, and denies
 
 Roles can be considered a database user(s), or a group of database users, depending on how the database is set up. As a role can own a database object, it may assign permissions for the object to other roles to control who can access the object. As the membership of a role can be granted to other roles, you may make the member role use the permissions assigned to other roles. To create/delete a role, you should use the following SQL command.
 
->db=# CREATE ROLE name;</br>
-db=# DROP ROLE name;</br>
+```
+db=# CREATE ROLE name;
+db=# DROP ROLE name;
+```
 
 For your convenience, *createuser* and *dropuser* can be invoked from the shell command line (serving as the wrapper of SQL commands).
 
->$ createuser name; </br>
-$ dropuser name; </br>
+```
+$ createuser name;
+$ dropuser name;
+```
 
 ### **createdb**
 To create/remove a database, start the AgensGraph server and create it using SQL commands *CREATE DATABASE* and *DROP DATABASE*.
 
-> *db=# CREATE DATABASE name; db=# DROP DATABASE name;*
+```
+db=# CREATE DATABASE name; db=# DROP DATABASE name;
+```
 
 The current role that has performed *CREATE DATABASE* automatically becomes the owner of the new database.
 
 For your convenience, you may create/remove databases by calling *createdb* and *dropdb* from the shell command line. You may use the *-O* option to designate the owner of the new database that you are creating.
 
-> *$ createdb dbname [-O rolename] </br>
+```
+$ createdb dbname [-O rolename]
 $ dropdb dbname*
+```
 
 ### **Startup**
 You should start the database server before accessing the database using *ag\_ctl*. You need an initialized database repository to start, and have to specify the corresponding directory with -D option. If you set the database repository location via AGDATA, an environment variable, you may start the server without the -D option. Using -l option, you may set a logfile that will contain logs.
 
-*$ ag\_ctl start [-D $AGDATA] [-l $AGDATA/logfile]*
+```
+$ ag\_ctl start [-D $AGDATA] [-l $AGDATA/logfile]
+```
+
 ### **Shutdown**
 There are several ways to terminate AgensGraph. You may control the types of termination depending on which signal is sent to the master process.
 
@@ -249,6 +260,7 @@ AgensGraph is a multi-model database developed on the basis of PostgreSQL. Agens
 ![AgensGraph Architecture](Aspose.Words.0ce20731-7a95-47e0-b077-29fe16227609.001.png)
 
 *AgensGraph Architecture*
+
 ## **Process structure**
 AgensGraph uses the same client/server model as PostgreSQL. A session (work) consists of the following interacting processes (programs):
 
@@ -260,14 +272,17 @@ AgensGraph uses the same client/server model as PostgreSQL. A session (work) con
 As is often the case with programs in a client/server environment, AgensGraph also allows the client and server to be different hosts. In this case, communications between them are made mostly under the TCP/IP network infrastructure- a point we should clearly understand; if the client and server are different, the client cannot directly access a database file it wants. In other words, a file that can be accessed by the client is a file on the host where the client is running, not a file on the host where the server is running.
 
 For concurrent access by users, the AgensGraph server creates a new process for each connection. This means that when a client and a newly created server process communicate, the communication is done without intervention by postgres (master process). Simply put, postgres is always running on the server host to process the clients’ connection requests and create new child server processes.
+
 # **Security**
 Client authentication and database roles are important in security. Since AgensGraph was developed based on PostgreSQL, the PostgreSQL technical documents were quoted when introducing the features of the RDB (not GDB).
+
 ## **Client Authentication**
 When a client application connects to a database server, it is important to limit the number of database users who are allowed to access. Authentication is a process for building client IDs by the database server and for determining whether to allow connections of client applications when they try to access with the names of the database users (or users running the client applications).
 
 AgensGraph provides several different client authentication methods. Such methods used to authenticate a particular client connection can be selected on the basis of (client) host address, database, and/or user.
 
 The user names of the AgensGraph database are logically distinct from the user names of the operating system on which the server is running. Any user on a particular server can have an account on the server machine. It is reasonable, however, to assign a database user name that matches the operating system user name. The problem is that a server that accepts remote connections may have many database users without a local operating system account; in such cases, it is not necessary to associate database user names with OS user names.
+
 ### **pg\_hba.conf File**
 Client authentication is traditionally controlled by pg\_hba.conf, a configuration file, which is stored in the data directory of the database cluster.
 
@@ -276,7 +291,7 @@ The format of pg\_hba.conf is a set of records, in which each line is a record. 
 Each record specifies a connection type to be used for connection that matches these parameters, the range of client IP address (if applicable), database name, user name, and authentication method. The first record that matches the connection type, client address, the requested database, and user name is used during authentication. There is no “fall-through” or “backup.” In the case where a record is selected but authentication fails, the next record will not be authenticated. Access is denied if there is no matching record.
 
 A record is one of the following seven types:
-
+```
 local         database  user  auth-method [auth-options]
 
 host          database  user  address     auth-method  [auth-options]
@@ -298,116 +313,176 @@ hostnossl     database  user  IP-address  IP-mask      auth-method  [auth-option
 hostgssenc    database  user  IP-address  IP-mask      auth-method  [auth-options]
 
 hostnogssenc  database  user  IP-address  IP-mask      auth-method  [auth-options]
+```
 
 The meaning of each field is as follows:
 
-- **local**
+- `local`
+  
   This record corresponds to a connection through a Unix domain socket. If there is no record of this type, the Unix domain socket connection is impossible.
-- **host**
+- `host`
+
   This record corresponds to a connection through TCP/IP. The host record matches the SSL (or non-SSL) connection attempt.
-- **hostssl**
+
+- `hostssl`
+
   Even if this record matches the connection attempt through TCP/IP, it corresponds to a connection using SSL encryption only. To use this option, the server must have built-in SSL support. Set the ssl configuration parameter(s) to enable SSL when the server starts.
-- **hostnossl**
+- `hostnossl`
+
   This type of record works in contrast to hostssl, matching a connection attempt on TCP/IP that does not use SSL.
-- **hostgssenc**
+
+- `hostgssenc`
+
   This record matches connection attempts made using TCP/IP, but only when the connection is made with GSSAPI encryption. To make use of this option the server must be built with GSSAPI support. Otherwise, the hostgssenc record is ignored except for logging a warning that it cannot match any connections.
-- **hostnogssenc**
+
+- `hostnogssenc`
+
   This record type has the opposite behavior of hostgssenc; it only matches connection attempts made over TCP/IP that do not use GSSAPI encryption.
-- **database**
+
+- `database`
+
   This record specifies the database name.
-  - Specify all to match all databases.
-  - Specify sameuser to match the records when the requested database has the same name as the requested user.
-  - Specify samerole to indicate whether the requested user should be a member of the same “role” as the requested database. “superuser” shall not be regarded as a member of the role (in samerole) just because it is a superuser, if it is not directly or indirectly an explicit member of the role.
-  - Specify replication to match the records if a replication connection is requested (replication connections do not specify a specific database). For other cases, it is the name of a specific AgensGraph database. You can write multiple database names separated by commas. A file containing the database name can be specified by prefixing the file name with @.
-- **user**
-  Specifies the database user name that matches this record. The value all specifies that it matches all users. Otherwise, this is either the name of a specific database user, or a group name preceded by +. (Recall that there is no real distinction between users and groups in PostgreSQL; a + mark really means “match any of the roles that are directly or indirectly members of this role”, while a name without a + mark matches only that specific role.) For this purpose, a superuser is only considered to be a member of a role if they are explicitly a member of the role, directly or indirectly, and not just by virtue of being a superuser. Multiple user names can be supplied by separating them with commas. A separate file containing user names can be specified by preceding the file name with @.
-  Specifies the database user name that matches this record. all is specified to match all users. In other cases, it is the name of a particular database user or a group name preceded by +. (In AgensGraph, there is no real difference between user name and group name: “” mark actually means “matching any role that is a direct or indirect member of this role” and the name without “+” mark matches a specific role.) For this reason, a superuser shall be considered a role member only when it is an explicit member of the role, directly or indirectly, not because it is merely a superuser. You can use multiple usernames separated by commas. A file containing a user name can be specified by prefixing the file name with @.
-- **address**
+  - Specify `all` to match all databases.
+  - Specify `sameuser` to match the records when the requested database has the same name as the requested user.
+  - Specify `samerole` to indicate whether the requested user should be a member of the same “role” as the requested database. “superuser” shall not be regarded as a member of the role (in samerole) just because it is a superuser, if it is not directly or indirectly an explicit member of the role.
+  - Specify `replication` to match the records if a replication connection is requested (replication connections do not specify a specific database). For other cases, it is the name of a specific AgensGraph database. You can write multiple database names separated by commas. A file containing the database name can be specified by prefixing the file name with @.
+
+- `user`
+
+  Specifies the database user name that matches this record. The value `all` specifies that it matches all users. Otherwise, this is either the name of a specific database user, or a group name preceded by +. (Recall that there is no real distinction between users and groups in PostgreSQL; a + mark really means “match any of the roles that are directly or indirectly members of this role”, while a name without a + mark matches only that specific role.) For this purpose, a superuser is only considered to be a member of a role if they are explicitly a member of the role, directly or indirectly, and not just by virtue of being a superuser. Multiple user names can be supplied by separating them with commas. A separate file containing user names can be specified by preceding the file name with @.
+
+  Specifies the database user name that matches this record. `all` is specified to match all users. In other cases, it is the name of a particular database user or a group name preceded by +. (In AgensGraph, there is no real difference between user name and group name: “” mark actually means “matching any role that is a direct or indirect member of this role” and the name without “+” mark matches a specific role.) For this reason, a superuser shall be considered a role member only when it is an explicit member of the role, directly or indirectly, not because it is merely a superuser. You can use multiple usernames separated by commas. A file containing a user name can be specified by prefixing the file name with @.
+
+- `address`
+
   Specifies the client machine address that matches this record. This field may contain either a host name, an IP address range, or one of the special keywords described below.
   An IP address is specified in the dotted decimal standard notation of the CIDR mask length. The mask length indicates the number of upper bits of the client IP address to be matched. The bit to the right of this should be 0 at the given IP address. There should be no space between the IP address, “/”, and CIDR mask length.
-  Typical examples of such an IP address range: 172.20.143.89/32 for a single host, 172.20.143.0/24 for a small network, and 10.6.0.0/16 for a large network. 0.0.0.0/0 represents all IPv4 addresses, and ::/0 represents all IPv6 addresses. If you want to specify a single host, use CIDR mask 32 for IPv4 and 128 for IPv6. Do not omit 0 at the end of the network address.
-  You can use “all” to match any IP address or samehost to match only the server’s own IP address. You may also use samenet to match all addresses on the subnet to which the server is directly connected.
-- **IP-address, IP-mask**
-  This field can be used as an alternative to the CIDR-address notation. Instead of specifying the mask length, the actual mask is specified by separating it with commas. For example, 255.0.0.0 represents the IPv4 CIDR mask length 8, and 255.255.255.255 represents the CIDR mask length 32.
-  This field applies to host, hostssl, and hostnossl records.
-- **auth-method**
+  Typical examples of such an IP address range: `172.20.143.89/32` for a single host, `172.20.143.0/24` for a small network, and `10.6.0.0/16` for a large network. `0.0.0.0/0` represents all IPv4 addresses, and `::/0` represents all IPv6 addresses. If you want to specify a single host, use CIDR mask 32 for IPv4 and 128 for IPv6. Do not omit 0 at the end of the network address.
+  You can use “all” to match any IP address or `samehost` to match only the server’s own IP address. You may also use `samenet` to match all addresses on the subnet to which the server is directly connected.
+
+- `IP-address`, `IP-mask`
+  This field can be used as an alternative to the `CIDR-address` notation. Instead of specifying the mask length, the actual mask is specified by separating it with commas. For example, `255.0.0.0` represents the IPv4 CIDR mask length 8, and `255.255.255.255` represents the CIDR mask length 32.
+
+  This field applies to `host`, `hostssl`, and `hostnossl` records.
+
+- `auth-method`
   Specifies an authentication method to use when the connection matches this record. Possible choices are:
-  - **trust**
+  - `trust`
+
     Allows unconditional connections. This method allows any logged-in users to connect to the AgensGraph database server without requesting a password or other authentications.
-  - **reject**
-    Refuses unconditional connections. This is useful when you want to “filter” specific hosts in a group. For example, a reject line blocks connections from particular hosts, and subsequent lines allow connections with other hosts on a particular network.
-  - **md5**
+  
+  - `reject`
+
+    Refuses unconditional connections. This is useful when you want to “filter” specific hosts in a group. For example, a `reject` line blocks connections from particular hosts, and subsequent lines allow connections with other hosts on a particular network.
+
+  - `md5`
+
     The client should provide a double-MD5-hashed password for authentication.
-  - **scram-sha-256**
+
+  - `scram-sha-256`
+
     The method scram-sha-256 performs SCRAM-SHA-256 authentication, as described in RFC 7677. It is a challenge-response scheme that prevents password sniffing on untrusted connections and supports storing passwords on the server in a cryptographically hashed form that is thought to be secure.
+
 - This is the most secure of the currently provided methods, but it is not supported by older client libraries.
-  - **password**
+
+  - `password`
+
     The client must provide an unencrypted password for authentication. As the password is transmitted in plaintext over the network, do not use it on untrusted networks.
-  - **gss**
+  
+  - `gss`
+
     Authenticates users using GSSAPI. This can be used only on the TCP/IP connections.
-  - **sspi**
+  
+  - `sspi`
+  
     Authenticates users using SSPI. This can be used only on Windows.
-  - **ident**
+  
+  - `ident`
+
     Obtains the operating system user name of the client by contacting the client’s ident server and verifies if it matches the requested database user name. Ident authentication can only be used on TCP/IP connections. For local connections, peer authentication is used instead.
-  - **peer**
+  
+  - `peer`
+
     Obtains the operating system user name of the client from the operating system and verifies if it matches the requested database user name. This is only available for local connections.
-  - **ldap**
+
+  - `ldap`
     Authentication using an LDAP server.
-  - **radius**
+  
+  - `radius`
+    
     Authentication using a RADIUS server.
-  - **cert**
+  - `cert`
+    
     Authentication using SSL client authentication.
-  - **pam**
+  - `pam`
+  
     Authenticates using Pluggable Authentication Modules (PAM) provided by the operating system.
-  - **bsd**
+  
+  - `bsd`
+
     Authenticate using the BSD Authentication service provided by the operating system.
-  - **auth-options**
+
+  - `auth-options`
+
     After the auth-method field, there can be a name=value field that specifies options for the authentication method.
-- Files containing @ shall be read as a list of names separated by spaces or commas. Annotations marked as #, like pg\_hba.conf, and nested @ phrases are allowed. If the file name followed by @ is not an absolute path, it is treated as a relative path to the directory where the reference file is located.
-  The order of the records is important because the pg\_hba.conf record is checked sequentially for each connection attempt. The connection (matching) parameters are meticulous and the authentication method is loose in the early records, while the connection matching parameters are loose and the authentication method is strong in the late records. For instance, you may use a trust authentication for a local TCP/IP connection while making a remote TCP/IP connection. In such a case, the record specifying the trust authentication for the connection from 127.0.0.1 appears before a record that supports password authentication for various allowed client IP addresses.
+
+- Files containing `@` shall be read as a list of names separated by spaces or commas. Annotations marked as `#`, like `pg\_hba.conf`, and nested `@` phrases are allowed. If the file name followed by `@` is not an absolute path, it is treated as a relative path to the directory where the reference file is located.
+
+  The order of the records is important because the `pg\_hba.conf` record is checked sequentially for each connection attempt. The connection (matching) parameters are meticulous and the authentication method is loose in the early records, while the connection matching parameters are loose and the authentication method is strong in the late records. For instance, you may use a trust authentication for a local TCP/IP connection while making a remote TCP/IP connection. In such a case, the record specifying the trust authentication for the connection from `127.0.0.1` appears before a record that supports password authentication for various allowed client IP addresses.
+
 ### **User Name Maps**
-If you are using an external authentication system such as Ident or GSSAPI, the name of the operating system user initiating the connection may be different from the name of the database user to connect. In such a case, you may use the user name map to map the operating system user name to the database user name. To use the user name mapping, you should specify map=map-name in the pg\_hba.conf option field. This option is supported in all authentication methods that receive external user names. As different connections may require different mappings, the name of the map to use (for specifying maps per connection) can be designated in the map-name parameter of pg\_hba.conf.
+If you are using an external authentication system such as Ident or GSSAPI, the name of the operating system user initiating the connection may be different from the name of the database user to connect. In such a case, you may use the user name map to map the operating system user name to the database user name. To use the user name mapping, you should specify `map=map-name` in the `pg\_hba.conf` option field. This option is supported in all authentication methods that receive external user names. As different connections may require different mappings, the name of the map to use (for specifying maps per connection) can be designated in the `map-name` parameter of `pg\_hba.conf`.
 
-The username map is defined in the ident map file, and its name is pg\_ident.conf (default) and stored in the data directory.
-
-map-name system-username database-username
-
-Comments and spaces are processed equally in pg\_hba.conf. map-name is an arbitrary name used in pg\_hba.conf to refer to the mapping. The other two fields specify the operating system user name and the database user name. You can specify multiple user mappings within a single map by using the same map-name several times.
+The username map is defined in the ident map file, and its name is `pg\_ident.conf` (default) and stored in the data directory.
+```
+  map-name system-username database-username
+```
+Comments and spaces are processed equally in `pg\_hba.conf`. `map-name` is an arbitrary name used in `pg\_hba.conf` to refer to the mapping. The other two fields specify the operating system user name and the database user name. You can specify multiple user mappings within a single map by using the same `map-name` several times.
 
 There is no restriction as to how many database users correspond to a given operating system user (and vice versa). Therefore, with the entries in the map, you should consider that “this operating system user is allowed to connect as a database user”, rather than that the users are identical. Connections are allowed if there is a map entry in which a user name obtained from the external authentication system pairs with a database user name used when the user made a connection request.
 
-If the system-username field begins with a slash (/), the remainder of the field is processed as a regular expression. Regular expressions may contain single captures or bracket expressions, and can be referenced in the database-username field by \1 (backslash). It can map multiple user names in a single line, and is especially useful for simple syntax substitution. Examples:
+If the `system-username` field begins with a slash (`/`), the remainder of the field is processed as a regular expression. Regular expressions may contain single captures or bracket expressions, and can be referenced in the `database-username` field by `\1` (backslash). It can map multiple user names in a single line, and is especially useful for simple syntax substitution. Examples:
 
-mymap /^(.\*)@mydomain\.com$\1
+```
+  mymap /^(.\*)@mydomain\.com$\1
+  mymap /^(.\*)@otherdomain\.com$ guest
+```
 
-mymap /^(.\*)@otherdomain\.com$ guest
+This entry deletes the domain part for the user using the system user name ending in `@mydomain.com` and allows any user whose system name ends in `@otherdomain.com` to log in as `guest`.
 
-This entry deletes the domain part for the user using the system user name ending in @mydomain.com and allows any user whose system name ends in @otherdomain.com to log in as guest.
 ### **Authentication Methods**
 This section details authentication methods.
-#### **Trust Authentication**
-If trust authentication is specified, AgensGraph assumes that anyone who can connect to the server using the specified database user name is authenticated for database access (including the superuser name). The limitations of the database and user columns still apply as well. This method should only be used if adequate operating system level protection is provided for server connections.
 
-trust authentication is appropriate for local connections to a single user workstation and is very convenient. It is not appropriate, however, for multiuser machines in general. trust authentication is suitable for TCP/IP connections only when all the users on all machines that are allowed to connect to the server are trusted in pg\_hba.conf, which specifies trust. It is unreasonable to use trust for TCP/IP connections except for localhost (127.0.0.1).
+#### **Trust Authentication**
+If `trust` authentication is specified, AgensGraph assumes that anyone who can connect to the server using the specified database user name is authenticated for database access (including the superuser name). The limitations of the `database` and `user` columns still apply as well. This method should only be used if adequate operating system level protection is provided for server connections.
+
+`trust` authentication is appropriate for local connections to a single user workstation and is very convenient. It is not appropriate, however, for multiuser machines in general. `trust` authentication is suitable for TCP/IP connections only when all the users on all machines that are allowed to connect to the server are trusted in `pg\_hba.conf`, which specifies `trust`. It is unreasonable to use `trust` for TCP/IP connections except for localhost (127.0.0.1).
+
 #### **Password Authentication**
 The password-based authentication methods are md5, scram-sha-256, and password. Both methods work similarly except that the password is sent in MD5 hash and plaintext respectively.
 
 While md5 has been widely used in previous versions, scram-sha-256 is the most secure method in this version. Using scram-sha-256 or md5 to guard against password “sniffing” attacks is preferable; normal password should be avoided if possible. However, md5 cannot be used with the db\_user\_namespace feature. You can safely use a password if the connection is protected by SSL encryption.
 
-The AgensGraph database password is distinguished from the operating system user password. Passwords of each database user are stored in the pg\_authid system catalog. Such passwords can be managed by SQL commands CREATE USER and ALTER ROLE (e.g. CREATE USER foo WITH PASSWORD ‘secret’). If the password is not set for a user, the stored password is null and password authentication always fails for the user.
+The AgensGraph database password is distinguished from the operating system user password. Passwords of each database user are stored in the `pg\_authid` system catalog. Such passwords can be managed by SQL commands CREATE USER and ALTER ROLE (e.g. CREATE USER foo WITH PASSWORD ‘secret’). If the password is not set for a user, the stored password is null and password authentication always fails for the user.
+
 #### **GSSAPI Authentication**
 GSSAPI is an industry-standard protocol for security authentication as defined in RFC 2743, and provides single sign-on for GSSAPI-supporting systems. Authentication itself is secure, but if you do not use SSL, the data sent over the database connection is transmitted unencrypted.
 
-When you connect to the database, you should check if there is a ticket for the security rule that matches the name of the requested database user. For example, if the database name is fred, the security rule fred@EXAMPLE.COM is connectable.
+When you connect to the database, you should check if there is a ticket for the security rule that matches the name of the requested database user. For example, if the database name is `fred`, the security rule `fred@EXAMPLE.COM` is connectable.
 
 The following configuration options are supported for GSSAPI.
 
-- **include\_realm**
+- `include\_realm`
+
   If set to 1, the realm name of the authenticated user security rule is included in the system user name transmitted through the user name mapping. This is useful when processing users in multiple realms.
-- **map**
+
+- `map`
+  
   Allows mapping between the system and database user names.
-- **krb\_realm**
+- `krb\_realm`
+
   Sets a realm that matches the user security rule name. When this parameter is set, only users in the corresponding realm are allowed. If not set, users in all realms can connect; the realm depends on whether the username mapping is complete or not.
+
 #### **SSPI Authentication**
 SSPI is a Windows technology for single sign-on (SSO) security authentication. AgensGraph uses SSPI in negotiate mode. It uses Kerberos if available, and in other cases, automatically falls back to NTLM. SSPI authentication works only when both the server and client use Windows; if GSSAPI is available, it works with non-Windows as well.
 
@@ -415,225 +490,275 @@ While using Kerberos authentication, SSPI works the same way as GSSAPI.
 
 The following configuration options are supported for SSPI.
 
-- **include\_realm**
+- `include\_realm`
+
   If set to 1, the realm name of the authenticated user security rule is included in the system user name transmitted through the user name mapping. This is useful when processing users in multiple realms.
-- **map**
+- `map`
+  
   Allows mapping between the system and database user names.
-- **krb\_realm**
+
+- `krb\_realm`
   Sets a realm that matches the user security rule name. When this parameter is set, only users in the corresponding realm are allowed. If not set, users in all realms can make a connection; the realm depends on whether the username mapping is complete or not.
+
 #### **Ident Authentication**
 The ident authentication method works by acquiring the client’s operating system user name from the ident server and using it as an allowed database user name (optional user name mapping is applied). This authentication is supported only for TCP/IP connections.
 
 The following configuration option is supported for ident:
 
-- **map**
+- `map`
   Allows mapping between the system and database user names.
 
 Some ident servers have a nonstandard option that allows the returned user name to be encrypted using a key known only to the administrator of the original machine. As AgensGraph does not have a way to decrypt the returned string to determine the actual user name, you should not use this option if you are using AgensGraph on the ident server.
+
 #### **Peer authentication**
 The peer authentication method works by acquiring the client’s operating system user name from the kernel and using it as an allowed database user name (optional user name mapping is applied). This authentication is supported only for local connections.
 
 The following configuration option is supported for peer:
 
-- **map**
+- `map`
+
   Allows mapping between the system and database user names.
 
 Peer authentication can only be used on operating systems such as Linux that provides getpeereid(), SO\_PEERCRED (socket parameter), and/or similar mechanisms.
+
 #### **LDAP Authentication**
-This authentication works like a password except when you use LDAP as a password verification method. LDAP is used only when verifying username/password pairs. This means the user must exist in the database before applying LDAP for authentication.
+This authentication works like a `password` except when you use LDAP as a password verification method. LDAP is used only when verifying username/password pairs. This means the user must exist in the database before applying LDAP for authentication.
 
-LDAP authentication can be performed in two modes. The first mode (simple binding mode) is to bind the server to a unique name consisting of prefix username suffix. Typically, the prefix parameter is used to specify cn= or DOMAIN\ in an active directory environment; suffix is used to specify the rest of the active directory environment.
+LDAP authentication can be performed in two modes. The first mode (simple binding mode) is to bind the server to a unique name consisting of `prefix username suffix`. Typically, the `prefix` parameter is used to specify `cn`= or `DOMAIN\` in an active directory environment; `suffix` is used to specify the rest of the active directory environment.
 
-In the second mode (search+binding mode), the server first binds to the LDAP directory using the specified and fixed username and password via ldapbinddn and ldapbindpasswd, and then searches for users who are trying to log in to the database. If no user and password are set, anonymous binding to the directory is attempted. The search is performed in the subtree of ldapbasedn and what matches ldapsearchattribute exactly are retrieved. If a user is found in this search, the server disconnects the connection and re-binds to the directory as the user using the password specified on the client to verify if the login is correct. This mode is the same as the one used in the LDAP authentication schema of other software, such as Apache mod\_authnz\_ldap and pam\_ldap. While LDAP authentication works more flexibly when the user objects are in the directory, it disconnects the two LDAP servers.
+In the second mode (search+binding mode), the server first binds to the LDAP directory using the specified and fixed username and password via `ldapbinddn` and `ldapbindpasswd`, and then searches for users who are trying to log in to the database. If no user and password are set, anonymous binding to the directory is attempted. The search is performed in the subtree of `ldapbasedn` and what matches `ldapsearchattribute` exactly are retrieved. If a user is found in this search, the server disconnects the connection and re-binds to the directory as the user using the password specified on the client to verify if the login is correct. This mode is the same as the one used in the LDAP authentication schema of other software, such as Apache `mod\_authnz\_ldap` and `pam\_ldap`. While LDAP authentication works more flexibly when the user objects are in the directory, it disconnects the two LDAP servers.
 
 The following configuration options are used in both modes.
 
-- **ldapserver**
+- `ldapserver`
+  
   The name or IP address of the LDAP server to connect to. You may specify multiple servers separated by spaces.
-- **ldapport**
+- `ldapport`
+  
   The port number of the LDAP server to connect to. If no port is specified, the default port setting of the LDAP library will be used.
-- **ldaptls**
+- `ldaptls`
+  
   If set to 1, AgensGraph is connected to the LDAP server using TLS encryption. This encrypts only traffic to the LDAP server. The connection to the client will remain unencrypted unless you use SSL.
 
 The following options are used only in the simple binding mode.
 
-- **ldapprefix**
+- `ldapprefix`
+
   A string to append before a user name in the DN binding when performing simple binding authentication.
-- **ldapsuffix**
+
+- `ldapsuffix`
+
   A string to append after a user name in the DN binding when performing simple binding authentication.
 
 The following options are used only in the search+bindingmode.
 
-- **ldapbasedn**
+- `ldapbasedn`
+  
   Root DN at which a user search is initiated when performing search+binding authentication.
-- **ldapbinddn**
+- `ldapbinddn`
+  
   User DN that binds to the directory to perform a search during search+binding authentication.
-- **ldapbindpasswd**
+- `ldapbindpasswd`
+
   User’s password that binds to the directory to perform a search during search+binding authentication.
-- **ldapsearchattribute**
+- `ldapsearchattribute`
+
   Attribute that matches the user name in the search when performing search+binding authentication. If no attribute is specified, the uid attribute is used.
-- **ldapurl**
+- `ldapurl`
+
   RFC 4516 LDAP URL. This is another way to write some of the other LDAP options in a more compact standard format. The default is:
-  ldap://host[:port]/basedn[?[attribute][?[scope]]]
-  scope should be specified as base, one, or sub (usually the latter). Only one attribute is used, and other settings for standard LDAP URLs such as filters and extensions are not supported. For non-anonymous bindings, ldapbinddn and ldapbindpasswd should be specified as separate options.
-  In order to use an encrypted LDAP connection, the option ldaptls should be used in addition to ldapurl. ldaps URL schema (direct SSL connection) is not supported.
+  ```
+    ldap://host[:port]/basedn[?[attribute][?[scope]]]
+  ```
+
+  `scope` should be specified as `base`, `one`, or `sub` (usually the latter). Only one attribute is used, and other settings for standard LDAP URLs such as filters and extensions are not supported. For non-anonymous bindings, `ldapbinddn` and `ldapbindpasswd` should be specified as separate options.
+  
+  In order to use an encrypted LDAP connection, the option `ldaptls` should be used in addition to `ldapurl`. `ldaps` URL schema (direct SSL connection) is not supported.
+
   LDAP URLs are currently supported only by OpenLDAP, not Windows.
 
 It is an error to mix the configuration options of simple bindings with the options of search+bindings.
 
 An example of a simple binding LDAP configuration:
-
+```
 host ... ldap ldapserver=ldap.example.net ldapprefix="cn=" ldapsuffix=", dc=example, dc=net"
-
+```
 If the database user someuser is asked to connect to the database server, AgensGraph tries to bind to the LDAP server using DN cn=someuser and dc=example, dc=net, and the password provided by the client. If the connection is successful, database access is allowed.
 
 An example of a search+binding configuration is as follows:
-
+```
 host ... ldap ldapserver=ldap.example.net ldapbasedn="dc=example, dc=net" ldapsearchattribute=uid
-
-If the database user someuser is asked to connect to the database server, AgensGraph tries to bind to the LDAP server anonymously (because ldapbinddn is not specified) and performs a search for (uid=someuser) under the specified base DN. If an entry is found, it attempts to bind using the discovered information and the password provided by the client. If the secondary connection is successful, database access is allowed.
+```
+If the database user `someuser` is asked to connect to the database server, AgensGraph tries to bind to the LDAP server anonymously (because `ldapbinddn` is not specified) and performs a search for (uid=someuser) under the specified base DN. If an entry is found, it attempts to bind using the discovered information and the password provided by the client. If the secondary connection is successful, database access is allowed.
 
 The same search+binding configuration with URL is as follows:
-
+```
 host ... ldap lapurl="ldap://ldap.example.net/dc=example,dc=net?uid?sub"
-
+```
 As other software supporting authentication for LDAP uses the same URL format, it gets easier to share settings.
-#### **RADIUS Authentication**
-This authentication works like a password except when you use LDAP as a password verification method. RADIUS is used only when verifying username/password pairs. This means the user must exist in the database before applying RADIUS for authentication.
 
-If you are using RADIUS authentication, an Access Request message is sent to the configured RADIUS server. This request is an Authenticate Only type and contains parameters for user name, password (encrypted), and NAS Identifier. The request is encrypted using secret that is shared with the server. The RADIUS server sends back either Access Accept or Access Reject. The RADIUS accounts are not supported.
+#### **RADIUS Authentication**
+This authentication works like a `password` except when you use LDAP as a password verification method. RADIUS is used only when verifying username/password pairs. This means the user must exist in the database before applying RADIUS for authentication.
+
+If you are using RADIUS authentication, an Access Request message is sent to the configured RADIUS server. This request is an `Authenticate Only` type and contains parameters for `user name`, `password` (encrypted), and `NAS Identifier`. The request is encrypted using secret that is shared with the server. The RADIUS server sends back either `Access Accept` or `Access Reject`. The RADIUS accounts are not supported.
 
 The following configuration options are supported for RADIUS.
 
-- **radiusserver**
+- `radiusserver`
+  
   The name or IP address of the RADIUS server to connect to. This parameter is required.
-- **radiussecret**
+- `radiussecret`
+  
   Shared secret used when communicating with a RADIUS server while maintaining security. Its values on AgensGraph and RADIUS servers should be identical. A string of at least 16 characters is recommended. This parameter is required.
-- **radiusport**
+- `radiusport`
+
   The port number of the RADIUS server to connect to. If no port is specified, the default port “1812” is used.
-- **radiusidentifier**
+- `radiusidentifier`
+
   A string is used as a NAS identifier in RADIUS requests. For example, this parameter can be used as the second parameter in the RADIUS server by identifying the database user to be authenticated. If no identifier is specified, the default postgresql is used.
+
 #### **Certificate Authentication**
 As this method performs authentication using an SSL client certificate, it is available only for SSL connections. When you apply this authentication method, the server requires the client to provide a valid certificate. The password prompt is not sent to the client. The cn (common name) attribute of the certificate is compared to the requested database user name; if they match, the login is allowed. You may use the user name mapping to set cn different from the database user name.
 
 The following configuration option is supported for SSL certificate authentication.
 
-- **map**
+- `map`
+
   Allows mapping between the system and database user names.
+
 #### **PAM Authentication**
-This authentication works like a password except when you use Pluggable Authentication Modules (PAM) as an authentication mechanism. The default PAM service name is postgresql. PAM is used only when verifying username/password pairs. This means the user must exist in the database before applying PAM for authentication.
+This authentication works like a `password` except when you use Pluggable Authentication Modules (PAM) as an authentication mechanism. The default PAM service name is `postgresql`. PAM is used only when verifying username/password pairs. This means the user must exist in the database before applying PAM for authentication.
 
 The following configuration option is supported for PAM.
 
-- **pamservice**
+- `pamservice`
   PAM service name.
 ### **Authentication Problems**
 Authentication failures and relevant issues are typically revealed through error messages as follows:
-
+```
 FATAL:no pg\_hba.conf entry for host "123.123.123.123", user "andym", database "testdb"
+```
 
-This means connection with the user is possible. As indicated in the message, the server refused the connection request because it failed to find a match in the pg\_hba.conf configuration file.
-
+This means connection with the user is possible. As indicated in the message, the server refused the connection request because it failed to find a match in the `pg\_hba.conf` configuration file.
+```
 FATAL:password authentication failed for user "andym"
+```
 
-This message means that the user has contacted the server and connection with the user is possible, but the user should pass the authentication method specified in the pg\_hba.conf file. The password entered by the user should be examined, or if there is a problem with this authentication type, the user’s Kerberos or ident software should be checked.
-
+This message means that the user has contacted the server and connection with the user is possible, but the user should pass the authentication method specified in the `pg\_hba.conf` file. The password entered by the user should be examined, or if there is a problem with this authentication type, the user’s Kerberos or ident software should be checked.
+```
 FATAL:user "andym" does not exist
-
+```
 It failed to find the database user name shown.
-
+```
 FATAL:database "testdb" does not exist
-
+```
 The database that you want to connect to does not exist. If you do not specify a database name, the database user name is assumed to be the database name.
+
 ## **Role**
 This chapter describes how to create and manage roles. Since AgensGraph was developed based on PostgreSQL, the PostgreSQL technical documents were quoted when introducing the features of the RDB (not GDB).
 
 AgensGraph uses the concept of “role” to manage database access permissions. Roles can be considered as a database user(s) or a group of database users, depending on how the database is set up. A role may own a database object (e.g. table) and control who can access the object by assigning permissions for the object to other roles. As the membership of a role can be granted to other roles, you may make the member role use the permissions assigned to other roles.
+
 ### **Database Role**
 The concept of database roles is completely different from operating system users. Maintaining a correspondence relationship between them may be convenient but is not necessary. Database roles are global between database cluster installations (not database-specific). To create a role, you must use CREATE ROLE SQL command.
 
-db=# **CREATE** **ROLE** name;
+```
+db=# CREATE ROLE name;
+```
 
-name complies with the rules of SQL identifiers (no special characters or double quotation marks are allowed). To delete an existing role, use DROP ROLE command.
+`name` complies with the rules of SQL identifiers (no special characters or double quotation marks are allowed). To delete an existing role, use DROP ROLE command.
 
-db=# **DROP** **ROLE** name;
+```
+db=# DROP ROLE name;
+```
 
 For convenience, the programs createuser and dropuser, which can be invoked from the shell command line, are provided as the wrapper for SQL commands.
-
+```
 $ createuser name
-
 $ dropuser name
+```
 
 To determine existing role sets, examine the pg\_roles system catalog. For example:
 
-db=# **SELECT** rolname **FROM** pg\_roles;
+```
+db=# SELECT rolname FROM pg\_roles;
+```
 
-The psql program’s \du meta command is also useful for listing existing roles.
+The psql program’s `\du` meta command is also useful for listing existing roles.
+
 ### **Role Attributes**
 A database role has many attributes that define permissions and interacts with the client authentication system.
 
-**Login Privilege**
-You may only use roles with the LOGIN attribute as the initial role name for database connections. A role with the LOGIN attribute can be considered the same as a “database user.” To create a role with a login privilege, use one of the followings:
-**CREATE** **ROLE** name LOGIN;
+- **Login Privilege**
 
-- **CREATE** USER name;
-  (CREATE USER differs from CREATE ROLE in that it gives a LOGIN privilege by default.)
+You may only use roles with the LOGIN attribute as the initial role name for database connections. A role with the LOGIN attribute can be considered the same as a “database user.” To create a role with a login privilege, use one of the followings:
+```
+CREATE ROLE name LOGIN;
+CREATE USER name;
+```
+(CREATE USER differs from CREATE ROLE in that it gives a LOGIN privilege by default.)
+
 - **Superuser Status**
+
   The database superuser skips all permission checks except for a login privilege. As the superuser authority can be risky, it should not be used carelessly. It is recommended that most of the tasks are processed by roles other than superuser. To create a new database superuser, use CREATE ROLE name SUPERUSER; a role of superuser should do this job.
 - **Database Creation**
+
   To create a database, the required privilege should be explicitly given to the role (except for superuser, which skips all privilege checks). To create this role, use CREATE ROLE name CREATEDB.
 - **Role Creation**
+
   To create an additional role, the required privilege should be explicitly given to the role (except for superuser, which skips all privilege checks). To create this role, use CREATE ROLE name CREATEROLE. A role with the CREATEROLE privilege can change and delete other roles, and grant or revoke membership. However, superuser status is required if you want to create, alter, delete, or change the membership of the superuser role; CREATEROLE cannot do this job.
 - **Initiating Replication**
+
   To initiate streaming replication, the corresponding privilege should be explicitly given to the role (except for superuser, which skips all privilege checks). The role used for streaming replication must have the LOGIN privilege always. To create this role, use the CREATE ROLE name REPLICATION LOGIN.
 - **password**
+
   Passwords are important only in the case of a client authentication method that requires the user to enter a password when connecting to the database. password and md5 authentication methods use passwords. Database passwords are distinct from the operating system user passwords. When creating a role, a password can be specified using CREATE ROLE name PASSWORD 'string'.
+
 ### **Role Membership**
+
 Users may be grouped for convenience of authority management. This allows you to grant or revoke privileges on a group-by-group basis. In AgensGraph, this is done by creating a role that represents a group, then assigning membership of the group role to individual user roles.
 
 To set up a group role, you should first create a role.
-
-**CREATE** **ROLE** name;
-
+```
+CREATE ROLE name;
+```
 In general, roles used as groups do not have the LOGIN attribute; you may set it if necessary.
 
 If a group role exists, you can add and delete members using the GRANT and REVOKE commands.
 
-**GRANT** group\_role **TO** role1, ... ;
-
-**REVOKE** group\_role **FROM** role1, ... ;
-
+```
+GRANT group\_role TO role1, ... ;
+REVOKE group\_role FROM role1, ... ;
+```
 You can also grant membership to other group roles (there is no actual distinction between group and non-group roles). The database does not allow you to set a circular membership loop and/or to grant role membership to PUBLIC.
 
-Members of a group role can use the permissions of the role in two ways. First, all members of the group perform SET ROLE explicitly to “become” a group role temporarily. In this state, the database session has access to the group role (not the original login role), and the created database object is considered owned by the group role, not the login role. Second, the member role with INHERIT attribute automatically has the permissions of the role as a member, including all permissions inherited from that role. For example, suppose you have executed the following:
+Members of a group role can use the permissions of the role in two ways. First, all members of the group perform SET ROLE explicitly to “become” a group role temporarily. In this state, the database session has access to the group role (not the original login role), and the created database object is considered owned by the group role, not the login role. Second, the member role with `INHERIT` attribute automatically has the permissions of the role as a member, including all permissions inherited from that role. For example, suppose you have executed the following:
 
-**CREATE** **ROLE** joe LOGIN INHERIT;
-
-**CREATE** **ROLE** **admin** NOINHERIT;
-
-**CREATE** **ROLE** wheel NOINHERIT;
-
-**GRANT** **admin** **TO** joe;
-
-**GRANT** wheel **TO** **admin**;
-
+```
+CREATE ROLE joe LOGIN INHERIT;
+CREATE ROLE admin NOINHERIT;
+CREATE ROLE wheel NOINHERIT;
+GRANT admin TO joe;
+GRANT wheel TO admin;
+```
 Immediately after the database session connects to joe role, joe “inherits” the permissions of admin (in addition to those granted directly to joe) and is able to use them as well. joe is, indirectly, a member of wheel. As this membership, however, is given via admin with NOINHERIT attribute, the permissions granted to wheel cannot be used.
+```
+SET ROLE admin;
+```
+When you execute the above command, the session uses only those permissions granted to admin and does not use the permissions granted to `joe`.
+```
+SET ROLE wheel;
+```
 
-**SET** **ROLE** **admin**;
+When you execute the command above, the session uses only the permissions granted to `wheel`, not those granted to `joe` or `admin`. The original privilege state is restored using one of the following:
 
-When you execute the above command, the session uses only those permissions granted to admin and does not use the permissions granted to joe.
+```
+SET ROLE joe;
+SET ROLE NONE;
+RESET ROLE;
+```
 
-**SET** **ROLE** wheel;
-
-When you execute the command above, the session uses only the permissions granted to wheel, not those granted to joe or admin. The original privilege state is restored using one of the following:
-
-**SET** **ROLE** joe;
-
-**SET** **ROLE** **NONE**;
-
-**RESET** **ROLE**;
-
-LOGIN (role attribute), SUPERUSER, CREATEDB, and CREATEROLE can be thought of as special permissions, but they are not inherited as routine permissions of a database object. In order to use them, you should actually SET ROLE to a specific role holding one of these attributes. In the example above, it is also possible to grant CREATEDB and CREATEROLE to the admin role. However, a session connecting to joe role cannot have these permissions immediately as they will be granted only after executing SET ROLE admin.
+`LOGIN` (role attribute), `SUPERUSER`, `CREATEDB`, and `CREATEROLE` can be thought of as special permissions, but they are not inherited as routine permissions of a database object. In order to use them, you should actually `SET ROLE` to a specific role holding one of these attributes. In the example above, it is also possible to grant CREATEDB and CREATEROLE to the admin role. However, a session connecting to joe role cannot have these permissions immediately as they will be granted only after executing SET ROLE admin.
 
 You should use DROP ROLE to drop group roles.
 

@@ -492,33 +492,35 @@ Change the WAL Directory
 <section id="create-a-role">
 <h3><strong>Create a role</strong><a class="headerlink" href="#create-a-role" title="Permalink to this heading"></a></h3>
 <p>Roles can be considered a database user(s), or a group of database users, depending on how the database is set up. As a role can own a database object, it may assign permissions for the object to other roles to control who can access the object. As the membership of a role can be granted to other roles, you may make the member role use the permissions assigned to other roles. To create/delete a role, you should use the following SQL command.</p>
-<blockquote>
-<div><p>db=# CREATE ROLE name;</br>
-db=# DROP ROLE name;</br></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">=</span><span class="c1"># CREATE ROLE name;</span>
+<span class="n">db</span><span class="o">=</span><span class="c1"># DROP ROLE name;</span>
+</pre></div>
+</div>
 <p>For your convenience, <em>createuser</em> and <em>dropuser</em> can be invoked from the shell command line (serving as the wrapper of SQL commands).</p>
-<blockquote>
-<div><p>$ createuser name; </br>
-$ dropuser name; </br></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ createuser name;
+$ dropuser name;
+</pre></div>
+</div>
 </section>
 <section id="createdb">
 <h3><strong>createdb</strong><a class="headerlink" href="#createdb" title="Permalink to this heading"></a></h3>
 <p>To create/remove a database, start the AgensGraph server and create it using SQL commands <em>CREATE DATABASE</em> and <em>DROP DATABASE</em>.</p>
-<blockquote>
-<div><p><em>db=# CREATE DATABASE name; db=# DROP DATABASE name;</em></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">=</span><span class="c1"># CREATE DATABASE name; db=# DROP DATABASE name;</span>
+</pre></div>
+</div>
 <p>The current role that has performed <em>CREATE DATABASE</em> automatically becomes the owner of the new database.</p>
 <p>For your convenience, you may create/remove databases by calling <em>createdb</em> and <em>dropdb</em> from the shell command line. You may use the <em>-O</em> option to designate the owner of the new database that you are creating.</p>
-<blockquote>
-<div><p><em>$ createdb dbname [-O rolename] </br>
-$ dropdb dbname</em></p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ createdb dbname [-O rolename]
+$ dropdb dbname*
+</pre></div>
+</div>
 </section>
 <section id="startup">
 <h3><strong>Startup</strong><a class="headerlink" href="#startup" title="Permalink to this heading"></a></h3>
 <p>You should start the database server before accessing the database using <em>ag_ctl</em>. You need an initialized database repository to start, and have to specify the corresponding directory with -D option. If you set the database repository location via AGDATA, an environment variable, you may start the server without the -D option. Using -l option, you may set a logfile that will contain logs.</p>
-<p><em>$ ag_ctl start [-D $AGDATA] [-l $AGDATA/logfile]</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ag\_ctl start [-D $AGDATA] [-l $AGDATA/logfile]
+</pre></div>
+</div>
 </section>
 <section id="shutdown">
 <h3><strong>Shutdown</strong><a class="headerlink" href="#shutdown" title="Permalink to this heading"></a></h3>
@@ -571,20 +573,32 @@ $ dropdb dbname</em></p>
 <p>The format of pg_hba.conf is a set of records, in which each line is a record. Empty lines are ignored, and the text that comes after “#” is ignored as well. A record, which cannot continue after a line break, consists of several fields with delimiters such as spaces and/or tabs. By using double quotes for field values, you may include spaces in the field. If you use quotation marks in keywords of the database or user/address fields, the words will lose their special meaning.</p>
 <p>Each record specifies a connection type to be used for connection that matches these parameters, the range of client IP address (if applicable), database name, user name, and authentication method. The first record that matches the connection type, client address, the requested database, and user name is used during authentication. There is no “fall-through” or “backup.” In the case where a record is selected but authentication fails, the next record will not be authenticated. Access is denied if there is no matching record.</p>
 <p>A record is one of the following seven types:</p>
-<p>local         database  user  auth-method [auth-options]</p>
-<p>host          database  user  address     auth-method  [auth-options]</p>
-<p>hostssl       database  user  address     auth-method  [auth-options]</p>
-<p>hostnossl     database  user  address     auth-method  [auth-options]</p>
-<p>hostgssenc    database  user  address     auth-method  [auth-options]</p>
-<p>hostnogssenc  database  user  address     auth-method  [auth-options]</p>
-<p>host          database  user  IP-address  IP-mask      auth-method  [auth-options]</p>
-<p>hostssl       database  user  IP-address  IP-mask      auth-method  [auth-options]</p>
-<p>hostnossl     database  user  IP-address  IP-mask      auth-method  [auth-options]</p>
-<p>hostgssenc    database  user  IP-address  IP-mask      auth-method  [auth-options]</p>
-<p>hostnogssenc  database  user  IP-address  IP-mask      auth-method  [auth-options]</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">local</span>         <span class="n">database</span>  <span class="n">user</span>  <span class="n">auth</span><span class="o">-</span><span class="n">method</span> <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">host</span>          <span class="n">database</span>  <span class="n">user</span>  <span class="n">address</span>     <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">hostssl</span>       <span class="n">database</span>  <span class="n">user</span>  <span class="n">address</span>     <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">hostnossl</span>     <span class="n">database</span>  <span class="n">user</span>  <span class="n">address</span>     <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">hostgssenc</span>    <span class="n">database</span>  <span class="n">user</span>  <span class="n">address</span>     <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">hostnogssenc</span>  <span class="n">database</span>  <span class="n">user</span>  <span class="n">address</span>     <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">host</span>          <span class="n">database</span>  <span class="n">user</span>  <span class="n">IP</span><span class="o">-</span><span class="n">address</span>  <span class="n">IP</span><span class="o">-</span><span class="n">mask</span>      <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">hostssl</span>       <span class="n">database</span>  <span class="n">user</span>  <span class="n">IP</span><span class="o">-</span><span class="n">address</span>  <span class="n">IP</span><span class="o">-</span><span class="n">mask</span>      <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">hostnossl</span>     <span class="n">database</span>  <span class="n">user</span>  <span class="n">IP</span><span class="o">-</span><span class="n">address</span>  <span class="n">IP</span><span class="o">-</span><span class="n">mask</span>      <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">hostgssenc</span>    <span class="n">database</span>  <span class="n">user</span>  <span class="n">IP</span><span class="o">-</span><span class="n">address</span>  <span class="n">IP</span><span class="o">-</span><span class="n">mask</span>      <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">hostnogssenc</span>  <span class="n">database</span>  <span class="n">user</span>  <span class="n">IP</span><span class="o">-</span><span class="n">address</span>  <span class="n">IP</span><span class="o">-</span><span class="n">mask</span>      <span class="n">auth</span><span class="o">-</span><span class="n">method</span>  <span class="p">[</span><span class="n">auth</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+</pre></div>
+</div>
 <p>The meaning of each field is as follows:</p>
 <ul class="simple">
-<li><p><strong>local</strong>
+<li><p><code class="docutils literal notranslate"><span class="pre">local</span></code>
 This record corresponds to a connection through a Unix domain socket. If there is no record of this type, the Unix domain socket connection is impossible.</p></li>
 <li><p><strong>host</strong>
 This record corresponds to a connection through TCP/IP. The host record matches the SSL (or non-SSL) connection attempt.</p></li>
