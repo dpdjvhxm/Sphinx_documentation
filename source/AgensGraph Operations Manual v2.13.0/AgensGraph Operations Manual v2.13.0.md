@@ -3533,9 +3533,9 @@ ag\_graphmeta is a view that provides intuitive information.
 
 # **AgensPop Operation Manual**
 ## **Basic Screen**
-- Basic Screen![텍스트, 전자제품, 스크린샷, 디스플레이이(가) 표시된 사진
+- Basic Screen
+![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.001.png)
 
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.001.png)
   - Importing Menu and Data
   - ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.002.png) :View sub menu.
     - Go To dashboard : View the dashboard screen.
