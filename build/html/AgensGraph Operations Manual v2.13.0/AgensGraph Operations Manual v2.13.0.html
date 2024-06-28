@@ -3140,184 +3140,182 @@ As optimizer statistics are not sent by pg_upgrade, you should run the command a
 <h1><strong>AgensHub Operation Manual</strong><a class="headerlink" href="#agenshub-operation-manual" title="Permalink to this heading"></a></h1>
 <section id="connection">
 <h2><strong>Connection</strong><a class="headerlink" href="#connection" title="Permalink to this heading"></a></h2>
-<ul class="simple">
+<ul>
 <li><p>The following screen displays how to manage the database connection.</p>
 <ul>
 <li><p>Connection Screen
-![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진</p></li>
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.001.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.001.png" />
+① Displays the information of the currently registered database.</p>
+<ul class="simple">
+<li><p>Type of Database</p></li>
+<li><p><img alt="ref1" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.004.png" /> :AgensGraph Database</p></li>
+<li><p>![ref2] :ODBC Connection for an external database like Oracle, MS-SQL etc</p></li>
+<li><p>![ref3] :Click to modify the database connection information.</p></li>
+<li><p>![ref4] :Deletes the existing database connection.</p></li>
+<li><p>Displays the information of the registered database in text.</p></li>
 </ul>
 </li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.001.png)
-① Displays the information of the currently registered database.
-- Type of Database
-- <img alt="ref1" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.002.png" /> :AgensGraph Database</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- ![ref2] :ODBC Connection for an external database like Oracle, MS-SQL etc
-
-- ![ref3] :Click to modify the database connection information.
-
-- ![ref4] :Deletes the existing database connection.
-
-- Displays the information of the registered database in text. ![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진
-</pre></div>
-</div>
-<p>자동 생성된 설명]</p>
-<ul class="simple">
 <li><p>② Add Connection : Click to add a database connection.</p></li>
-<li><p>Add a New Database Connection ![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진</p></li>
-</ul>
-<p>자동 생성된 설명]
-- Connection Name : Type a new connection name.
-- Type : Select the type of database
-- ODBC : Databases such as Oracle and MS-SQL to connect via ODBC
-- AgensGraph : Graph Database If selected, the host, port, database input window appear as displayed in “①”.
-- Host : IP address of graph database
-- Port : Port no. for graph database
-- Database : Name of graph database
-- Username : User ID associated with the database
-- Password : Password for user ID
-- Advanced : Clicking the button will display additional options to input as displayed in “②”.
-- Initializer : Query statement will initially run after connection to the database is made.
-- Sequence Table : If the job fails during the workflow, enter the table name to log it.
-- Test Connection : Use to check if the connection can be made using the input parameters. Displays whether the input connection information successfully or unsuccessfully connects with the database.
-- Save : Saves connection parameters.</p>
+<li><p>Add a New Database Connection</p>
 <ul class="simple">
-<li><p>Modifying the Database Connection Information</p>
+<li><p>Connection Name : Type a new connection name.</p></li>
+<li><p>Type : Select the type of database</p>
 <ul>
-<li><p>The following screen displays how to modify the parameters of the existing connection. ![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진</p></li>
+<li><p>ODBC : Databases such as Oracle and MS-SQL to connect via ODBC</p></li>
+<li><p>AgensGraph : Graph Database If selected, the host, port, database input window appear as displayed in “①”.</p></li>
+</ul>
+</li>
+<li><p>Host : IP address of graph database</p></li>
+<li><p>Port : Port no. for graph database</p></li>
+<li><p>Database : Name of graph database</p></li>
+<li><p>Username : User ID associated with the database</p></li>
+<li><p>Password : Password for user ID</p></li>
+<li><p>Advanced : Clicking the button will display additional options to input as displayed in “②”.</p>
+<ul>
+<li><p>Initializer : Query statement will initially run after connection to the database is made.</p></li>
+<li><p>Sequence Table : If the job fails during the workflow, enter the table name to log it.</p></li>
+</ul>
+</li>
+<li><p>Test Connection : Use to check if the connection can be made using the input parameters. Displays whether the input connection information successfully or unsuccessfully connects with the database.</p></li>
+<li><p>Save : Saves connection parameters.</p></li>
+</ul>
+</li>
+<li><p>Modifying the Database Connection Information</p>
+<ul class="simple">
+<li><p>The following screen displays how to modify the parameters of the existing connection.</p></li>
+</ul>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.008.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.008.png" /></p>
+</li>
 </ul>
 </li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.008.png)</p>
 </section>
 <section id="schema">
 <h2><strong>Schema</strong><a class="headerlink" href="#schema" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>The following screen displays the management of schema configuration of the connected database.</p>
 <ul>
-<li><p>Schema Screen![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진</p></li>
-</ul>
-</li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.009.png)</p>
-<ul class="simple">
-<li><p><img alt="ref3" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.004.png" /> :Click to modify the database connection information.</p></li>
-<li><p><img alt="ref4" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.005.png" /> :Deletes the existing database connection.</p></li>
+<li><p>Schema Screen
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.009.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.009.png" /></p></li>
+<li><p>![ref3] :Click to modify the database connection information.</p></li>
+<li><p>![ref4] :Deletes the existing database connection.</p></li>
 <li><p>Schema Collect</p>
 <ul>
-<li><p>It is possible to check and change the table list of schema.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진</p></li>
+<li><p>It is possible to check and change the table list of schema.
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.010.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.010.png" /></p></li>
+<li><p>The connection name of the connected database is displayed and can be selected.</p></li>
+<li><p>Displays the catalog of the database selected in “①”.</p></li>
+<li><p>Displays the schema of the catalog selected in “②”.</p></li>
+<li><p>The table list can be searched, the skip box can be checked or unchecked, and the ETL target table can be selected or canceled.</p></li>
+<li><p>Save : Saves the changed information.</p></li>
 </ul>
 </li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.010.png)
-- The connection name of the connected database is displayed and can be selected.
-- Displays the catalog of the database selected in “①”.
-- Displays the schema of the catalog selected in “②”.
-- The table list can be searched, the skip box can be checked or unchecked, and the ETL target table can be selected or canceled.
-- Save : Saves the changed information.</p>
-<ul class="simple">
 <li><p>Add and Edit the Schema</p>
 <ul>
-<li><p>The following screen displays how to add and edit schema.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진</p></li>
+<li><p>The following screen displays how to add and edit schema.
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.011.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.011.png" /></p></li>
+<li><p>Select the connection name of the schema‟s database. Input the catalog, schema, and table information.</p></li>
+<li><p>Enter the column information of the table entered in “①”.</p>
+<ul>
+<li><p>Column Name : Name of column</p></li>
+<li><p>Column Type : Select the data type (text, number, date, binary, etc.) of the column.</p></li>
+<li><p>Column Size : Input the data size of the column in a number.</p></li>
+<li><p>Decimal Digit : Input the size of the numeric column type.</p></li>
+<li><p>Expression : Input a formula to change the value of the column to another value.</p></li>
+</ul>
+</li>
+<li><p>Adding &amp; Deleting Column: Click “+” to add a row on a column Click “-“ to delete a row on a column</p></li>
+<li><p>Save : Saves the entered information.</p></li>
+</ul>
+</li>
+<li><p>Modify Schema Information</p></li>
+<li><p>The following screen displays how to add and edit the schema.
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.012.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.012.png" /></p></li>
 </ul>
 </li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.011.png)
-- Select the connection name of the schema‟s database. Input the catalog, schema, and table information.
-- Enter the column information of the table entered in “①”.
-- Column Name : Name of column
-- Column Type : Select the data type (text, number, date, binary, etc.) of the column.
-- Column Size : Input the data size of the column in a number.
-- Decimal Digit : Input the size of the numeric column type.
-- Expression : Input a formula to change the value of the column to another value.
-- Adding &amp; Deleting Column: Click “+” to add a row on a column Click “-“ to delete a row on a column
-- Save : Saves the entered information.</p>
-<ul class="simple">
-<li><p>Modify Schema Information</p></li>
-<li><p>The following screen displays how to add and edit the schema.![텍스트, 스크린샷, 소프트웨어, 번호이(가) 표시된 사진</p></li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.012.png)</p>
 </section>
 <section id="model">
 <h2><strong>Model</strong><a class="headerlink" href="#model" title="Permalink to this heading"></a></h2>
-<ul class="simple">
+<ul>
 <li><p>The following screen displays how to manage database source and target models for data extraction and loading.</p>
 <ul>
-<li><p>Model Screen![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진</p></li>
-</ul>
-</li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.013.png)</p>
-<ul class="simple">
+<li><p>Model Screen
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.013.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.013.png" /></p></li>
 <li><p>Type of Database</p>
-<ul>
-<li><p><img alt="ref1" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.002.png" /> :AgensGraph Database</p></li>
-<li><p><img alt="ref2" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.003.png" /> :ODBC Connection for an external database like Oracle, MS-SQL etc</p></li>
+<ul class="simple">
+<li><p><img alt="ref1" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.004.png" /> :AgensGraph Database</p></li>
+<li><p>![ref2] :ODBC Connection for an external database like Oracle, MS-SQL etc</p></li>
 </ul>
 </li>
-<li><p><img alt="ref3" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.004.png" /> :Click to modify the database connection information.</p></li>
-<li><p><img alt="ref4" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.005.png" /> :Deletes the existing database connection.</p></li>
+<li><p>![ref3] :Click to modify the database connection information.</p></li>
+<li><p>![ref4] :Deletes the existing database connection.</p></li>
 <li><p>Displays the information of the registered database in text.</p></li>
 <li><p>Click the model name to move to the screen that adds a new model.</p></li>
 <li><p>Add a New Model</p></li>
-<li><p>The following screen displays how to add a model information.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진</p></li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.014.png)
-- Model Name : Type the name of the model to register.
-- Extract Connection : Select an ODBC database to extract the data.
-- Load Connection : Select a graph database to load the data.
-- Save : Save the entered information.</p>
+<li><p>The following screen displays how to add a model information.
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.014.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.014.png" /></p>
 <ul class="simple">
+<li><p>Model Name : Type the name of the model to register.</p></li>
+<li><p>Extract Connection : Select an ODBC database to extract the data.</p></li>
+<li><p>Load Connection : Select a graph database to load the data.</p></li>
+<li><p>Save : Save the entered information.</p></li>
+</ul>
+</li>
 <li><p>Modifying Model Information</p></li>
-<li><p>The following screen displays how to edit the input model.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진</p></li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.015.png)</p>
-<ul class="simple">
+<li><p>The following screen displays how to edit the input model.
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.015.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.015.png" /></p></li>
 <li><p>Create Model Flow</p></li>
-<li><p>When creating a flow, the extract and load functions are automatically input and displayed.![텍스트, 스크린샷, 라인, 폰트이(가) 표시된 사진</p></li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.016.png)
-- New Flow Name : Clicking the “+” button after registering the New Flow Name will create a new model flow.</p>
+<li><p>When creating a flow, the extract and load functions are automatically input and displayed.<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.016.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.016.png" /></p>
 <ul class="simple">
-<li><p>Model Flow Screen![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진</p></li>
+<li><p>New Flow Name : Clicking the “+” button after registering the New Flow Name will create a new model flow.</p></li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.017.png)
-- New Flow Name : Create a new model flow.
-- Model Flow List
-- Export : Create the selected model flow in the workflow. (Check the workflow list in the workflow menu)
-- DRSMPL : Type of flow (If you drag it with the mouse and drop it in the “⑦” area, the flow type is displayed.)
-- Flow Copy / Delete / Save
-- ![텍스트, 스크린샷, 폰트, 번호이(가) 표시된 사진</p>
-<p>자동 생성된 설명] :Create a copy of the current model flow.
-- ![텍스트, 스크린샷, 폰트, 번호이(가) 표시된 사진</p>
-<p>자동 생성된 설명]
-- <img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.020.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.020.png" /> :Delete the current model flow.
-- <img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.021.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.021.png" /> :Save the modified details in the current model flow.
-- Flow Type
-- The type of drag &amp; drop flow is displayed in “④”.</p>
+</li>
+<li><p>Model Flow Screen
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.017.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.017.png" /></p>
+<ul>
+<li><p>New Flow Name : Create a new model flow.</p></li>
+<li><p>Model Flow List</p></li>
+<li><p>Export : Create the selected model flow in the workflow. (Check the workflow list in the workflow menu)</p></li>
+<li><p>DRSMPL : Type of flow (If you drag it with the mouse and drop it in the “⑦” area, the flow type is displayed.)</p></li>
+<li><p>Flow Copy / Delete / Save</p>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.018.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.018.png" /> :Create a copy of the current model flow.</p>
+</li>
+<li><p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.019.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.019.png" /></p>
+<ul class="simple">
+<li><p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.020.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.020.png" /> :Delete the current model flow.</p></li>
+<li><p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.021.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.021.png" /> :Save the modified details in the current model flow.</p></li>
+</ul>
+</li>
+<li><p>Flow Type</p>
+<ul class="simple">
+<li><p>The type of drag &amp; drop flow is displayed in “④”.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </section>
 <section id="flow-type">
 <h2><strong>Flow Type</strong><a class="headerlink" href="#flow-type" title="Permalink to this heading"></a></h2>
-<ul class="simple">
+<ul>
 <li><p>Extract(E)</p>
-<ul>
+<ul class="simple">
 <li><p>Select a table to extract from the database and set the data row.</p></li>
-<li><p>When a flow is automatically displayed, it is created as a mandatory type. Without extract, the flow cannot be created.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진</p></li>
+<li><p>When a flow is automatically displayed, it is created as a mandatory type. Without extract, the flow cannot be created.</p></li>
+</ul>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.022.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.022.png" /></p>
+<ul class="simple">
+<li><p>Table : Select the table to be extracted.</p></li>
+<li><p>Displays the column list of the selected table.</p></li>
 </ul>
 </li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.022.png)
-- Table : Select the table to be extracted.
-- Displays the column list of the selected table.</p>
-<ul class="simple">
 <li><p>Distribute(D)</p>
-<ul>
-<li><p>Calculate the hash value and key column value from the data row to be transmitted in the distributed method.![텍스트, 스크린샷, 소프트웨어, 폰트이(가) 표시된 사진</p></li>
-</ul>
-</li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.023.png)</p>
 <ul class="simple">
+<li><p>Calculate the hash value and key column value from the data row to be transmitted in the distributed method.
+<img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.023.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.023.png" /></p></li>
 <li><p>Mode : Single and hash can be selected.</p>
 <ul>
 <li><p>Single : “②Load Count” and “③Key” are disabled and cannot be selected.</p></li>
@@ -3326,56 +3324,54 @@ As optimizer statistics are not sent by pg_upgrade, you should run the command a
 </li>
 <li><p>Load Count : Set the number of distributions.</p></li>
 <li><p>Key : Select the key column. Click the + / - button to add or delete keys.</p></li>
+</ul>
+</li>
 <li><p>Rename(R)</p>
-<ul>
-<li><p>Change the name of the current flow and copy the set data row to the new flow.</p></li>
-<li><p>When a rename is created and saved, the flow is added as many as the value created in the left flow list.![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진</p></li>
-</ul>
-</li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.024.png)
-- Field : Select the column that needs to be copied.
-- Delimiter : Input the delimiter when copying. (default : „-„)
-- Append : When checking the check box, the existing flow name adds “③Delimiter” and “④Value” to duplicate a new flow. If not checked, it is copied with the name, “④Value”.
-- Value : Input the name of the flow that needs to be copied. Click the + / - button to add or delete flow.</p>
 <ul class="simple">
-<li><p>Store(S)</p>
-<ul>
-<li><p>Extract the column and store it in the storage space.</p></li>
-<li><p>Data created in the store can only be used in merge. (used for the purpose of merging between tables)![텍스트, 스크린샷, 소프트웨어, 디스플레이이(가) 표시된 사진</p></li>
+<li><p>Change the name of the current flow and copy the set data row to the new flow.</p></li>
+<li><p>When a rename is created and saved, the flow is added as many as the value created in the left flow list.</p></li>
+</ul>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.024.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.024.png" /></p>
+<ul class="simple">
+<li><p>Field : Select the column that needs to be copied.</p></li>
+<li><p>Delimiter : Input the delimiter when copying. (default : „-„)</p></li>
+<li><p>Append : When checking the check box, the existing flow name adds “③Delimiter” and “④Value” to duplicate a new flow. If not checked, it is copied with the name, “④Value”.</p></li>
+<li><p>Value : Input the name of the flow that needs to be copied. Click the + / - button to add or delete flow.</p></li>
 </ul>
 </li>
+<li><p>Store(S)</p>
+<ul class="simple">
+<li><p>Extract the column and store it in the storage space.</p></li>
+<li><p>Data created in the store can only be used in merge. (used for the purpose of merging between tables)</p></li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.025.png)</p>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.025.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.025.png" /></p>
 <ul class="simple">
 <li><p>Name : Enter the name of the store.</p></li>
 <li><p>Key : Select the column to save. Click the + / - button to add or delete keys that needs to be saved.</p></li>
-<li><p>Merge(M)</p>
-<ul>
-<li><p>Merge the data row in addition to the data saved in the store.</p></li>
-<li><p>It must match the number of keys created in the store.![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진</p></li>
 </ul>
 </li>
+<li><p>Merge(M)</p>
+<ul class="simple">
+<li><p>Merge the data row in addition to the data saved in the store.</p></li>
+<li><p>It must match the number of keys created in the store.</p></li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.026.png)</p>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.026.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.026.png" /></p>
 <ul class="simple">
 <li><p>Store Name : Select a saved store.</p></li>
 <li><p>Key : Select the column that needs to be merged. Click the + / - button to add or delete the key.</p></li>
+</ul>
+</li>
 <li><p>Purge(P)</p>
-<ul>
-<li><p>Data row is discarded and not transmitted.![스크린샷, 텍스트, 라인, 직사각형이(가) 표시된 사진</p></li>
-</ul>
-</li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.027.png)</p>
 <ul class="simple">
-<li><p>Load(L)</p>
-<ul>
-<li><p>Load data row in a graph database.![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진</p></li>
+<li><p>Data row is discarded and not transmitted.</p></li>
 </ul>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.027.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.027.png" /></p>
 </li>
+<li><p>Load(L)</p>
+<ul class="simple">
+<li><p>Load data row in a graph database.</p></li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.028.png)</p>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.028.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.028.png" /></p>
 <ul class="simple">
 <li><p>Pattern : Select load pattern (single-vertex / single-edge).</p>
 <ul>
@@ -3413,53 +3409,58 @@ As optimizer statistics are not sent by pg_upgrade, you should run the command a
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 </section>
 <section id="workflow">
 <h2><strong>Workflow</strong><a class="headerlink" href="#workflow" title="Permalink to this heading"></a></h2>
-<ul class="simple">
-<li><p>The following screen displays how to check the status of ETL processing of the model.</p>
 <ul>
-<li><p>Workflow Screen![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진</p></li>
+<li><p>The following screen displays how to check the status of ETL processing of the model.</p>
+<ul class="simple">
+<li><p>Workflow Screen</p></li>
+</ul>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.029.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.029.png" /></p>
+<ul>
+<li><p>On : Activate or deactivate the workflow</p></li>
+<li><p>Workflow Name : Name of the registered workflow</p></li>
+<li><p>Status : Displays the current status of the workflow.
+(Done, Wait, Execute, Fail)</p></li>
+<li><p>Step : Number of flows registered in the model</p></li>
+<li><p>Links</p>
+<ul class="simple">
+<li><p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.030.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.030.png" />
+Run the corresponding workflow.</p></li>
+<li><p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.031.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.031.png" /> :Stop running the workflow.</p></li>
+<li><p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.032.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.032.png" /> :: Move to the screen with the detailed information of workflow.</p></li>
+<li><p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.033.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.033.png" /> :Delete the registered workflow.</p></li>
 </ul>
 </li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.029.png)
-- On : Activate or deactivate the workflow
-- Workflow Name : Name of the registered workflow
-- Status : Displays the current status of the workflow.
-(Done, Wait, Execute, Fail)
-- Step : Number of flows registered in the model
-- Links
-- <img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.030.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.030.png" />
-Run the corresponding workflow.
-- <img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.031.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.031.png" /> :Stop running the workflow.
-- <img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.032.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.032.png" /> :: Move to the screen with the detailed information of workflow.
-- <img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.033.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.033.png" /> :Delete the registered workflow.</p>
-<ul class="simple">
 <li><p>Workflow Details</p>
 <ul>
-<li><p>The following screen displays how to check the workflow details.
-![텍스트, 스크린샷, 도표, 디스플레이이(가) 표시된 사진</p></li>
+<li><p>The following screen displays how to check the workflow details.</p>
+<p><img alt="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.034.png" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.034.png" /></p>
+<ul class="simple">
+<li><p>Basic Information of Workflow</p>
+<ul>
+<li><p>Workflow Name : Name of workflow</p></li>
+<li><p>Status : Displays the current status of the Workflow.
+(Done, Wait, Execute, Fail)</p></li>
+<li><p>Step : Number of flows registered in the Model</p></li>
+</ul>
+</li>
+<li><p>Status by Step</p>
+<ul>
+<li><p>Displays the process and result of executing the ETL.</p></li>
+<li><p>The number in the parentheses is the number of processing ETL.</p></li>
 </ul>
 </li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.034.png)
-- Basic Information of Workflow
-- Workflow Name : Name of workflow
-- Status : Displays the current status of the Workflow.
-(Done, Wait, Execute, Fail)
-- Step : Number of flows registered in the Model
-- Status by Step
-- Displays the process and result of executing the ETL.
-- The number in the parentheses is the number of processing ETL.</p>
-<p>[텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진</p>
-<p>자동 생성된 설명]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.006.png
-[텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진</p>
-<p>자동 생성된 설명]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.007.png
-[텍스트, 스크린샷, 폰트, 번호이(가) 표시된 사진</p>
-<p>자동 생성된 설명]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.018.png
-[텍스트, 스크린샷, 폰트, 번호이(가) 표시된 사진</p>
-<p>자동 생성된 설명]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.019.png</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 <section id="agenspop-operation-manual">
@@ -3467,10 +3468,9 @@ Run the corresponding workflow.
 <section id="basic-screen">
 <h2><strong>Basic Screen</strong><a class="headerlink" href="#basic-screen" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>Basic Screen![텍스트, 전자제품, 스크린샷, 디스플레이이(가) 표시된 사진</p></li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.001.png)</p>
-<ul class="simple">
+<li><p>Basic Screen
+<img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.001.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.001.png" /></p>
+<ul>
 <li><p>Importing Menu and Data</p></li>
 <li><p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.002.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.002.png" /> :View sub menu.</p>
 <ul>
@@ -3483,7 +3483,7 @@ Run the corresponding workflow.
 </ul>
 </li>
 <li><p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.003.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.003.png" /> :Previous Screen / Next Screen</p></li>
-<li><p><img alt="ref1" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.002.png" /> :A database list appears.</p></li>
+<li><p><img alt="ref1" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.004.png" /> :A database list appears.</p></li>
 <li><p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.005.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.005.png" /> :Retrieve data through a query or activate graph extension.</p>
 <ul>
 <li><p>Query by gremlin : Gremlin query can be executed on this screen.</p></li>
@@ -3512,25 +3512,27 @@ Run the corresponding workflow.
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 </section>
 <section id="importing-data">
 <h2><strong>Importing Data</strong><a class="headerlink" href="#importing-data" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>Importing Data![텍스트, 스크린샷, 디스플레이, 소프트웨어이(가) 표시된 사진</p></li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.012.png)</p>
-<ul class="simple">
-<li><p>Click <img alt="ref1" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.002.png" /> to open the database list screen.</p></li>
+<li><p>Importing Data
+<img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.012.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.012.png" /></p>
+<ul>
+<li><p>Click <img alt="ref1" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.004.png" /> to open the database list screen.</p></li>
 <li><p>Click the name of the data source in the list to view the relevant data in the graph.</p></li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="querying-data">
 <h2><strong>Querying Data</strong><a class="headerlink" href="#querying-data" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>Querying Data![텍스트, 스크린샷이(가) 표시된 사진</p></li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.013.png)</p>
-<ul class="simple">
+<li><p>Querying Data
+<img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.013.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.013.png" /></p>
+<ul>
 <li><p>“③ Graph Domain” displays properties and features of the selected nodes and edges.</p>
 <ul>
 <li><p>Click the icons in the place to change the shape of the node and the color of the edge.</p></li>
@@ -3563,6 +3565,8 @@ Run the corresponding workflow.
 <li><p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.022.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.022.png" /> :Zooms in to show specific domain of the graph. (drag the mouse wheel to zoom in)</p></li>
 <li><p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.023.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.023.png" /></p></li>
 <li><p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.024.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.024.png" /></p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
