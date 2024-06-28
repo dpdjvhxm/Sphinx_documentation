@@ -597,120 +597,151 @@ $ dropdb dbname*
 </pre></div>
 </div>
 <p>The meaning of each field is as follows:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">local</span></code>
-This record corresponds to a connection through a Unix domain socket. If there is no record of this type, the Unix domain socket connection is impossible.</p></li>
-<li><p><strong>host</strong>
-This record corresponds to a connection through TCP/IP. The host record matches the SSL (or non-SSL) connection attempt.</p></li>
-<li><p><strong>hostssl</strong>
-Even if this record matches the connection attempt through TCP/IP, it corresponds to a connection using SSL encryption only. To use this option, the server must have built-in SSL support. Set the ssl configuration parameter(s) to enable SSL when the server starts.</p></li>
-<li><p><strong>hostnossl</strong>
-This type of record works in contrast to hostssl, matching a connection attempt on TCP/IP that does not use SSL.</p></li>
-<li><p><strong>hostgssenc</strong>
-This record matches connection attempts made using TCP/IP, but only when the connection is made with GSSAPI encryption. To make use of this option the server must be built with GSSAPI support. Otherwise, the hostgssenc record is ignored except for logging a warning that it cannot match any connections.</p></li>
-<li><p><strong>hostnogssenc</strong>
-This record type has the opposite behavior of hostgssenc; it only matches connection attempts made over TCP/IP that do not use GSSAPI encryption.</p></li>
-<li><p><strong>database</strong>
-This record specifies the database name.</p>
 <ul>
-<li><p>Specify all to match all databases.</p></li>
-<li><p>Specify sameuser to match the records when the requested database has the same name as the requested user.</p></li>
-<li><p>Specify samerole to indicate whether the requested user should be a member of the same “role” as the requested database. “superuser” shall not be regarded as a member of the role (in samerole) just because it is a superuser, if it is not directly or indirectly an explicit member of the role.</p></li>
-<li><p>Specify replication to match the records if a replication connection is requested (replication connections do not specify a specific database). For other cases, it is the name of a specific AgensGraph database. You can write multiple database names separated by commas. A file containing the database name can be specified by prefixing the file name with &#64;.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">local</span></code></p>
+<p>This record corresponds to a connection through a Unix domain socket. If there is no record of this type, the Unix domain socket connection is impossible.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">host</span></code></p>
+<p>This record corresponds to a connection through TCP/IP. The host record matches the SSL (or non-SSL) connection attempt.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hostssl</span></code></p>
+<p>Even if this record matches the connection attempt through TCP/IP, it corresponds to a connection using SSL encryption only. To use this option, the server must have built-in SSL support. Set the ssl configuration parameter(s) to enable SSL when the server starts.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hostnossl</span></code></p>
+<p>This type of record works in contrast to hostssl, matching a connection attempt on TCP/IP that does not use SSL.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hostgssenc</span></code></p>
+<p>This record matches connection attempts made using TCP/IP, but only when the connection is made with GSSAPI encryption. To make use of this option the server must be built with GSSAPI support. Otherwise, the hostgssenc record is ignored except for logging a warning that it cannot match any connections.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hostnogssenc</span></code></p>
+<p>This record type has the opposite behavior of hostgssenc; it only matches connection attempts made over TCP/IP that do not use GSSAPI encryption.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p>
+<p>This record specifies the database name.</p>
+<ul class="simple">
+<li><p>Specify <code class="docutils literal notranslate"><span class="pre">all</span></code> to match all databases.</p></li>
+<li><p>Specify <code class="docutils literal notranslate"><span class="pre">sameuser</span></code> to match the records when the requested database has the same name as the requested user.</p></li>
+<li><p>Specify <code class="docutils literal notranslate"><span class="pre">samerole</span></code> to indicate whether the requested user should be a member of the same “role” as the requested database. “superuser” shall not be regarded as a member of the role (in samerole) just because it is a superuser, if it is not directly or indirectly an explicit member of the role.</p></li>
+<li><p>Specify <code class="docutils literal notranslate"><span class="pre">replication</span></code> to match the records if a replication connection is requested (replication connections do not specify a specific database). For other cases, it is the name of a specific AgensGraph database. You can write multiple database names separated by commas. A file containing the database name can be specified by prefixing the file name with &#64;.</p></li>
 </ul>
 </li>
-<li><p><strong>user</strong>
-Specifies the database user name that matches this record. The value all specifies that it matches all users. Otherwise, this is either the name of a specific database user, or a group name preceded by +. (Recall that there is no real distinction between users and groups in PostgreSQL; a + mark really means “match any of the roles that are directly or indirectly members of this role”, while a name without a + mark matches only that specific role.) For this purpose, a superuser is only considered to be a member of a role if they are explicitly a member of the role, directly or indirectly, and not just by virtue of being a superuser. Multiple user names can be supplied by separating them with commas. A separate file containing user names can be specified by preceding the file name with &#64;.
-Specifies the database user name that matches this record. all is specified to match all users. In other cases, it is the name of a particular database user or a group name preceded by +. (In AgensGraph, there is no real difference between user name and group name: “” mark actually means “matching any role that is a direct or indirect member of this role” and the name without “+” mark matches a specific role.) For this reason, a superuser shall be considered a role member only when it is an explicit member of the role, directly or indirectly, not because it is merely a superuser. You can use multiple usernames separated by commas. A file containing a user name can be specified by prefixing the file name with &#64;.</p></li>
-<li><p><strong>address</strong>
-Specifies the client machine address that matches this record. This field may contain either a host name, an IP address range, or one of the special keywords described below.
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code></p>
+<p>Specifies the database user name that matches this record. The value <code class="docutils literal notranslate"><span class="pre">all</span></code> specifies that it matches all users. Otherwise, this is either the name of a specific database user, or a group name preceded by +. (Recall that there is no real distinction between users and groups in PostgreSQL; a + mark really means “match any of the roles that are directly or indirectly members of this role”, while a name without a + mark matches only that specific role.) For this purpose, a superuser is only considered to be a member of a role if they are explicitly a member of the role, directly or indirectly, and not just by virtue of being a superuser. Multiple user names can be supplied by separating them with commas. A separate file containing user names can be specified by preceding the file name with &#64;.</p>
+<p>Specifies the database user name that matches this record. <code class="docutils literal notranslate"><span class="pre">all</span></code> is specified to match all users. In other cases, it is the name of a particular database user or a group name preceded by +. (In AgensGraph, there is no real difference between user name and group name: “” mark actually means “matching any role that is a direct or indirect member of this role” and the name without “+” mark matches a specific role.) For this reason, a superuser shall be considered a role member only when it is an explicit member of the role, directly or indirectly, not because it is merely a superuser. You can use multiple usernames separated by commas. A file containing a user name can be specified by prefixing the file name with &#64;.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p>
+<p>Specifies the client machine address that matches this record. This field may contain either a host name, an IP address range, or one of the special keywords described below.
 An IP address is specified in the dotted decimal standard notation of the CIDR mask length. The mask length indicates the number of upper bits of the client IP address to be matched. The bit to the right of this should be 0 at the given IP address. There should be no space between the IP address, “/”, and CIDR mask length.
-Typical examples of such an IP address range: 172.20.143.89/32 for a single host, 172.20.143.0/24 for a small network, and 10.6.0.0/16 for a large network. 0.0.0.0/0 represents all IPv4 addresses, and ::/0 represents all IPv6 addresses. If you want to specify a single host, use CIDR mask 32 for IPv4 and 128 for IPv6. Do not omit 0 at the end of the network address.
-You can use “all” to match any IP address or samehost to match only the server’s own IP address. You may also use samenet to match all addresses on the subnet to which the server is directly connected.</p></li>
-<li><p><strong>IP-address, IP-mask</strong>
-This field can be used as an alternative to the CIDR-address notation. Instead of specifying the mask length, the actual mask is specified by separating it with commas. For example, 255.0.0.0 represents the IPv4 CIDR mask length 8, and 255.255.255.255 represents the CIDR mask length 32.
-This field applies to host, hostssl, and hostnossl records.</p></li>
-<li><p><strong>auth-method</strong>
+Typical examples of such an IP address range: <code class="docutils literal notranslate"><span class="pre">172.20.143.89/32</span></code> for a single host, <code class="docutils literal notranslate"><span class="pre">172.20.143.0/24</span></code> for a small network, and <code class="docutils literal notranslate"><span class="pre">10.6.0.0/16</span></code> for a large network. <code class="docutils literal notranslate"><span class="pre">0.0.0.0/0</span></code> represents all IPv4 addresses, and <code class="docutils literal notranslate"><span class="pre">::/0</span></code> represents all IPv6 addresses. If you want to specify a single host, use CIDR mask 32 for IPv4 and 128 for IPv6. Do not omit 0 at the end of the network address.
+You can use “all” to match any IP address or <code class="docutils literal notranslate"><span class="pre">samehost</span></code> to match only the server’s own IP address. You may also use <code class="docutils literal notranslate"><span class="pre">samenet</span></code> to match all addresses on the subnet to which the server is directly connected.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IP-address</span></code>, <code class="docutils literal notranslate"><span class="pre">IP-mask</span></code>
+This field can be used as an alternative to the <code class="docutils literal notranslate"><span class="pre">CIDR-address</span></code> notation. Instead of specifying the mask length, the actual mask is specified by separating it with commas. For example, <code class="docutils literal notranslate"><span class="pre">255.0.0.0</span></code> represents the IPv4 CIDR mask length 8, and <code class="docutils literal notranslate"><span class="pre">255.255.255.255</span></code> represents the CIDR mask length 32.</p>
+<p>This field applies to <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">hostssl</span></code>, and <code class="docutils literal notranslate"><span class="pre">hostnossl</span></code> records.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auth-method</span></code>
 Specifies an authentication method to use when the connection matches this record. Possible choices are:</p>
 <ul>
-<li><p><strong>trust</strong>
-Allows unconditional connections. This method allows any logged-in users to connect to the AgensGraph database server without requesting a password or other authentications.</p></li>
-<li><p><strong>reject</strong>
-Refuses unconditional connections. This is useful when you want to “filter” specific hosts in a group. For example, a reject line blocks connections from particular hosts, and subsequent lines allow connections with other hosts on a particular network.</p></li>
-<li><p><strong>md5</strong>
-The client should provide a double-MD5-hashed password for authentication.</p></li>
-<li><p><strong>scram-sha-256</strong>
-The method scram-sha-256 performs SCRAM-SHA-256 authentication, as described in RFC 7677. It is a challenge-response scheme that prevents password sniffing on untrusted connections and supports storing passwords on the server in a cryptographically hashed form that is thought to be secure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trust</span></code></p>
+<p>Allows unconditional connections. This method allows any logged-in users to connect to the AgensGraph database server without requesting a password or other authentications.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reject</span></code></p>
+<p>Refuses unconditional connections. This is useful when you want to “filter” specific hosts in a group. For example, a <code class="docutils literal notranslate"><span class="pre">reject</span></code> line blocks connections from particular hosts, and subsequent lines allow connections with other hosts on a particular network.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">md5</span></code></p>
+<p>The client should provide a double-MD5-hashed password for authentication.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scram-sha-256</span></code></p>
+<p>The method scram-sha-256 performs SCRAM-SHA-256 authentication, as described in RFC 7677. It is a challenge-response scheme that prevents password sniffing on untrusted connections and supports storing passwords on the server in a cryptographically hashed form that is thought to be secure.</p>
+</li>
 </ul>
 </li>
 <li><p>This is the most secure of the currently provided methods, but it is not supported by older client libraries.</p>
 <ul>
-<li><p><strong>password</strong>
-The client must provide an unencrypted password for authentication. As the password is transmitted in plaintext over the network, do not use it on untrusted networks.</p></li>
-<li><p><strong>gss</strong>
-Authenticates users using GSSAPI. This can be used only on the TCP/IP connections.</p></li>
-<li><p><strong>sspi</strong>
-Authenticates users using SSPI. This can be used only on Windows.</p></li>
-<li><p><strong>ident</strong>
-Obtains the operating system user name of the client by contacting the client’s ident server and verifies if it matches the requested database user name. Ident authentication can only be used on TCP/IP connections. For local connections, peer authentication is used instead.</p></li>
-<li><p><strong>peer</strong>
-Obtains the operating system user name of the client from the operating system and verifies if it matches the requested database user name. This is only available for local connections.</p></li>
-<li><p><strong>ldap</strong>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code></p>
+<p>The client must provide an unencrypted password for authentication. As the password is transmitted in plaintext over the network, do not use it on untrusted networks.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gss</span></code></p>
+<p>Authenticates users using GSSAPI. This can be used only on the TCP/IP connections.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sspi</span></code></p>
+<p>Authenticates users using SSPI. This can be used only on Windows.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ident</span></code></p>
+<p>Obtains the operating system user name of the client by contacting the client’s ident server and verifies if it matches the requested database user name. Ident authentication can only be used on TCP/IP connections. For local connections, peer authentication is used instead.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">peer</span></code></p>
+<p>Obtains the operating system user name of the client from the operating system and verifies if it matches the requested database user name. This is only available for local connections.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldap</span></code>
 Authentication using an LDAP server.</p></li>
-<li><p><strong>radius</strong>
-Authentication using a RADIUS server.</p></li>
-<li><p><strong>cert</strong>
-Authentication using SSL client authentication.</p></li>
-<li><p><strong>pam</strong>
-Authenticates using Pluggable Authentication Modules (PAM) provided by the operating system.</p></li>
-<li><p><strong>bsd</strong>
-Authenticate using the BSD Authentication service provided by the operating system.</p></li>
-<li><p><strong>auth-options</strong>
-After the auth-method field, there can be a name=value field that specifies options for the authentication method.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">radius</span></code></p>
+<p>Authentication using a RADIUS server.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cert</span></code></p>
+<p>Authentication using SSL client authentication.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pam</span></code></p>
+<p>Authenticates using Pluggable Authentication Modules (PAM) provided by the operating system.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bsd</span></code></p>
+<p>Authenticate using the BSD Authentication service provided by the operating system.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auth-options</span></code></p>
+<p>After the auth-method field, there can be a name=value field that specifies options for the authentication method.</p>
+</li>
 </ul>
 </li>
-<li><p>Files containing &#64; shall be read as a list of names separated by spaces or commas. Annotations marked as #, like pg_hba.conf, and nested &#64; phrases are allowed. If the file name followed by &#64; is not an absolute path, it is treated as a relative path to the directory where the reference file is located.
-The order of the records is important because the pg_hba.conf record is checked sequentially for each connection attempt. The connection (matching) parameters are meticulous and the authentication method is loose in the early records, while the connection matching parameters are loose and the authentication method is strong in the late records. For instance, you may use a trust authentication for a local TCP/IP connection while making a remote TCP/IP connection. In such a case, the record specifying the trust authentication for the connection from 127.0.0.1 appears before a record that supports password authentication for various allowed client IP addresses.</p></li>
+<li><p>Files containing <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> shall be read as a list of names separated by spaces or commas. Annotations marked as <code class="docutils literal notranslate"><span class="pre">#</span></code>, like <code class="docutils literal notranslate"><span class="pre">pg\_hba.conf</span></code>, and nested <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> phrases are allowed. If the file name followed by <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> is not an absolute path, it is treated as a relative path to the directory where the reference file is located.</p>
+<p>The order of the records is important because the <code class="docutils literal notranslate"><span class="pre">pg\_hba.conf</span></code> record is checked sequentially for each connection attempt. The connection (matching) parameters are meticulous and the authentication method is loose in the early records, while the connection matching parameters are loose and the authentication method is strong in the late records. For instance, you may use a trust authentication for a local TCP/IP connection while making a remote TCP/IP connection. In such a case, the record specifying the trust authentication for the connection from <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> appears before a record that supports password authentication for various allowed client IP addresses.</p>
+</li>
 </ul>
 </section>
 <section id="user-name-maps">
 <h3><strong>User Name Maps</strong><a class="headerlink" href="#user-name-maps" title="Permalink to this heading"></a></h3>
-<p>If you are using an external authentication system such as Ident or GSSAPI, the name of the operating system user initiating the connection may be different from the name of the database user to connect. In such a case, you may use the user name map to map the operating system user name to the database user name. To use the user name mapping, you should specify map=map-name in the pg_hba.conf option field. This option is supported in all authentication methods that receive external user names. As different connections may require different mappings, the name of the map to use (for specifying maps per connection) can be designated in the map-name parameter of pg_hba.conf.</p>
-<p>The username map is defined in the ident map file, and its name is pg_ident.conf (default) and stored in the data directory.</p>
-<p>map-name system-username database-username</p>
-<p>Comments and spaces are processed equally in pg_hba.conf. map-name is an arbitrary name used in pg_hba.conf to refer to the mapping. The other two fields specify the operating system user name and the database user name. You can specify multiple user mappings within a single map by using the same map-name several times.</p>
+<p>If you are using an external authentication system such as Ident or GSSAPI, the name of the operating system user initiating the connection may be different from the name of the database user to connect. In such a case, you may use the user name map to map the operating system user name to the database user name. To use the user name mapping, you should specify <code class="docutils literal notranslate"><span class="pre">map=map-name</span></code> in the <code class="docutils literal notranslate"><span class="pre">pg\_hba.conf</span></code> option field. This option is supported in all authentication methods that receive external user names. As different connections may require different mappings, the name of the map to use (for specifying maps per connection) can be designated in the <code class="docutils literal notranslate"><span class="pre">map-name</span></code> parameter of <code class="docutils literal notranslate"><span class="pre">pg\_hba.conf</span></code>.</p>
+<p>The username map is defined in the ident map file, and its name is <code class="docutils literal notranslate"><span class="pre">pg\_ident.conf</span></code> (default) and stored in the data directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="nb">map</span><span class="o">-</span><span class="n">name</span> <span class="n">system</span><span class="o">-</span><span class="n">username</span> <span class="n">database</span><span class="o">-</span><span class="n">username</span>
+</pre></div>
+</div>
+<p>Comments and spaces are processed equally in <code class="docutils literal notranslate"><span class="pre">pg\_hba.conf</span></code>. <code class="docutils literal notranslate"><span class="pre">map-name</span></code> is an arbitrary name used in <code class="docutils literal notranslate"><span class="pre">pg\_hba.conf</span></code> to refer to the mapping. The other two fields specify the operating system user name and the database user name. You can specify multiple user mappings within a single map by using the same <code class="docutils literal notranslate"><span class="pre">map-name</span></code> several times.</p>
 <p>There is no restriction as to how many database users correspond to a given operating system user (and vice versa). Therefore, with the entries in the map, you should consider that “this operating system user is allowed to connect as a database user”, rather than that the users are identical. Connections are allowed if there is a map entry in which a user name obtained from the external authentication system pairs with a database user name used when the user made a connection request.</p>
-<p>If the system-username field begins with a slash (/), the remainder of the field is processed as a regular expression. Regular expressions may contain single captures or bracket expressions, and can be referenced in the database-username field by \1 (backslash). It can map multiple user names in a single line, and is especially useful for simple syntax substitution. Examples:</p>
-<p>mymap /^(.*)&#64;mydomain.com$\1</p>
-<p>mymap /^(.*)&#64;otherdomain.com$ guest</p>
-<p>This entry deletes the domain part for the user using the system user name ending in &#64;mydomain.com and allows any user whose system name ends in &#64;otherdomain.com to log in as guest.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">system-username</span></code> field begins with a slash (<code class="docutils literal notranslate"><span class="pre">/</span></code>), the remainder of the field is processed as a regular expression. Regular expressions may contain single captures or bracket expressions, and can be referenced in the <code class="docutils literal notranslate"><span class="pre">database-username</span></code> field by <code class="docutils literal notranslate"><span class="pre">\1</span></code> (backslash). It can map multiple user names in a single line, and is especially useful for simple syntax substitution. Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  mymap /^(.\*)@mydomain\.com$\1
+  mymap /^(.\*)@otherdomain\.com$ guest
+</pre></div>
+</div>
+<p>This entry deletes the domain part for the user using the system user name ending in <code class="docutils literal notranslate"><span class="pre">&#64;mydomain.com</span></code> and allows any user whose system name ends in <code class="docutils literal notranslate"><span class="pre">&#64;otherdomain.com</span></code> to log in as <code class="docutils literal notranslate"><span class="pre">guest</span></code>.</p>
 </section>
 <section id="authentication-methods">
 <h3><strong>Authentication Methods</strong><a class="headerlink" href="#authentication-methods" title="Permalink to this heading"></a></h3>
 <p>This section details authentication methods.</p>
 <section id="trust-authentication">
 <h4><strong>Trust Authentication</strong><a class="headerlink" href="#trust-authentication" title="Permalink to this heading"></a></h4>
-<p>If trust authentication is specified, AgensGraph assumes that anyone who can connect to the server using the specified database user name is authenticated for database access (including the superuser name). The limitations of the database and user columns still apply as well. This method should only be used if adequate operating system level protection is provided for server connections.</p>
-<p>trust authentication is appropriate for local connections to a single user workstation and is very convenient. It is not appropriate, however, for multiuser machines in general. trust authentication is suitable for TCP/IP connections only when all the users on all machines that are allowed to connect to the server are trusted in pg_hba.conf, which specifies trust. It is unreasonable to use trust for TCP/IP connections except for localhost (127.0.0.1).</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">trust</span></code> authentication is specified, AgensGraph assumes that anyone who can connect to the server using the specified database user name is authenticated for database access (including the superuser name). The limitations of the <code class="docutils literal notranslate"><span class="pre">database</span></code> and <code class="docutils literal notranslate"><span class="pre">user</span></code> columns still apply as well. This method should only be used if adequate operating system level protection is provided for server connections.</p>
+<p><code class="docutils literal notranslate"><span class="pre">trust</span></code> authentication is appropriate for local connections to a single user workstation and is very convenient. It is not appropriate, however, for multiuser machines in general. <code class="docutils literal notranslate"><span class="pre">trust</span></code> authentication is suitable for TCP/IP connections only when all the users on all machines that are allowed to connect to the server are trusted in <code class="docutils literal notranslate"><span class="pre">pg\_hba.conf</span></code>, which specifies <code class="docutils literal notranslate"><span class="pre">trust</span></code>. It is unreasonable to use <code class="docutils literal notranslate"><span class="pre">trust</span></code> for TCP/IP connections except for localhost (127.0.0.1).</p>
 </section>
 <section id="password-authentication">
 <h4><strong>Password Authentication</strong><a class="headerlink" href="#password-authentication" title="Permalink to this heading"></a></h4>
 <p>The password-based authentication methods are md5, scram-sha-256, and password. Both methods work similarly except that the password is sent in MD5 hash and plaintext respectively.</p>
 <p>While md5 has been widely used in previous versions, scram-sha-256 is the most secure method in this version. Using scram-sha-256 or md5 to guard against password “sniffing” attacks is preferable; normal password should be avoided if possible. However, md5 cannot be used with the db_user_namespace feature. You can safely use a password if the connection is protected by SSL encryption.</p>
-<p>The AgensGraph database password is distinguished from the operating system user password. Passwords of each database user are stored in the pg_authid system catalog. Such passwords can be managed by SQL commands CREATE USER and ALTER ROLE (e.g. CREATE USER foo WITH PASSWORD ‘secret’). If the password is not set for a user, the stored password is null and password authentication always fails for the user.</p>
+<p>The AgensGraph database password is distinguished from the operating system user password. Passwords of each database user are stored in the <code class="docutils literal notranslate"><span class="pre">pg\_authid</span></code> system catalog. Such passwords can be managed by SQL commands CREATE USER and ALTER ROLE (e.g. CREATE USER foo WITH PASSWORD ‘secret’). If the password is not set for a user, the stored password is null and password authentication always fails for the user.</p>
 </section>
 <section id="gssapi-authentication">
 <h4><strong>GSSAPI Authentication</strong><a class="headerlink" href="#gssapi-authentication" title="Permalink to this heading"></a></h4>
 <p>GSSAPI is an industry-standard protocol for security authentication as defined in RFC 2743, and provides single sign-on for GSSAPI-supporting systems. Authentication itself is secure, but if you do not use SSL, the data sent over the database connection is transmitted unencrypted.</p>
-<p>When you connect to the database, you should check if there is a ticket for the security rule that matches the name of the requested database user. For example, if the database name is fred, the security rule fred&#64;EXAMPLE.COM is connectable.</p>
+<p>When you connect to the database, you should check if there is a ticket for the security rule that matches the name of the requested database user. For example, if the database name is <code class="docutils literal notranslate"><span class="pre">fred</span></code>, the security rule <code class="docutils literal notranslate"><span class="pre">fred&#64;EXAMPLE.COM</span></code> is connectable.</p>
 <p>The following configuration options are supported for GSSAPI.</p>
-<ul class="simple">
-<li><p><strong>include_realm</strong>
-If set to 1, the realm name of the authenticated user security rule is included in the system user name transmitted through the user name mapping. This is useful when processing users in multiple realms.</p></li>
-<li><p><strong>map</strong>
-Allows mapping between the system and database user names.</p></li>
-<li><p><strong>krb_realm</strong>
-Sets a realm that matches the user security rule name. When this parameter is set, only users in the corresponding realm are allowed. If not set, users in all realms can connect; the realm depends on whether the username mapping is complete or not.</p></li>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">include\_realm</span></code></p>
+<p>If set to 1, the realm name of the authenticated user security rule is included in the system user name transmitted through the user name mapping. This is useful when processing users in multiple realms.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span></code></p>
+<p>Allows mapping between the system and database user names.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">krb\_realm</span></code></p>
+<p>Sets a realm that matches the user security rule name. When this parameter is set, only users in the corresponding realm are allowed. If not set, users in all realms can connect; the realm depends on whether the username mapping is complete or not.</p>
+</li>
 </ul>
 </section>
 <section id="sspi-authentication">
@@ -718,12 +749,14 @@ Sets a realm that matches the user security rule name. When this parameter is se
 <p>SSPI is a Windows technology for single sign-on (SSO) security authentication. AgensGraph uses SSPI in negotiate mode. It uses Kerberos if available, and in other cases, automatically falls back to NTLM. SSPI authentication works only when both the server and client use Windows; if GSSAPI is available, it works with non-Windows as well.</p>
 <p>While using Kerberos authentication, SSPI works the same way as GSSAPI.</p>
 <p>The following configuration options are supported for SSPI.</p>
-<ul class="simple">
-<li><p><strong>include_realm</strong>
-If set to 1, the realm name of the authenticated user security rule is included in the system user name transmitted through the user name mapping. This is useful when processing users in multiple realms.</p></li>
-<li><p><strong>map</strong>
-Allows mapping between the system and database user names.</p></li>
-<li><p><strong>krb_realm</strong>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">include\_realm</span></code></p>
+<p>If set to 1, the realm name of the authenticated user security rule is included in the system user name transmitted through the user name mapping. This is useful when processing users in multiple realms.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span></code></p>
+<p>Allows mapping between the system and database user names.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">krb\_realm</span></code>
 Sets a realm that matches the user security rule name. When this parameter is set, only users in the corresponding realm are allowed. If not set, users in all realms can make a connection; the realm depends on whether the username mapping is complete or not.</p></li>
 </ul>
 </section>
@@ -732,7 +765,7 @@ Sets a realm that matches the user security rule name. When this parameter is se
 <p>The ident authentication method works by acquiring the client’s operating system user name from the ident server and using it as an allowed database user name (optional user name mapping is applied). This authentication is supported only for TCP/IP connections.</p>
 <p>The following configuration option is supported for ident:</p>
 <ul class="simple">
-<li><p><strong>map</strong>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span></code>
 Allows mapping between the system and database user names.</p></li>
 </ul>
 <p>Some ident servers have a nonstandard option that allows the returned user name to be encrypted using a key known only to the administrator of the original machine. As AgensGraph does not have a way to decrypt the returned string to determine the actual user name, you should not use this option if you are using AgensGraph on the ident server.</p>
@@ -741,92 +774,116 @@ Allows mapping between the system and database user names.</p></li>
 <h4><strong>Peer authentication</strong><a class="headerlink" href="#peer-authentication" title="Permalink to this heading"></a></h4>
 <p>The peer authentication method works by acquiring the client’s operating system user name from the kernel and using it as an allowed database user name (optional user name mapping is applied). This authentication is supported only for local connections.</p>
 <p>The following configuration option is supported for peer:</p>
-<ul class="simple">
-<li><p><strong>map</strong>
-Allows mapping between the system and database user names.</p></li>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span></code></p>
+<p>Allows mapping between the system and database user names.</p>
+</li>
 </ul>
 <p>Peer authentication can only be used on operating systems such as Linux that provides getpeereid(), SO_PEERCRED (socket parameter), and/or similar mechanisms.</p>
 </section>
 <section id="ldap-authentication">
 <h4><strong>LDAP Authentication</strong><a class="headerlink" href="#ldap-authentication" title="Permalink to this heading"></a></h4>
-<p>This authentication works like a password except when you use LDAP as a password verification method. LDAP is used only when verifying username/password pairs. This means the user must exist in the database before applying LDAP for authentication.</p>
-<p>LDAP authentication can be performed in two modes. The first mode (simple binding mode) is to bind the server to a unique name consisting of prefix username suffix. Typically, the prefix parameter is used to specify cn= or DOMAIN\ in an active directory environment; suffix is used to specify the rest of the active directory environment.</p>
-<p>In the second mode (search+binding mode), the server first binds to the LDAP directory using the specified and fixed username and password via ldapbinddn and ldapbindpasswd, and then searches for users who are trying to log in to the database. If no user and password are set, anonymous binding to the directory is attempted. The search is performed in the subtree of ldapbasedn and what matches ldapsearchattribute exactly are retrieved. If a user is found in this search, the server disconnects the connection and re-binds to the directory as the user using the password specified on the client to verify if the login is correct. This mode is the same as the one used in the LDAP authentication schema of other software, such as Apache mod_authnz_ldap and pam_ldap. While LDAP authentication works more flexibly when the user objects are in the directory, it disconnects the two LDAP servers.</p>
+<p>This authentication works like a <code class="docutils literal notranslate"><span class="pre">password</span></code> except when you use LDAP as a password verification method. LDAP is used only when verifying username/password pairs. This means the user must exist in the database before applying LDAP for authentication.</p>
+<p>LDAP authentication can be performed in two modes. The first mode (simple binding mode) is to bind the server to a unique name consisting of <code class="docutils literal notranslate"><span class="pre">prefix</span> <span class="pre">username</span> <span class="pre">suffix</span></code>. Typically, the <code class="docutils literal notranslate"><span class="pre">prefix</span></code> parameter is used to specify <code class="docutils literal notranslate"><span class="pre">cn</span></code>= or <code class="docutils literal notranslate"><span class="pre">DOMAIN\</span></code> in an active directory environment; <code class="docutils literal notranslate"><span class="pre">suffix</span></code> is used to specify the rest of the active directory environment.</p>
+<p>In the second mode (search+binding mode), the server first binds to the LDAP directory using the specified and fixed username and password via <code class="docutils literal notranslate"><span class="pre">ldapbinddn</span></code> and <code class="docutils literal notranslate"><span class="pre">ldapbindpasswd</span></code>, and then searches for users who are trying to log in to the database. If no user and password are set, anonymous binding to the directory is attempted. The search is performed in the subtree of <code class="docutils literal notranslate"><span class="pre">ldapbasedn</span></code> and what matches <code class="docutils literal notranslate"><span class="pre">ldapsearchattribute</span></code> exactly are retrieved. If a user is found in this search, the server disconnects the connection and re-binds to the directory as the user using the password specified on the client to verify if the login is correct. This mode is the same as the one used in the LDAP authentication schema of other software, such as Apache <code class="docutils literal notranslate"><span class="pre">mod\_authnz\_ldap</span></code> and <code class="docutils literal notranslate"><span class="pre">pam\_ldap</span></code>. While LDAP authentication works more flexibly when the user objects are in the directory, it disconnects the two LDAP servers.</p>
 <p>The following configuration options are used in both modes.</p>
-<ul class="simple">
-<li><p><strong>ldapserver</strong>
-The name or IP address of the LDAP server to connect to. You may specify multiple servers separated by spaces.</p></li>
-<li><p><strong>ldapport</strong>
-The port number of the LDAP server to connect to. If no port is specified, the default port setting of the LDAP library will be used.</p></li>
-<li><p><strong>ldaptls</strong>
-If set to 1, AgensGraph is connected to the LDAP server using TLS encryption. This encrypts only traffic to the LDAP server. The connection to the client will remain unencrypted unless you use SSL.</p></li>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldapserver</span></code></p>
+<p>The name or IP address of the LDAP server to connect to. You may specify multiple servers separated by spaces.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldapport</span></code></p>
+<p>The port number of the LDAP server to connect to. If no port is specified, the default port setting of the LDAP library will be used.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldaptls</span></code></p>
+<p>If set to 1, AgensGraph is connected to the LDAP server using TLS encryption. This encrypts only traffic to the LDAP server. The connection to the client will remain unencrypted unless you use SSL.</p>
+</li>
 </ul>
 <p>The following options are used only in the simple binding mode.</p>
-<ul class="simple">
-<li><p><strong>ldapprefix</strong>
-A string to append before a user name in the DN binding when performing simple binding authentication.</p></li>
-<li><p><strong>ldapsuffix</strong>
-A string to append after a user name in the DN binding when performing simple binding authentication.</p></li>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldapprefix</span></code></p>
+<p>A string to append before a user name in the DN binding when performing simple binding authentication.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldapsuffix</span></code></p>
+<p>A string to append after a user name in the DN binding when performing simple binding authentication.</p>
+</li>
 </ul>
 <p>The following options are used only in the search+bindingmode.</p>
-<ul class="simple">
-<li><p><strong>ldapbasedn</strong>
-Root DN at which a user search is initiated when performing search+binding authentication.</p></li>
-<li><p><strong>ldapbinddn</strong>
-User DN that binds to the directory to perform a search during search+binding authentication.</p></li>
-<li><p><strong>ldapbindpasswd</strong>
-User’s password that binds to the directory to perform a search during search+binding authentication.</p></li>
-<li><p><strong>ldapsearchattribute</strong>
-Attribute that matches the user name in the search when performing search+binding authentication. If no attribute is specified, the uid attribute is used.</p></li>
-<li><p><strong>ldapurl</strong>
-RFC 4516 LDAP URL. This is another way to write some of the other LDAP options in a more compact standard format. The default is:
-ldap://host[:port]/basedn[?[attribute][?[scope]]]
-scope should be specified as base, one, or sub (usually the latter). Only one attribute is used, and other settings for standard LDAP URLs such as filters and extensions are not supported. For non-anonymous bindings, ldapbinddn and ldapbindpasswd should be specified as separate options.
-In order to use an encrypted LDAP connection, the option ldaptls should be used in addition to ldapurl. ldaps URL schema (direct SSL connection) is not supported.
-LDAP URLs are currently supported only by OpenLDAP, not Windows.</p></li>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldapbasedn</span></code></p>
+<p>Root DN at which a user search is initiated when performing search+binding authentication.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldapbinddn</span></code></p>
+<p>User DN that binds to the directory to perform a search during search+binding authentication.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldapbindpasswd</span></code></p>
+<p>User’s password that binds to the directory to perform a search during search+binding authentication.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldapsearchattribute</span></code></p>
+<p>Attribute that matches the user name in the search when performing search+binding authentication. If no attribute is specified, the uid attribute is used.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldapurl</span></code></p>
+<p>RFC 4516 LDAP URL. This is another way to write some of the other LDAP options in a more compact standard format. The default is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  ldap://host[:port]/basedn[?[attribute][?[scope]]]
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">scope</span></code> should be specified as <code class="docutils literal notranslate"><span class="pre">base</span></code>, <code class="docutils literal notranslate"><span class="pre">one</span></code>, or <code class="docutils literal notranslate"><span class="pre">sub</span></code> (usually the latter). Only one attribute is used, and other settings for standard LDAP URLs such as filters and extensions are not supported. For non-anonymous bindings, <code class="docutils literal notranslate"><span class="pre">ldapbinddn</span></code> and <code class="docutils literal notranslate"><span class="pre">ldapbindpasswd</span></code> should be specified as separate options.</p>
+<p>In order to use an encrypted LDAP connection, the option <code class="docutils literal notranslate"><span class="pre">ldaptls</span></code> should be used in addition to <code class="docutils literal notranslate"><span class="pre">ldapurl</span></code>. <code class="docutils literal notranslate"><span class="pre">ldaps</span></code> URL schema (direct SSL connection) is not supported.</p>
+<p>LDAP URLs are currently supported only by OpenLDAP, not Windows.</p>
+</li>
 </ul>
 <p>It is an error to mix the configuration options of simple bindings with the options of search+bindings.</p>
 <p>An example of a simple binding LDAP configuration:</p>
-<p>host … ldap ldapserver=ldap.example.net ldapprefix=”cn=” ldapsuffix=”, dc=example, dc=net”</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">...</span> <span class="n">ldap</span> <span class="n">ldapserver</span><span class="o">=</span><span class="n">ldap</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="n">ldapprefix</span><span class="o">=</span><span class="s2">&quot;cn=&quot;</span> <span class="n">ldapsuffix</span><span class="o">=</span><span class="s2">&quot;, dc=example, dc=net&quot;</span>
+</pre></div>
+</div>
 <p>If the database user someuser is asked to connect to the database server, AgensGraph tries to bind to the LDAP server using DN cn=someuser and dc=example, dc=net, and the password provided by the client. If the connection is successful, database access is allowed.</p>
 <p>An example of a search+binding configuration is as follows:</p>
-<p>host … ldap ldapserver=ldap.example.net ldapbasedn=”dc=example, dc=net” ldapsearchattribute=uid</p>
-<p>If the database user someuser is asked to connect to the database server, AgensGraph tries to bind to the LDAP server anonymously (because ldapbinddn is not specified) and performs a search for (uid=someuser) under the specified base DN. If an entry is found, it attempts to bind using the discovered information and the password provided by the client. If the secondary connection is successful, database access is allowed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">...</span> <span class="n">ldap</span> <span class="n">ldapserver</span><span class="o">=</span><span class="n">ldap</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="n">ldapbasedn</span><span class="o">=</span><span class="s2">&quot;dc=example, dc=net&quot;</span> <span class="n">ldapsearchattribute</span><span class="o">=</span><span class="n">uid</span>
+</pre></div>
+</div>
+<p>If the database user <code class="docutils literal notranslate"><span class="pre">someuser</span></code> is asked to connect to the database server, AgensGraph tries to bind to the LDAP server anonymously (because <code class="docutils literal notranslate"><span class="pre">ldapbinddn</span></code> is not specified) and performs a search for (uid=someuser) under the specified base DN. If an entry is found, it attempts to bind using the discovered information and the password provided by the client. If the secondary connection is successful, database access is allowed.</p>
 <p>The same search+binding configuration with URL is as follows:</p>
-<p>host … ldap lapurl=”ldap://ldap.example.net/dc=example,dc=net?uid?sub”</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">...</span> <span class="n">ldap</span> <span class="n">lapurl</span><span class="o">=</span><span class="s2">&quot;ldap://ldap.example.net/dc=example,dc=net?uid?sub&quot;</span>
+</pre></div>
+</div>
 <p>As other software supporting authentication for LDAP uses the same URL format, it gets easier to share settings.</p>
 </section>
 <section id="radius-authentication">
 <h4><strong>RADIUS Authentication</strong><a class="headerlink" href="#radius-authentication" title="Permalink to this heading"></a></h4>
-<p>This authentication works like a password except when you use LDAP as a password verification method. RADIUS is used only when verifying username/password pairs. This means the user must exist in the database before applying RADIUS for authentication.</p>
-<p>If you are using RADIUS authentication, an Access Request message is sent to the configured RADIUS server. This request is an Authenticate Only type and contains parameters for user name, password (encrypted), and NAS Identifier. The request is encrypted using secret that is shared with the server. The RADIUS server sends back either Access Accept or Access Reject. The RADIUS accounts are not supported.</p>
+<p>This authentication works like a <code class="docutils literal notranslate"><span class="pre">password</span></code> except when you use LDAP as a password verification method. RADIUS is used only when verifying username/password pairs. This means the user must exist in the database before applying RADIUS for authentication.</p>
+<p>If you are using RADIUS authentication, an Access Request message is sent to the configured RADIUS server. This request is an <code class="docutils literal notranslate"><span class="pre">Authenticate</span> <span class="pre">Only</span></code> type and contains parameters for <code class="docutils literal notranslate"><span class="pre">user</span> <span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">password</span></code> (encrypted), and <code class="docutils literal notranslate"><span class="pre">NAS</span> <span class="pre">Identifier</span></code>. The request is encrypted using secret that is shared with the server. The RADIUS server sends back either <code class="docutils literal notranslate"><span class="pre">Access</span> <span class="pre">Accept</span></code> or <code class="docutils literal notranslate"><span class="pre">Access</span> <span class="pre">Reject</span></code>. The RADIUS accounts are not supported.</p>
 <p>The following configuration options are supported for RADIUS.</p>
-<ul class="simple">
-<li><p><strong>radiusserver</strong>
-The name or IP address of the RADIUS server to connect to. This parameter is required.</p></li>
-<li><p><strong>radiussecret</strong>
-Shared secret used when communicating with a RADIUS server while maintaining security. Its values on AgensGraph and RADIUS servers should be identical. A string of at least 16 characters is recommended. This parameter is required.</p></li>
-<li><p><strong>radiusport</strong>
-The port number of the RADIUS server to connect to. If no port is specified, the default port “1812” is used.</p></li>
-<li><p><strong>radiusidentifier</strong>
-A string is used as a NAS identifier in RADIUS requests. For example, this parameter can be used as the second parameter in the RADIUS server by identifying the database user to be authenticated. If no identifier is specified, the default postgresql is used.</p></li>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">radiusserver</span></code></p>
+<p>The name or IP address of the RADIUS server to connect to. This parameter is required.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">radiussecret</span></code></p>
+<p>Shared secret used when communicating with a RADIUS server while maintaining security. Its values on AgensGraph and RADIUS servers should be identical. A string of at least 16 characters is recommended. This parameter is required.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">radiusport</span></code></p>
+<p>The port number of the RADIUS server to connect to. If no port is specified, the default port “1812” is used.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">radiusidentifier</span></code></p>
+<p>A string is used as a NAS identifier in RADIUS requests. For example, this parameter can be used as the second parameter in the RADIUS server by identifying the database user to be authenticated. If no identifier is specified, the default postgresql is used.</p>
+</li>
 </ul>
 </section>
 <section id="certificate-authentication">
 <h4><strong>Certificate Authentication</strong><a class="headerlink" href="#certificate-authentication" title="Permalink to this heading"></a></h4>
 <p>As this method performs authentication using an SSL client certificate, it is available only for SSL connections. When you apply this authentication method, the server requires the client to provide a valid certificate. The password prompt is not sent to the client. The cn (common name) attribute of the certificate is compared to the requested database user name; if they match, the login is allowed. You may use the user name mapping to set cn different from the database user name.</p>
 <p>The following configuration option is supported for SSL certificate authentication.</p>
-<ul class="simple">
-<li><p><strong>map</strong>
-Allows mapping between the system and database user names.</p></li>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span></code></p>
+<p>Allows mapping between the system and database user names.</p>
+</li>
 </ul>
 </section>
 <section id="pam-authentication">
 <h4><strong>PAM Authentication</strong><a class="headerlink" href="#pam-authentication" title="Permalink to this heading"></a></h4>
-<p>This authentication works like a password except when you use Pluggable Authentication Modules (PAM) as an authentication mechanism. The default PAM service name is postgresql. PAM is used only when verifying username/password pairs. This means the user must exist in the database before applying PAM for authentication.</p>
+<p>This authentication works like a <code class="docutils literal notranslate"><span class="pre">password</span></code> except when you use Pluggable Authentication Modules (PAM) as an authentication mechanism. The default PAM service name is <code class="docutils literal notranslate"><span class="pre">postgresql</span></code>. PAM is used only when verifying username/password pairs. This means the user must exist in the database before applying PAM for authentication.</p>
 <p>The following configuration option is supported for PAM.</p>
 <ul class="simple">
-<li><p><strong>pamservice</strong>
+<li><p><code class="docutils literal notranslate"><span class="pre">pamservice</span></code>
 PAM service name.</p></li>
 </ul>
 </section>
@@ -834,13 +891,21 @@ PAM service name.</p></li>
 <section id="authentication-problems">
 <h3><strong>Authentication Problems</strong><a class="headerlink" href="#authentication-problems" title="Permalink to this heading"></a></h3>
 <p>Authentication failures and relevant issues are typically revealed through error messages as follows:</p>
-<p>FATAL:no pg_hba.conf entry for host “123.123.123.123”, user “andym”, database “testdb”</p>
-<p>This means connection with the user is possible. As indicated in the message, the server refused the connection request because it failed to find a match in the pg_hba.conf configuration file.</p>
-<p>FATAL:password authentication failed for user “andym”</p>
-<p>This message means that the user has contacted the server and connection with the user is possible, but the user should pass the authentication method specified in the pg_hba.conf file. The password entered by the user should be examined, or if there is a problem with this authentication type, the user’s Kerberos or ident software should be checked.</p>
-<p>FATAL:user “andym” does not exist</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FATAL</span><span class="p">:</span><span class="n">no</span> <span class="n">pg</span>\<span class="n">_hba</span><span class="o">.</span><span class="n">conf</span> <span class="n">entry</span> <span class="k">for</span> <span class="n">host</span> <span class="s2">&quot;123.123.123.123&quot;</span><span class="p">,</span> <span class="n">user</span> <span class="s2">&quot;andym&quot;</span><span class="p">,</span> <span class="n">database</span> <span class="s2">&quot;testdb&quot;</span>
+</pre></div>
+</div>
+<p>This means connection with the user is possible. As indicated in the message, the server refused the connection request because it failed to find a match in the <code class="docutils literal notranslate"><span class="pre">pg\_hba.conf</span></code> configuration file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FATAL</span><span class="p">:</span><span class="n">password</span> <span class="n">authentication</span> <span class="n">failed</span> <span class="k">for</span> <span class="n">user</span> <span class="s2">&quot;andym&quot;</span>
+</pre></div>
+</div>
+<p>This message means that the user has contacted the server and connection with the user is possible, but the user should pass the authentication method specified in the <code class="docutils literal notranslate"><span class="pre">pg\_hba.conf</span></code> file. The password entered by the user should be examined, or if there is a problem with this authentication type, the user’s Kerberos or ident software should be checked.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FATAL</span><span class="p">:</span><span class="n">user</span> <span class="s2">&quot;andym&quot;</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exist</span>
+</pre></div>
+</div>
 <p>It failed to find the database user name shown.</p>
-<p>FATAL:database “testdb” does not exist</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FATAL</span><span class="p">:</span><span class="n">database</span> <span class="s2">&quot;testdb&quot;</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exist</span>
+</pre></div>
+</div>
 <p>The database that you want to connect to does not exist. If you do not specify a database name, the database user name is assumed to be the database name.</p>
 </section>
 </section>
@@ -851,64 +916,95 @@ PAM service name.</p></li>
 <section id="database-role">
 <h3><strong>Database Role</strong><a class="headerlink" href="#database-role" title="Permalink to this heading"></a></h3>
 <p>The concept of database roles is completely different from operating system users. Maintaining a correspondence relationship between them may be convenient but is not necessary. Database roles are global between database cluster installations (not database-specific). To create a role, you must use CREATE ROLE SQL command.</p>
-<p>db=# <strong>CREATE</strong> <strong>ROLE</strong> name;</p>
-<p>name complies with the rules of SQL identifiers (no special characters or double quotation marks are allowed). To delete an existing role, use DROP ROLE command.</p>
-<p>db=# <strong>DROP</strong> <strong>ROLE</strong> name;</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">=</span><span class="c1"># CREATE ROLE name;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> complies with the rules of SQL identifiers (no special characters or double quotation marks are allowed). To delete an existing role, use DROP ROLE command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">=</span><span class="c1"># DROP ROLE name;</span>
+</pre></div>
+</div>
 <p>For convenience, the programs createuser and dropuser, which can be invoked from the shell command line, are provided as the wrapper for SQL commands.</p>
-<p>$ createuser name</p>
-<p>$ dropuser name</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ createuser name
+$ dropuser name
+</pre></div>
+</div>
 <p>To determine existing role sets, examine the pg_roles system catalog. For example:</p>
-<p>db=# <strong>SELECT</strong> rolname <strong>FROM</strong> pg_roles;</p>
-<p>The psql program’s \du meta command is also useful for listing existing roles.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">=</span><span class="c1"># SELECT rolname FROM pg\_roles;</span>
+</pre></div>
+</div>
+<p>The psql program’s <code class="docutils literal notranslate"><span class="pre">\du</span></code> meta command is also useful for listing existing roles.</p>
 </section>
 <section id="role-attributes">
 <h3><strong>Role Attributes</strong><a class="headerlink" href="#role-attributes" title="Permalink to this heading"></a></h3>
 <p>A database role has many attributes that define permissions and interacts with the client authentication system.</p>
-<p><strong>Login Privilege</strong>
-You may only use roles with the LOGIN attribute as the initial role name for database connections. A role with the LOGIN attribute can be considered the same as a “database user.” To create a role with a login privilege, use one of the followings:
-<strong>CREATE</strong> <strong>ROLE</strong> name LOGIN;</p>
 <ul class="simple">
-<li><p><strong>CREATE</strong> USER name;
-(CREATE USER differs from CREATE ROLE in that it gives a LOGIN privilege by default.)</p></li>
-<li><p><strong>Superuser Status</strong>
-The database superuser skips all permission checks except for a login privilege. As the superuser authority can be risky, it should not be used carelessly. It is recommended that most of the tasks are processed by roles other than superuser. To create a new database superuser, use CREATE ROLE name SUPERUSER; a role of superuser should do this job.</p></li>
-<li><p><strong>Database Creation</strong>
-To create a database, the required privilege should be explicitly given to the role (except for superuser, which skips all privilege checks). To create this role, use CREATE ROLE name CREATEDB.</p></li>
-<li><p><strong>Role Creation</strong>
-To create an additional role, the required privilege should be explicitly given to the role (except for superuser, which skips all privilege checks). To create this role, use CREATE ROLE name CREATEROLE. A role with the CREATEROLE privilege can change and delete other roles, and grant or revoke membership. However, superuser status is required if you want to create, alter, delete, or change the membership of the superuser role; CREATEROLE cannot do this job.</p></li>
-<li><p><strong>Initiating Replication</strong>
-To initiate streaming replication, the corresponding privilege should be explicitly given to the role (except for superuser, which skips all privilege checks). The role used for streaming replication must have the LOGIN privilege always. To create this role, use the CREATE ROLE name REPLICATION LOGIN.</p></li>
-<li><p><strong>password</strong>
-Passwords are important only in the case of a client authentication method that requires the user to enter a password when connecting to the database. password and md5 authentication methods use passwords. Database passwords are distinct from the operating system user passwords. When creating a role, a password can be specified using CREATE ROLE name PASSWORD ‘string’.</p></li>
+<li><p><strong>Login Privilege</strong></p></li>
+</ul>
+<p>You may only use roles with the LOGIN attribute as the initial role name for database connections. A role with the LOGIN attribute can be considered the same as a “database user.” To create a role with a login privilege, use one of the followings:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CREATE</span> <span class="n">ROLE</span> <span class="n">name</span> <span class="n">LOGIN</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">USER</span> <span class="n">name</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>(CREATE USER differs from CREATE ROLE in that it gives a LOGIN privilege by default.)</p>
+<ul>
+<li><p><strong>Superuser Status</strong></p>
+<p>The database superuser skips all permission checks except for a login privilege. As the superuser authority can be risky, it should not be used carelessly. It is recommended that most of the tasks are processed by roles other than superuser. To create a new database superuser, use CREATE ROLE name SUPERUSER; a role of superuser should do this job.</p>
+</li>
+<li><p><strong>Database Creation</strong></p>
+<p>To create a database, the required privilege should be explicitly given to the role (except for superuser, which skips all privilege checks). To create this role, use CREATE ROLE name CREATEDB.</p>
+</li>
+<li><p><strong>Role Creation</strong></p>
+<p>To create an additional role, the required privilege should be explicitly given to the role (except for superuser, which skips all privilege checks). To create this role, use CREATE ROLE name CREATEROLE. A role with the CREATEROLE privilege can change and delete other roles, and grant or revoke membership. However, superuser status is required if you want to create, alter, delete, or change the membership of the superuser role; CREATEROLE cannot do this job.</p>
+</li>
+<li><p><strong>Initiating Replication</strong></p>
+<p>To initiate streaming replication, the corresponding privilege should be explicitly given to the role (except for superuser, which skips all privilege checks). The role used for streaming replication must have the LOGIN privilege always. To create this role, use the CREATE ROLE name REPLICATION LOGIN.</p>
+</li>
+<li><p><strong>password</strong></p>
+<p>Passwords are important only in the case of a client authentication method that requires the user to enter a password when connecting to the database. password and md5 authentication methods use passwords. Database passwords are distinct from the operating system user passwords. When creating a role, a password can be specified using CREATE ROLE name PASSWORD ‘string’.</p>
+</li>
 </ul>
 </section>
 <section id="role-membership">
 <h3><strong>Role Membership</strong><a class="headerlink" href="#role-membership" title="Permalink to this heading"></a></h3>
 <p>Users may be grouped for convenience of authority management. This allows you to grant or revoke privileges on a group-by-group basis. In AgensGraph, this is done by creating a role that represents a group, then assigning membership of the group role to individual user roles.</p>
 <p>To set up a group role, you should first create a role.</p>
-<p><strong>CREATE</strong> <strong>ROLE</strong> name;</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CREATE</span> <span class="n">ROLE</span> <span class="n">name</span><span class="p">;</span>
+</pre></div>
+</div>
 <p>In general, roles used as groups do not have the LOGIN attribute; you may set it if necessary.</p>
 <p>If a group role exists, you can add and delete members using the GRANT and REVOKE commands.</p>
-<p><strong>GRANT</strong> group_role <strong>TO</strong> role1, … ;</p>
-<p><strong>REVOKE</strong> group_role <strong>FROM</strong> role1, … ;</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRANT</span> <span class="n">group</span>\<span class="n">_role</span> <span class="n">TO</span> <span class="n">role1</span><span class="p">,</span> <span class="o">...</span> <span class="p">;</span>
+<span class="n">REVOKE</span> <span class="n">group</span>\<span class="n">_role</span> <span class="n">FROM</span> <span class="n">role1</span><span class="p">,</span> <span class="o">...</span> <span class="p">;</span>
+</pre></div>
+</div>
 <p>You can also grant membership to other group roles (there is no actual distinction between group and non-group roles). The database does not allow you to set a circular membership loop and/or to grant role membership to PUBLIC.</p>
-<p>Members of a group role can use the permissions of the role in two ways. First, all members of the group perform SET ROLE explicitly to “become” a group role temporarily. In this state, the database session has access to the group role (not the original login role), and the created database object is considered owned by the group role, not the login role. Second, the member role with INHERIT attribute automatically has the permissions of the role as a member, including all permissions inherited from that role. For example, suppose you have executed the following:</p>
-<p><strong>CREATE</strong> <strong>ROLE</strong> joe LOGIN INHERIT;</p>
-<p><strong>CREATE</strong> <strong>ROLE</strong> <strong>admin</strong> NOINHERIT;</p>
-<p><strong>CREATE</strong> <strong>ROLE</strong> wheel NOINHERIT;</p>
-<p><strong>GRANT</strong> <strong>admin</strong> <strong>TO</strong> joe;</p>
-<p><strong>GRANT</strong> wheel <strong>TO</strong> <strong>admin</strong>;</p>
+<p>Members of a group role can use the permissions of the role in two ways. First, all members of the group perform SET ROLE explicitly to “become” a group role temporarily. In this state, the database session has access to the group role (not the original login role), and the created database object is considered owned by the group role, not the login role. Second, the member role with <code class="docutils literal notranslate"><span class="pre">INHERIT</span></code> attribute automatically has the permissions of the role as a member, including all permissions inherited from that role. For example, suppose you have executed the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CREATE</span> <span class="n">ROLE</span> <span class="n">joe</span> <span class="n">LOGIN</span> <span class="n">INHERIT</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">ROLE</span> <span class="n">admin</span> <span class="n">NOINHERIT</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">ROLE</span> <span class="n">wheel</span> <span class="n">NOINHERIT</span><span class="p">;</span>
+<span class="n">GRANT</span> <span class="n">admin</span> <span class="n">TO</span> <span class="n">joe</span><span class="p">;</span>
+<span class="n">GRANT</span> <span class="n">wheel</span> <span class="n">TO</span> <span class="n">admin</span><span class="p">;</span>
+</pre></div>
+</div>
 <p>Immediately after the database session connects to joe role, joe “inherits” the permissions of admin (in addition to those granted directly to joe) and is able to use them as well. joe is, indirectly, a member of wheel. As this membership, however, is given via admin with NOINHERIT attribute, the permissions granted to wheel cannot be used.</p>
-<p><strong>SET</strong> <strong>ROLE</strong> <strong>admin</strong>;</p>
-<p>When you execute the above command, the session uses only those permissions granted to admin and does not use the permissions granted to joe.</p>
-<p><strong>SET</strong> <strong>ROLE</strong> wheel;</p>
-<p>When you execute the command above, the session uses only the permissions granted to wheel, not those granted to joe or admin. The original privilege state is restored using one of the following:</p>
-<p><strong>SET</strong> <strong>ROLE</strong> joe;</p>
-<p><strong>SET</strong> <strong>ROLE</strong> <strong>NONE</strong>;</p>
-<p><strong>RESET</strong> <strong>ROLE</strong>;</p>
-<p>LOGIN (role attribute), SUPERUSER, CREATEDB, and CREATEROLE can be thought of as special permissions, but they are not inherited as routine permissions of a database object. In order to use them, you should actually SET ROLE to a specific role holding one of these attributes. In the example above, it is also possible to grant CREATEDB and CREATEROLE to the admin role. However, a session connecting to joe role cannot have these permissions immediately as they will be granted only after executing SET ROLE admin.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SET</span> <span class="n">ROLE</span> <span class="n">admin</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>When you execute the above command, the session uses only those permissions granted to admin and does not use the permissions granted to <code class="docutils literal notranslate"><span class="pre">joe</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SET</span> <span class="n">ROLE</span> <span class="n">wheel</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>When you execute the command above, the session uses only the permissions granted to <code class="docutils literal notranslate"><span class="pre">wheel</span></code>, not those granted to <code class="docutils literal notranslate"><span class="pre">joe</span></code> or <code class="docutils literal notranslate"><span class="pre">admin</span></code>. The original privilege state is restored using one of the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SET</span> <span class="n">ROLE</span> <span class="n">joe</span><span class="p">;</span>
+<span class="n">SET</span> <span class="n">ROLE</span> <span class="n">NONE</span><span class="p">;</span>
+<span class="n">RESET</span> <span class="n">ROLE</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">LOGIN</span></code> (role attribute), <code class="docutils literal notranslate"><span class="pre">SUPERUSER</span></code>, <code class="docutils literal notranslate"><span class="pre">CREATEDB</span></code>, and <code class="docutils literal notranslate"><span class="pre">CREATEROLE</span></code> can be thought of as special permissions, but they are not inherited as routine permissions of a database object. In order to use them, you should actually <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">ROLE</span></code> to a specific role holding one of these attributes. In the example above, it is also possible to grant CREATEDB and CREATEROLE to the admin role. However, a session connecting to joe role cannot have these permissions immediately as they will be granted only after executing SET ROLE admin.</p>
 <p>You should use DROP ROLE to drop group roles.</p>
-<p><strong>DROP</strong> <strong>ROLE</strong> name;</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DROP</span> <span class="n">ROLE</span> <span class="n">name</span><span class="p">;</span>
+</pre></div>
+</div>
 <p>Membership of the group role is automatically revoked (the member role is not affected though). Note that the objects owned by the group role should first be deleted or reassigned to another owner, and the permissions granted to the group role must be revoked.</p>
 </section>
 </section>
@@ -922,14 +1018,16 @@ Passwords are important only in the case of a client authentication method that 
 <section id="file-system-level-backup">
 <h3><strong>File system level backup</strong><a class="headerlink" href="#file-system-level-backup" title="Permalink to this heading"></a></h3>
 <p><code class="docutils literal notranslate">&#160;&#160; </code>This is a way of backup at the file system level by directly copying the entire data storage space. It is not much different from the file system backup done by general operating systems. For instance:</p>
-<p>tar -cf <strong>backup</strong>.tar /usr/<strong>local</strong>/pgsql/<strong>data</strong></p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>Backup with a command above is possible. However, as there are two limitations as follows to this approach, this is less useful in practical terms than using pg_dump command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">cf</span> <span class="n">backup</span><span class="o">.</span><span class="n">tar</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">pgsql</span><span class="o">/</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>Backup with a command above is possible. However, as there are two limitations as follows to this approach, this is less useful in practical terms than using pg_dump command.</p>
 <ol class="simple">
 <li><p>You must suspend the database server for normal backup operations. Blocking all client connections and copying the file system does not guarantee a safe backup. (This is because neither tar command nor any other similar tools provide a consistent snapshot of the file system state and can accurately reflect information about the internal buffering used by the server). Likewise, when restoring, the server must be in a stopped state.</p></li>
 <li><p>If you know the locations and intended uses of various files in the database well, you may think that you will be able to copy/use only the files that correspond to individual databases or tables. Even if it is true, normal operation is not possible without commit log files. pg_clog/* files store the commit status of all transactions. Since these log files are processed as database clusters (not as tables), partial copying is impossible; even if you copy physical files and log files of individual tables, they may be related to other tables.</p></li>
 </ol>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>Another thing to consider in the file system-based backups is that if the file system provides a “consistent (and reliable) snapshot” feature, you should be careful when using the feature. A typical backup method using the file system snapshot feature: i) create a “frozen snapshot”; ii) copy all the data cluster files (as mentioned above, there is no point in back up partial files); iii) then unlock the locked snapshot. If the file system provides this feature, backup while the database server is running is possible. At this time, as backup is done while in operation, the database files are saved without properly closing the database server. When you start the database server with backup data, it will recognize the old server as a conflict and replay the WAL log. However, if you run the CHECKPOINT command before starting and keep the WAL logs generated in the course of the backup operation separately, the execution will be done without a big issue. (You may, of course, ignore the WAL logs.)</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>The problem is that the database server uses multiple file systems. For example, if you create a tablespace that uses different partitions, you should be able to create a “frozen snapshot” of all the file systems used by the database server at the same time. To generate backups in this way, please read through the filesystem documentation carefully and conduct backups after you weigh the benefits against the risks involved.</p>
+<p>Another thing to consider in the file system-based backups is that if the file system provides a “consistent (and reliable) snapshot” feature, you should be careful when using the feature. A typical backup method using the file system snapshot feature: i) create a “frozen snapshot”; ii) copy all the data cluster files (as mentioned above, there is no point in back up partial files); iii) then unlock the locked snapshot. If the file system provides this feature, backup while the database server is running is possible. At this time, as backup is done while in operation, the database files are saved without properly closing the database server. When you start the database server with backup data, it will recognize the old server as a conflict and replay the WAL log. However, if you run the CHECKPOINT command before starting and keep the WAL logs generated in the course of the backup operation separately, the execution will be done without a big issue. (You may, of course, ignore the WAL logs.)</p>
+<p>The problem is that the database server uses multiple file systems. For example, if you create a tablespace that uses different partitions, you should be able to create a “frozen snapshot” of all the file systems used by the database server at the same time. To generate backups in this way, please read through the filesystem documentation carefully and conduct backups after you weigh the benefits against the risks involved.</p>
 <p><code class="docutils literal notranslate">&#160;&#160; </code>If it is not possible to create multiple file system snapshots simultaneously, you must stop the database server while creating the snapshot.</p>
 <p><code class="docutils literal notranslate">&#160;&#160; </code>Another way is to use a rsync application. The work proceeds in two steps. When the server is running, it synchronizes all the data first. Then, it stops the server and synchronizes data once again. This will minimize server downtime because only the changed files will be synchronized while the server is stopped.</p>
 <p><code class="docutils literal notranslate">&#160;&#160; </code>File system backups typically require more backup space than SQL dumps. (This is because dump files created by pg_dump do not have indexes, physically, and only contain commands to make the indexes.) For this reason, the restore operation can be done much faster in file system backups.</p>
@@ -938,22 +1036,27 @@ Passwords are important only in the case of a client authentication method that 
 <h3><strong>Archive mode backup</strong><a class="headerlink" href="#archive-mode-backup" title="Permalink to this heading"></a></h3>
 <section id="creating-an-archive-of-write-ahead-logging-wal">
 <h4><strong>Creating an archive of Write Ahead Logging (WAL)</strong><a class="headerlink" href="#creating-an-archive-of-write-ahead-logging-wal" title="Permalink to this heading"></a></h4>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>Internally, the AgensGraph system constantly creates WAL records in manipulating the database. Those records are divided into WAL segment files so they can be stored in physical disk space. A single WAL file is basically a 16MB file (this size is determined when you compile the server). The filename uses the corresponding number in the WAL order. If you set it not to create a WAL archive file, only a few of these files will be created, and you will need to find and “reuse” any log files that you no longer use. Internally, it finds the status information of WAL records, reuses it by changing the checkpoint operation to a no-longer-in-use state, and recording a new WAL record in its place.</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>If you create a WAL archive file, you archive existing WAL record information elsewhere (same host, NFS mount point, or even tape) before reusing a certain WAL segment file. The archiving method is specified directly by the administrator. Let the administrator decide even in the case where there is already a file with the same name. However, when reusing the WAL segment file, the AgensGraph server only performs operations according to the “method of archiving” set by the administrator. You may simply use the cp command for the archive, use a more complex custom shell script, or use a backup solution command. This part is entirely up to the administrator.</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>To create a WAL archive file, specify archive (or hot_standby) with the value of the configuration parameter wal level. Next, set the environment configuration parameter archive mode to on, and the environment configuration parameter archive command to an appropriate system command. All of these settings are configured in the postgresql.conf file. You can use %p (absolute path to the WAL log file) and %f (the name of the log file to be archived) reserved arguments for the shell command to specify as the archive_command value. If you need to type % literally, type %%. In general, this setting is used in the following format.</p>
-<p># Unix</p>
-<p><code class="docutils literal notranslate">&#160; </code>archive_command = ‘test ! -f /mnt/server/archivedir/%f &amp;&amp; cp %p /mnt/server/archivedir/%f’</p>
-<p># Windows</p>
-<p><code class="docutils literal notranslate">&#160; </code>archive_command = ‘copy “%p” “C:\server\archivedir\%f”’</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>The above configuration simply copies the WAL segment file to the /mnt/server/archivedir directory (with the same file name). The above is only an example for Unix and Windows operating systems. Actual settings should be changed to match the operating system. %p %f reserved arguments are changed as follows for the actual execution of the command.</p>
-<p>test ! -f /mnt/server/archivedir/00000001000000A900000065 &amp;&amp;</p>
-<p>cp pg_xlog/00000001000000A900000065\ /mnt/server/archivedir/00000001000000A900000065</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>This will always make the WAL log file fresh at a certain location.</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>This archive command is executed by the privileges of the system user who ran the AgensGraph server. So, just like processing WAL segment files, you should consider security policies when processing archive files. It should be noted that a fatal security incident can occur if it can be read, overwritten, and deleted by anyone.</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>Another thing to note is that the archive command’s shell execution return value should be 0 (zero) if the command is successful, or a different value if the command is not successful. The server will determine if the log file has been successfully archived or failed with this return value, and if successful, will either erase or reuse the original log file; if unsuccessful, it will retry until it succeeds.</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>You should not overwrite files that already exist with this archive command. Overwriting may cause unintended errors in the restore operation. (This file may already have been created or used by another database.) It is safest for the administrator to manually process the log file because constant errors may occur if it already exists.</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>It is recommended to check if the file already exists before you archive a log file. If it exists, set the command to return a non-zero value. On Unix, a test command is provided for this task. On some Unix platforms, the -i option is provided in the cp command to avoid overwriting files that already exist. You must check the return value when using this command. (The GNU cp command returns “0” if there is a log file, which is not desirable.)</p>
-<p><code class="docutils literal notranslate">&#160;&#160; </code>When you save a WAL file separately, operational jobs may need to be aborted manually, or saving operation may fail repeatedly because of insufficient storage space. For example, if you want to archive a WAL segment file to a tape storage device and the device does not automatically exchange tapes and there is no free space on the tape; then, the user continues to run the file write operation until an error occurs and may repeat the process. In such a case, the pg_xlog/ directory will not delete or reuse the WAL segment file because the data has not been safely copied to the tape storage, and the new WAL segment files created later will continue to accumulate and eventually stop as there will be no more free space in the pg_xlog/ directory and a PANIC error will occur in the server.</p>
+<p>Internally, the AgensGraph system constantly creates WAL records in manipulating the database. Those records are divided into WAL segment files so they can be stored in physical disk space. A single WAL file is basically a 16MB file (this size is determined when you compile the server). The filename uses the corresponding number in the WAL order. If you set it not to create a WAL archive file, only a few of these files will be created, and you will need to find and “reuse” any log files that you no longer use. Internally, it finds the status information of WAL records, reuses it by changing the checkpoint operation to a no-longer-in-use state, and recording a new WAL record in its place.</p>
+<p>If you create a WAL archive file, you archive existing WAL record information elsewhere (same host, NFS mount point, or even tape) before reusing a certain WAL segment file. The archiving method is specified directly by the administrator. Let the administrator decide even in the case where there is already a file with the same name. However, when reusing the WAL segment file, the AgensGraph server only performs operations according to the “method of archiving” set by the administrator. You may simply use the cp command for the archive, use a more complex custom shell script, or use a backup solution command. This part is entirely up to the administrator.</p>
+<p>To create a WAL archive file, specify archive (or hot_standby) with the value of the configuration parameter wal level. Next, set the environment configuration parameter archive mode to on, and the environment configuration parameter archive command to an appropriate system command. All of these settings are configured in the postgresql.conf file. You can use %p (absolute path to the WAL log file) and %f (the name of the log file to be archived) reserved arguments for the shell command to specify as the archive_command value. If you need to type % literally, type %%. In general, this setting is used in the following format.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Unix</span>
+<span class="n">archive</span>\<span class="n">_command</span> <span class="o">=</span> <span class="s1">&#39;test ! -f /mnt/server/archivedir/</span><span class="si">%f</span><span class="s1"> &amp;&amp; cp %p /mnt/server/archivedir/</span><span class="si">%f</span><span class="s1">&#39;</span>   
+
+<span class="c1"># Windows</span>
+<span class="n">archive</span>\<span class="n">_command</span> <span class="o">=</span> <span class="s1">&#39;copy &quot;%p&quot; &quot;C:</span><span class="se">\\</span><span class="s1">server</span><span class="se">\\</span><span class="s1">archivedir</span><span class="se">\\</span><span class="si">%f</span><span class="s1">&quot;&#39;</span> 
+</pre></div>
+</div>
+<p>The above configuration simply copies the WAL segment file to the /mnt/server/archivedir directory (with the same file name). The above is only an example for Unix and Windows operating systems. Actual settings should be changed to match the operating system. %p %f reserved arguments are changed as follows for the actual execution of the command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>test ! -f /mnt/server/archivedir/00000001000000A900000065 &amp;&amp; 
+cp pg\_xlog/00000001000000A900000065\ /mnt/server/archivedir/00000001000000A900000065
+</pre></div>
+</div>
+<p>This will always make the WAL log file fresh at a certain location.</p>
+<p>This archive command is executed by the privileges of the system user who ran the AgensGraph server. So, just like processing WAL segment files, you should consider security policies when processing archive files. It should be noted that a fatal security incident can occur if it can be read, overwritten, and deleted by anyone.</p>
+<p>Another thing to note is that the archive command’s shell execution return value should be 0 (zero) if the command is successful, or a different value if the command is not successful. The server will determine if the log file has been successfully archived or failed with this return value, and if successful, will either erase or reuse the original log file; if unsuccessful, it will retry until it succeeds.</p>
+<p>You should not overwrite files that already exist with this archive command. Overwriting may cause unintended errors in the restore operation. (This file may already have been created or used by another database.) It is safest for the administrator to manually process the log file because constant errors may occur if it already exists.</p>
+<p>It is recommended to check if the file already exists before you archive a log file. If it exists, set the command to return a non-zero value. On Unix, a test command is provided for this task. On some Unix platforms, the -i option is provided in the cp command to avoid overwriting files that already exist. You must check the return value when using this command. (The GNU cp command returns “0” if there is a log file, which is not desirable.)</p>
+<p>When you save a WAL file separately, operational jobs may need to be aborted manually, or saving operation may fail repeatedly because of insufficient storage space. For example, if you want to archive a WAL segment file to a tape storage device and the device does not automatically exchange tapes and there is no free space on the tape; then, the user continues to run the file write operation until an error occurs and may repeat the process. In such a case, the pg_xlog/ directory will not delete or reuse the WAL segment file because the data has not been safely copied to the tape storage, and the new WAL segment files created later will continue to accumulate and eventually stop as there will be no more free space in the pg_xlog/ directory and a PANIC error will occur in the server.</p>
 <p><code class="docutils literal notranslate">&#160;&#160; </code>You also have to worry about the data recording speed of the WAL file when it is stored separately. Even if the work is properly done, the same problem may occur if the speed at which the WAL file is created is faster than the speed at which the file is kept separately. If the pg_xlog/ directory has enough free space, it will not be a problem, of course. Before using this feature, you should consider this kind of problem in this section sufficiently; the administrator should monitor whether this function works as intended as well.</p>
 <p><code class="docutils literal notranslate">&#160;&#160; </code>The path to the save file should be up to 64 ASCII characters. The file name must use the reserved word %f (i.e. only directories can be changed). The original WAL segment file must use the reserved word %p. Note that changes to the postgresql.conf, pg_hba.conf, and pg_ident.conf files are not reflected in the database to be restored by this backup method because the WAL file contains only transactional operation information. You should back up these configuration files according to your system’s normal file backup policy.</p>
 <p><code class="docutils literal notranslate">&#160;&#160; </code>The archive command is executed for files that are all reflected on the server (rollbacked or committed and then checkpointed) among the WAL files. That is, for a database with very small workloads, the interval at which archive commands are executed is very long. If there is a database failure at this interval, data loss occurs. Thus, you must forcefully use the archive command to save this segment file separately after a certain time before all the content of the WAL segment file is processed. If the setting value is too short, the disk space can be wasted (a disadvantage). Typically, the setting in minutes is appropriate. You may also force the user to change the segment file using the pg_switch_xlog function. This function is typically used when bulk data entry, modification, or deletion occurs and immediate backups are required.</p>
@@ -3048,11 +3151,16 @@ As optimizer statistics are not sent by pg_upgrade, you should run the command a
 <p>자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.001.png)
 ① Displays the information of the currently registered database.
 - Type of Database
-- <img alt="ref1" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.002.png" /> :AgensGraph Database
-- <img alt="ref2" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.003.png" /> :ODBC Connection for an external database like Oracle, MS-SQL etc
-- <img alt="ref3" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.004.png" /> :Click to modify the database connection information.
-- <img alt="ref4" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.005.png" /> :Deletes the existing database connection.
-- Displays the information of the registered database in text. ![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진</p>
+- <img alt="ref1" src="../_images/Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.002.png" /> :AgensGraph Database</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- ![ref2] :ODBC Connection for an external database like Oracle, MS-SQL etc
+
+- ![ref3] :Click to modify the database connection information.
+
+- ![ref4] :Deletes the existing database connection.
+
+- Displays the information of the registered database in text. ![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진
+</pre></div>
+</div>
 <p>자동 생성된 설명]</p>
 <ul class="simple">
 <li><p>② Add Connection : Click to add a database connection.</p></li>
@@ -3461,73 +3569,71 @@ Run the corresponding workflow.
 </section>
 <section id="canvas-mode">
 <h2><strong>Canvas Mode</strong><a class="headerlink" href="#canvas-mode" title="Permalink to this heading"></a></h2>
-<ul class="simple">
-<li><p>Canvas Mode![텍스트, 스크린샷, 도표, 소프트웨어이(가) 표시된 사진</p></li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.025.png)</p>
-<ul class="simple">
+<ul>
+<li><p>Canvas Mode</p>
+<p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.025.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.025.png" /></p>
+<ul>
 <li><p>Node Sub Menu (Click Right Mouse)</p>
-<ul>
-<li><p>Focus Neighbors : Zooms in and displays the node adjacent to the selected node.![스크린샷, 텍스트, 도표, 원이(가) 표시된 사진</p></li>
-</ul>
-</li>
-</ul>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.026.png)
-- Outgoers / incomers : Displays the relationship of the node of a specific property connected to the node of the current graph.![텍스트, 스크린샷, 도표이(가) 표시된 사진</p>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.027.png)</p>
 <ul class="simple">
+<li><p>Focus Neighbors : Zooms in and displays the node adjacent to the selected node.</p></li>
+</ul>
+<p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.026.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.026.png" /></p>
+<ul class="simple">
+<li><p>Outgoers / incomers : Displays the relationship of the node of a specific property connected to the node of the current graph.</p></li>
+</ul>
+<p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.027.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.027.png" /></p>
+</li>
 <li><p>Finding Adjecent Node</p>
-<ul>
+<ul class="simple">
 <li><p>If you double-click a specific node, the nodes and edges connected to the node are highlighted.</p></li>
-<li><p>When you double-click, the order of connected nodes will gradually appear.![텍스트, 스크린샷, 도표, 지도이(가) 표시된 사진</p></li>
+<li><p>When you double-click, the order of connected nodes will gradually appear.</p></li>
+</ul>
+<p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.028.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.028.png" /></p>
+</li>
 </ul>
 </li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.028.png)</p>
 </section>
 <section id="graph-contraction">
 <h2><strong>Graph Contraction</strong><a class="headerlink" href="#graph-contraction" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>Graph Contraction![텍스트, 스크린샷, 소프트웨어, 멀티미디어 소프트웨어이(가) 표시된 사진</p></li>
+<li><p>Graph Contraction</p></li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.029.png)</p>
-<ul class="simple">
-<li><p>Method : Select contraction method</p>
+<p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.029.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.029.png" /></p>
 <ul>
+<li><p>Method : Select contraction method</p>
+<ul class="simple">
 <li><p>Centrality : Finds the center of the graph.</p></li>
 <li><p>Label-value : The specific label-value is displayed on the graph.</p></li>
 </ul>
 </li>
 <li><p>Function : Select the function to be displayed on the graph.</p>
-<ul>
+<ul class="simple">
 <li><p>Displayed when “Centrality” is selected on the method.</p></li>
-<li><p>Degree : Displays the nodes with the most connected edges among the graph nodes.![스크린샷이(가) 표시된 사진</p></li>
+<li><p>Degree : Displays the nodes with the most connected edges among the graph nodes.
+<img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.030.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.030.png" /></p></li>
+<li><p>Pagerank : Displays the nodes with the highest importance among the graph nodes.
+<img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.031.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.031.png" /></p></li>
+<li><p>Closeness : Displays the nodes with the highest proximity among the graph nodes.
+<img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.032.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.032.png" /></p></li>
+<li><p>Betweenness : Displays the nodes with the highest mediation centrality among the graph nodes.
+<img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.032.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.032.png" /></p></li>
 </ul>
 </li>
-</ul>
-<p>자동 생성된 설명]
-- Pagerank : Displays the nodes with the highest importance among the graph nodes.![스크린샷, 디자인이(가) 표시된 사진</p>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.031.png)
-- Closeness : Displays the nodes with the highest proximity among the graph nodes.![스크린샷이(가) 표시된 사진</p>
-<p>자동 생성된 설명]
-- Betweenness : Displays the nodes with the highest mediation centrality among the graph nodes.![스크린샷, 텍스트이(가) 표시된 사진</p>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.032.png)</p>
-<ul class="simple">
 <li><p>Activate / Deactivate</p>
-<ul>
+<ul class="simple">
 <li><p>Activate or deactivate graph contraction.</p></li>
 </ul>
 </li>
 <li><p>Selecting a label value displays the value of a selected label</p>
-<ul>
+<ul class="simple">
 <li><p>Values : Displays the selected label values.</p></li>
-<li><p>The label-value of the node (ex. City) is displayed in a text.![스크린샷, 다채로움, 보라색이(가) 표시된 사진</p></li>
+<li><p>The label-value of the node (ex. City) is displayed in a text.</p></li>
 </ul>
+<p><img alt="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.033.png" src="../_images/Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.033.png" /></p>
 </li>
 </ul>
-<p>자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.033.png)</p>
-<p>[스크린샷이(가) 표시된 사진</p>
-<p>자동 생성된 설명]: Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.030.png</p>
+<p>[]: Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.030.png</p>
 </section>
 </section>
 

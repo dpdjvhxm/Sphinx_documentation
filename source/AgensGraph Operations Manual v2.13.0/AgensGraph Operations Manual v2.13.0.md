@@ -3330,22 +3330,24 @@ ag\_graphmeta is a view that provides intuitive information.
 ## **Connection**
 - The following screen displays how to manage the database connection.
   - Connection Screen
-    ![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.001.png)
+    ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.001.png)
     ① Displays the information of the currently registered database.
     - Type of Database
-      - ![ref1] :AgensGraph Database
-      - ![ref2] :ODBC Connection for an external database like Oracle, MS-SQL etc
+    - ![ref1] :AgensGraph Database
+
+    - ![ref2] :ODBC Connection for an external database like Oracle, MS-SQL etc
+
     - ![ref3] :Click to modify the database connection information.
+
     - ![ref4] :Deletes the existing database connection.
-    - Displays the information of the registered database in text. ![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진
 
-자동 생성된 설명]
+    - Displays the information of the registered database in text. 
+    
+    ![텍스]
   - ② Add Connection : Click to add a database connection.
-  - Add a New Database Connection ![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진
-
-자동 생성된 설명]
+  - Add a New Database Connection 
+  
+  ![텍스]
     - Connection Name : Type a new connection name.
     - Type : Select the type of database
       - ODBC : Databases such as Oracle and MS-SQL to connect via ODBC
@@ -3361,29 +3363,26 @@ ag\_graphmeta is a view that provides intuitive information.
     - Test Connection : Use to check if the connection can be made using the input parameters. Displays whether the input connection information successfully or unsuccessfully connects with the database.
     - Save : Saves connection parameters.
   - Modifying the Database Connection Information
-    - The following screen displays how to modify the parameters of the existing connection. ![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.008.png)
+    - The following screen displays how to modify the parameters of the existing connection.
+    
+    ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.008.png)
 ## **Schema**
 - The following screen displays the management of schema configuration of the connected database.
-  - Schema Screen![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.009.png)
+  - Schema Screen
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.009.png)
   - ![ref3] :Click to modify the database connection information.
   - ![ref4] :Deletes the existing database connection.
   - Schema Collect
-    - It is possible to check and change the table list of schema.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.010.png)
+    - It is possible to check and change the table list of schema.
+    ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.010.png)
     - The connection name of the connected database is displayed and can be selected.
     - Displays the catalog of the database selected in “①”.
     - Displays the schema of the catalog selected in “②”.
     - The table list can be searched, the skip box can be checked or unchecked, and the ETL target table can be selected or canceled.
     - Save : Saves the changed information.
   - Add and Edit the Schema
-    - The following screen displays how to add and edit schema.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.011.png)
+    - The following screen displays how to add and edit schema.
+    ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.011.png)
     - Select the connection name of the schema‟s database. Input the catalog, schema, and table information.
     - Enter the column information of the table entered in “①”.
       - Column Name : Name of column
@@ -3394,14 +3393,12 @@ ag\_graphmeta is a view that provides intuitive information.
     - Adding & Deleting Column: Click “+” to add a row on a column Click “-“ to delete a row on a column
     - Save : Saves the entered information.
   - Modify Schema Information
-  - The following screen displays how to add and edit the schema.![텍스트, 스크린샷, 소프트웨어, 번호이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.012.png)
+  - The following screen displays how to add and edit the schema.
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.012.png)
 ## **Model**
 - The following screen displays how to manage database source and target models for data extraction and loading.
-  - Model Screen![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.013.png)
+  - Model Screen
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.013.png)
   - Type of Database
     - ![ref1] :AgensGraph Database
     - ![ref2] :ODBC Connection for an external database like Oracle, MS-SQL etc
@@ -3410,36 +3407,28 @@ ag\_graphmeta is a view that provides intuitive information.
   - Displays the information of the registered database in text.
   - Click the model name to move to the screen that adds a new model.
   - Add a New Model
-  - The following screen displays how to add a model information.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.014.png)
+  - The following screen displays how to add a model information.
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.014.png)
     - Model Name : Type the name of the model to register.
     - Extract Connection : Select an ODBC database to extract the data.
     - Load Connection : Select a graph database to load the data.
     - Save : Save the entered information.
   - Modifying Model Information
-  - The following screen displays how to edit the input model.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.015.png)
+  - The following screen displays how to edit the input model.
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.015.png)
   - Create Model Flow
-  - When creating a flow, the extract and load functions are automatically input and displayed.![텍스트, 스크린샷, 라인, 폰트이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.016.png)
+  - When creating a flow, the extract and load functions are automatically input and displayed.![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.016.png)
     - New Flow Name : Clicking the “+” button after registering the New Flow Name will create a new model flow.
-  - Model Flow Screen![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.017.png)
+  - Model Flow Screen
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.017.png)
     - New Flow Name : Create a new model flow.
     - Model Flow List
     - Export : Create the selected model flow in the workflow. (Check the workflow list in the workflow menu)
     - DRSMPL : Type of flow (If you drag it with the mouse and drop it in the “⑦” area, the flow type is displayed.)
     - Flow Copy / Delete / Save
-      - ![텍스트, 스크린샷, 폰트, 번호이(가) 표시된 사진
-
-자동 생성된 설명] :Create a copy of the current model flow.
-    - ![텍스트, 스크린샷, 폰트, 번호이(가) 표시된 사진
-
-자동 생성된 설명]
+      
+      ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.018.png) :Create a copy of the current model flow.
+    - ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.019.png)
       - ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.020.png) :Delete the current model flow.
       - ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.021.png) :Save the modified details in the current model flow.
     - Flow Type
@@ -3447,15 +3436,14 @@ ag\_graphmeta is a view that provides intuitive information.
 ## **Flow Type**
 - Extract(E)
   - Select a table to extract from the database and set the data row.
-  - When a flow is automatically displayed, it is created as a mandatory type. Without extract, the flow cannot be created.![텍스트, 스크린샷, 번호, 폰트이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.022.png)
+  - When a flow is automatically displayed, it is created as a mandatory type. Without extract, the flow cannot be created.
+  
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.022.png)
     - Table : Select the table to be extracted.
     - Displays the column list of the selected table.
 - Distribute(D)
-  - Calculate the hash value and key column value from the data row to be transmitted in the distributed method.![텍스트, 스크린샷, 소프트웨어, 폰트이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.023.png)
+  - Calculate the hash value and key column value from the data row to be transmitted in the distributed method.
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.023.png)
   - Mode : Single and hash can be selected.
     - Single : “②Load Count” and “③Key” are disabled and cannot be selected.
     - Hash : “②Load Count” and “③Key” can be selected and input
@@ -3463,35 +3451,35 @@ ag\_graphmeta is a view that provides intuitive information.
   - Key : Select the key column. Click the + / - button to add or delete keys.
 - Rename(R)
   - Change the name of the current flow and copy the set data row to the new flow.
-  - When a rename is created and saved, the flow is added as many as the value created in the left flow list.![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.024.png)
+  - When a rename is created and saved, the flow is added as many as the value created in the left flow list.
+  
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.024.png)
     - Field : Select the column that needs to be copied.
     - Delimiter : Input the delimiter when copying. (default : „-„)
     - Append : When checking the check box, the existing flow name adds “③Delimiter” and “④Value” to duplicate a new flow. If not checked, it is copied with the name, “④Value”.
     - Value : Input the name of the flow that needs to be copied. Click the + / - button to add or delete flow.
 - Store(S)
   - Extract the column and store it in the storage space.
-  - Data created in the store can only be used in merge. (used for the purpose of merging between tables)![텍스트, 스크린샷, 소프트웨어, 디스플레이이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.025.png)
+  - Data created in the store can only be used in merge. (used for the purpose of merging between tables)
+  
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.025.png)
   - Name : Enter the name of the store.
   - Key : Select the column to save. Click the + / - button to add or delete keys that needs to be saved.
 - Merge(M)
   - Merge the data row in addition to the data saved in the store.
-  - It must match the number of keys created in the store.![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.026.png)
+  - It must match the number of keys created in the store.
+  
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.026.png)
   - Store Name : Select a saved store.
   - Key : Select the column that needs to be merged. Click the + / - button to add or delete the key.
 - Purge(P)
-  - Data row is discarded and not transmitted.![스크린샷, 텍스트, 라인, 직사각형이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.027.png)
+  - Data row is discarded and not transmitted.
+  
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.027.png)
 - Load(L)
-  - Load data row in a graph database.![텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.028.png)
+  - Load data row in a graph database.
+  
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.028.png)
   - Pattern : Select load pattern (single-vertex / single-edge).
     - single-vertex : 1 Label can be input (VLabel)
     - single-edge : 3 Labels can be input (VLabel – Elabel – Vlabel)
@@ -3514,9 +3502,9 @@ ag\_graphmeta is a view that provides intuitive information.
     - The “② Mode” will not be displayed if it is set to delete.
 ## **Workflow**
 - The following screen displays how to check the status of ETL processing of the model.
-  - Workflow Screen![텍스트, 스크린샷, 소프트웨어, 컴퓨터 아이콘이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.029.png)
+  - Workflow Screen
+  
+  ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.029.png)
     - On : Activate or deactivate the workflow
     - Workflow Name : Name of the registered workflow
     - Status : Displays the current status of the workflow.
@@ -3530,9 +3518,8 @@ ag\_graphmeta is a view that provides intuitive information.
       - ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.033.png) :Delete the registered workflow.
   - Workflow Details
     - The following screen displays how to check the workflow details.
-      ![텍스트, 스크린샷, 도표, 디스플레이이(가) 표시된 사진
 
-자동 생성된 설명](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.034.png)
+      ![](Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.034.png)
       - Basic Information of Workflow
         - Workflow Name : Name of workflow
         - Status : Displays the current status of the Workflow.
@@ -3542,22 +3529,6 @@ ag\_graphmeta is a view that provides intuitive information.
         - Displays the process and result of executing the ETL.
         - The number in the parentheses is the number of processing ETL.
 
-[ref1]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.002.png
-[ref2]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.003.png
-[ref3]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.004.png
-[ref4]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.005.png
-[텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진
-
-자동 생성된 설명]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.006.png
-[텍스트, 스크린샷, 번호, 소프트웨어이(가) 표시된 사진
-
-자동 생성된 설명]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.007.png
-[텍스트, 스크린샷, 폰트, 번호이(가) 표시된 사진
-
-자동 생성된 설명]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.018.png
-[텍스트, 스크린샷, 폰트, 번호이(가) 표시된 사진
-
-자동 생성된 설명]: Aspose.Words.296f863b-0cc7-49e8-89c4-ebb5146e8147.019.png
 
 
 # **AgensPop Operation Manual**
@@ -3623,52 +3594,50 @@ ag\_graphmeta is a view that provides intuitive information.
     - ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.023.png)
     - ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.024.png)
 ## **Canvas Mode**
-- Canvas Mode![텍스트, 스크린샷, 도표, 소프트웨어이(가) 표시된 사진
+- Canvas Mode
 
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.025.png)
+  ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.025.png)
+
   - Node Sub Menu (Click Right Mouse)
-    - Focus Neighbors : Zooms in and displays the node adjacent to the selected node.![스크린샷, 텍스트, 도표, 원이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.026.png)
-    - Outgoers / incomers : Displays the relationship of the node of a specific property connected to the node of the current graph.![텍스트, 스크린샷, 도표이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.027.png)
+    - Focus Neighbors : Zooms in and displays the node adjacent to the selected node.
+    
+    ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.026.png)
+    - Outgoers / incomers : Displays the relationship of the node of a specific property connected to the node of the current graph.
+    
+    ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.027.png)
   - Finding Adjecent Node
     - If you double-click a specific node, the nodes and edges connected to the node are highlighted.
-    - When you double-click, the order of connected nodes will gradually appear.![텍스트, 스크린샷, 도표, 지도이(가) 표시된 사진
+    - When you double-click, the order of connected nodes will gradually appear.
+    
+    ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.028.png)
 
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.028.png)
 ## **Graph Contraction**
-- Graph Contraction![텍스트, 스크린샷, 소프트웨어, 멀티미디어 소프트웨어이(가) 표시된 사진
+- Graph Contraction
 
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.029.png)
+![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.029.png)
   - Method : Select contraction method
     - Centrality : Finds the center of the graph.
     - Label-value : The specific label-value is displayed on the graph.
   - Function : Select the function to be displayed on the graph.
     - Displayed when “Centrality” is selected on the method.
-    - Degree : Displays the nodes with the most connected edges among the graph nodes.![스크린샷이(가) 표시된 사진
+    - Degree : Displays the nodes with the most connected edges among the graph nodes.
+    ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.030.png)
+    - Pagerank : Displays the nodes with the highest importance among the graph nodes.
+    ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.031.png)
+    - Closeness : Displays the nodes with the highest proximity among the graph nodes.
+    ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.032.png)
+    - Betweenness : Displays the nodes with the highest mediation centrality among the graph nodes.
+    ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.032.png)
 
-자동 생성된 설명]
-    - Pagerank : Displays the nodes with the highest importance among the graph nodes.![스크린샷, 디자인이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.031.png)
-    - Closeness : Displays the nodes with the highest proximity among the graph nodes.![스크린샷이(가) 표시된 사진
-
-자동 생성된 설명]
-    - Betweenness : Displays the nodes with the highest mediation centrality among the graph nodes.![스크린샷, 텍스트이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.032.png)
   - Activate / Deactivate
     - Activate or deactivate graph contraction.
   - Selecting a label value displays the value of a selected label
     - Values : Displays the selected label values.
-    - The label-value of the node (ex. City) is displayed in a text.![스크린샷, 다채로움, 보라색이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.033.png)
+    - The label-value of the node (ex. City) is displayed in a text.
+  
+    ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.033.png)
 
 
 [ref1]: Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.004.png
-[스크린샷이(가) 표시된 사진
 
-자동 생성된 설명]: Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.030.png
+[]: Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.030.png
