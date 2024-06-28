@@ -1,22 +1,38 @@
 ﻿# **AgensGraph Developer Manual**
 ## **Copyright Notice**
 ### **Copyright © 2016-2022, Bitnine Inc. All Rights Reserved.**
-#### Restricted Rights Legend
-#### PostgreSQL is Copyright © 1996-2022 by the PostgreSQL Global Development Group.
-#### Postgres95 is Copyright © 1994-5 by the Regents of the University of California.
-#### AgensGraph is Copyright © 2016-2022 by Bitnine Inc.
-####   Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
-####   IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-####   THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN ”AS-IS” BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+ Restricted Rights Legend
+
+ PostgreSQL is Copyright © 1996-2022 by the PostgreSQL Global Development Group.
+
+ Postgres95 is Copyright © 1994-5 by the Regents of the University of California.
+
+ AgensGraph is Copyright © 2016-2022 by Bitnine Inc.
+
+ Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN ”AS-IS” BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
 ### **Trademarks**
-#### AgensGraph® is a registered trademark of Bitnine Global Inc. Other products, titles or services may be registered trademarks of their respective companies. 
+
+AgensGraph® is a registered trademark of Bitnine Global Inc. Other products, titles or services may be registered trademarks of their respective companies. 
+
 ### **Open Source Software Notice**
-#### Some modules or files of this product are subject to the terms of the following licenses. : OpenSSL, RSA Data Security, Inc., Apache Foundation, Jean-loup Gailly and Mark Adler, Paul Hsieh’s hash. 
+
+Some modules or files of this product are subject to the terms of the following licenses. : OpenSSL, RSA Data Security, Inc., Apache Foundation, Jean-loup Gailly and Mark Adler, Paul Hsieh’s hash. 
+
 ### **Information of technical documentation**
-#### Title : AgensGraph Developer Manual
-#### Published date : 11 10, 2022
-#### S/W version : AgensGraph v2.13.0
-#### Technical documentation version : v1.0
+Title : AgensGraph Developer Manual
+
+Published date : 11 10, 2022
+
+S/W version : AgensGraph v2.13.0
+
+Technical documentation version : v1.0
+
 # **Introduction**
 ## **AgensGraph Highlights**
 AgensGraph, a database built on a graph data model that ensures ACID transactions, is implemented by utilizing main features of PostgreSQL, an open source database.
@@ -13098,7 +13114,7 @@ try:
 
 `    `**return** "fraction inserted"
 
-$$ LANGUAGE plpythonu;
+LANGUAGE plpythonu;
 
 As all exceptions from the plpy.spiexceptions module inherits from SPIError, the except clause handling it will catch any database access error.
 
@@ -13128,7 +13144,7 @@ try:
 
 plpy.**execute**(**plan**, [result])
 
-$$ LANGUAGE plpythonu;
+LANGUAGE plpythonu;
 
 If the second UPDATE statement results in an exception being raised, this function will report the error, but the result of the first UPDATE will nevertheless be committed. In other words, the funds will be withdrawn from Joe’s account, but will not be transferred to Mary’s account.
 
@@ -13156,7 +13172,7 @@ try:
 
 plpy.**execute**(**plan**, [result])
 
-$$ LANGUAGE plpythonu;
+LANGUAGE plpythonu;
 
 The use of try/catch is still required. Otherwise, the exception would be transferred to the top of the Python stack and would cause the whole function to abort due to an AgensGraph error; as a result, the operations table would not have any row inserted into it. The subtransaction context manager does not trap errors; it only assures that all database operations executed inside its scope will be atomically committed or rolled back. A rollback of the subtransaction block occurs on any kind of exception exit, not only ones caused by errors originating from database access. A regular Python exception raised inside an explicit subtransaction block would also cause the subtransaction to be rolled back.
 #### **Older Python Versions**
@@ -13200,7 +13216,7 @@ try:
 
 plpy.**execute**(**plan**, [result])
 
-$$ LANGUAGE plpythonu;
+LANGUAGE plpythonu;
 ### **Utility Functions**
 The plpy module also provides functions:
 
@@ -13241,7 +13257,7 @@ datatype\_name
 The string expression of the object passed as a keyword-specific argument is used to enforce the messages reported to the client. Here is an example:
 
 **CREATE** **FUNCTION** raise\_custom\_exception() RETURNS void **AS** $$
-
+```
 plpy.error("custom exception message",
 
 `           `detail="some info about exception",
@@ -13249,6 +13265,7 @@ plpy.error("custom exception message",
 `           `hint="hint for users")
 
 $$ LANGUAGE plpythonu;
+```
 
 =# **SELECT** raise\_custom\_exception();
 
@@ -13585,7 +13602,9 @@ For some types of errors, the server reports the names of database objects (tabl
 |XX000|internal\_error|
 |XX001|data\_corrupted|
 |XX002|index\_corrupted|
+
 ## **Terminology**
+
 ### **Database Cluster**
 - Server (or Node)
   Refers to the hardware (actual or virtual) where AgensGraph is installed.
@@ -13677,7 +13696,9 @@ Then, check src/include/port and add the new OS file with appropriate values. Fo
 #### **1. Install AgensHub**
 - Create a folder to install AgensHub and copy the source file to the folder.
   - Source File : agenshub.tgz
-- Unzip the file. (Once extracted, the “AgensHub” folder is created and extracted.)![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.011.png)
+- Unzip the file. (Once extracted, the “AgensHub” folder is created and extracted.)
+
+  ![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.011.png)
 #### **2. Environment Variable Setting**
 - Add the following details to the .bash\_profile or .bashrc environment variable file.![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.012.png)
   - AGENSHUB\_HOME : Directory path where AgensHub is installed.
@@ -13690,11 +13711,15 @@ Then, check src/include/port and add the new OS file with appropriate values. Fo
   - Modify the ODBC settings in the “etc/odbc.ini” file.
 #### **3. Program Startup and Shutdown**
 - Execute the following command to start the AgensHub program.
-  - ah\_ctl –startup![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.013.png)
+  - ah\_ctl –startup
+  
+  ![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.013.png)
 - Check if the screen is displayed normally by entering the following URL in the web browser.
   - **http://<***Web Server IP***>:9671![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.014.png)**
 - Execute the following command to terminate the AgensHub program.
-  - ah\_ctl –shutdown![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.015.png)
+  - ah\_ctl –shutdown
+  
+  ![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.015.png)
 # **AgensPop Developer Manual**
 ### **Installing and Operating the Program**
 #### **1. Program Installation**
@@ -13702,10 +13727,12 @@ Then, check src/include/port and add the new OS file with appropriate values. Fo
   - Source File : agenspop-es-0.7.jar
   - Configuration File : es-config.yml
 - Before starting the program, check and change the settings in the environment configuration file (es-config.yml) if needed.
-  - Web Server Setting![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.016.png)
+  - Web Server Setting
+  ![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.016.png)
     - port : Port number of the web server(default : 8080)
     - whitelabel>enabled : Enable or disable the error page. (default : false, disable)
-  - ElasticSearch Setting![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.017.png)
+  - ElasticSearch Setting
+  ![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.017.png)
     - host : IP address of the ElasticSearch server
     - port : Port number of the ElasticSearch server
     - username : Username of ElasticSearch (Blank, if not set)
@@ -13717,11 +13744,13 @@ Then, check src/include/port and add the new OS file with appropriate values. Fo
       Used when data integrity is important. Slow processing (default : false, not used)
     - index-shard : Number of shards that divide index data when index is created (default : 1)
     - index-replicas : Number of copies in index-shard (default : 0, not created
-  - Spark Setting![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.018.png)
+  - Spark Setting
+  ![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.018.png)
     - app-name : Spark group name
     - spark-home : Folder path of spark client’s location
     - master-url : Spark master node’s location
-  - Product Setting![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.019.png)
+  - Product Setting
+  ![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.019.png)
     - name : Item shown in the response header of the API (agens.product.name) to inform the client of the product name
     - version : Item shown in the response header of the API (agens.product.version) to inform the client of the server version
     - hello-msg : Message text when AgensPop server starts
@@ -13732,6 +13761,8 @@ Then, check src/include/port and add the new OS file with appropriate values. Fo
 - Check whether following URL works normally on the web browser.
   - **http://<***Web Server IP*>:<*Port No*>**/index.html**
     ex) [http://192.168.0.55:8080/index.html
-    ](http://192.168.0.55:8080/index.html)<http://localhost:8080/index.html>![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.020.png)
+    ](http://192.168.0.55:8080/index.html)<http://localhost:8080/index.html>
+    
+    ![](Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.020.png)
 
 
