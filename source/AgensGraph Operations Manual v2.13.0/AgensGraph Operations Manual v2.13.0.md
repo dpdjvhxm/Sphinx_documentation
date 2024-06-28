@@ -3343,11 +3343,9 @@ ag\_graphmeta is a view that provides intuitive information.
 
     - Displays the information of the registered database in text. 
     
-    ![텍스]
   - ② Add Connection : Click to add a database connection.
   - Add a New Database Connection 
   
-  ![텍스]
     - Connection Name : Type a new connection name.
     - Type : Select the type of database
       - ODBC : Databases such as Oracle and MS-SQL to connect via ODBC
@@ -3562,15 +3560,13 @@ ag\_graphmeta is a view that provides intuitive information.
     - ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.010.png) :Search by changing the layout of the graph.
     - ![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.011.png) :Adjust the screen so that the graph can be located in the center.
 ## **Importing Data**
-- Importing Data![텍스트, 스크린샷, 디스플레이, 소프트웨어이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.012.png)
+- Importing Data
+![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.012.png)
   - Click ![ref1] to open the database list screen.
   - Click the name of the data source in the list to view the relevant data in the graph.
 ## **Querying Data**
-- Querying Data![텍스트, 스크린샷이(가) 표시된 사진
-
-자동 생성된 설명](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.013.png)
+- Querying Data
+![](Aspose.Words.72130a7f-b444-41de-8489-ff76c22b413c.013.png)
   - “③ Graph Domain” displays properties and features of the selected nodes and edges.
     - Click the icons in the place to change the shape of the node and the color of the edge.
     - Properties : Properties of selected node and edge are displayed.
