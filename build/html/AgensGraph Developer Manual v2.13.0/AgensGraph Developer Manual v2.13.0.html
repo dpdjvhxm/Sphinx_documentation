@@ -9733,7 +9733,7 @@ In the case of CREATE TRIGGER (command) with arguments, you can use from TD[”a
 <p><code class="docutils literal notranslate">&#160;&#160;&#160; </code><strong>return</strong> “other error, SQLSTATE %s” % e.sqlstate</p>
 <p><strong>else</strong>:</p>
 <p><code class="docutils literal notranslate">&#160;&#160;&#160; </code><strong>return</strong> “fraction inserted”</p>
-<p>$$ LANGUAGE plpythonu;</p>
+<p>LANGUAGE plpythonu;</p>
 <p>As all exceptions from the plpy.spiexceptions module inherits from SPIError, the except clause handling it will catch any database access error.</p>
 <p>As an alternative way of handling different error conditions, you can catch the SPIError exception and determine the specific error condition inside the except block by looking at the sqlstate attribute of the exception object. This attribute is a string value containing the “SQLSTATE” error code. This approach provides approximately the same functionality.</p>
 </section>
@@ -9754,7 +9754,7 @@ In the case of CREATE TRIGGER (command) with arguments, you can use from TD[”a
 <p><code class="docutils literal notranslate">&#160;&#160;&#160; </code>result = “funds transferred correctly”</p>
 <p><strong>plan</strong> = plpy.<strong>prepare</strong>(”INSERT INTO operations (result) VALUES ($1)”, [”text”])</p>
 <p>plpy.<strong>execute</strong>(<strong>plan</strong>, [result])</p>
-<p>$$ LANGUAGE plpythonu;</p>
+<p>LANGUAGE plpythonu;</p>
 <p>If the second UPDATE statement results in an exception being raised, this function will report the error, but the result of the first UPDATE will nevertheless be committed. In other words, the funds will be withdrawn from Joe’s account, but will not be transferred to Mary’s account.</p>
 <p>To avoid such issues, you can wrap your plpy.execute calls in an explicit subtransaction. The plpy module provides a helper object to manage explicit subtransactions that get created with the plpy.subtransaction() function. Objects created by this function implement the context manager interface. By using explicit subtransactions, you may rewrite the function as:</p>
 <p><strong>CREATE</strong> <strong>FUNCTION</strong> transfer_funds2() RETURNS void <strong>AS</strong> $$</p>
@@ -9768,7 +9768,7 @@ In the case of CREATE TRIGGER (command) with arguments, you can use from TD[”a
 <p><code class="docutils literal notranslate">&#160;&#160;&#160; </code>result = “funds transferred correctly”</p>
 <p><strong>plan</strong> = plpy.<strong>prepare</strong>(”INSERT INTO operations (result) VALUES ($1)”, [”text”])</p>
 <p>plpy.<strong>execute</strong>(<strong>plan</strong>, [result])</p>
-<p>$$ LANGUAGE plpythonu;</p>
+<p>LANGUAGE plpythonu;</p>
 <p>The use of try/catch is still required. Otherwise, the exception would be transferred to the top of the Python stack and would cause the whole function to abort due to an AgensGraph error; as a result, the operations table would not have any row inserted into it. The subtransaction context manager does not trap errors; it only assures that all database operations executed inside its scope will be atomically committed or rolled back. A rollback of the subtransaction block occurs on any kind of exception exit, not only ones caused by errors originating from database access. A regular Python exception raised inside an explicit subtransaction block would also cause the subtransaction to be rolled back.</p>
 </section>
 <section id="older-python-versions">
@@ -9793,7 +9793,7 @@ In the case of CREATE TRIGGER (command) with arguments, you can use from TD[”a
 <p><code class="docutils literal notranslate">&#160;&#160;&#160; </code>result = “funds transferred correctly”</p>
 <p><strong>plan</strong> = plpy.<strong>prepare</strong>(”INSERT INTO operations (result) VALUES ($1)”, [”text”])</p>
 <p>plpy.<strong>execute</strong>(<strong>plan</strong>, [result])</p>
-<p>$$ LANGUAGE plpythonu;</p>
+<p>LANGUAGE plpythonu;</p>
 </section>
 </section>
 <section id="utility-functions">
@@ -9818,10 +9818,15 @@ In the case of CREATE TRIGGER (command) with arguments, you can use from TD[”a
 <p>datatype_name</p>
 <p>The string expression of the object passed as a keyword-specific argument is used to enforce the messages reported to the client. Here is an example:</p>
 <p><strong>CREATE</strong> <strong>FUNCTION</strong> raise_custom_exception() RETURNS void <strong>AS</strong> $$</p>
-<p>plpy.error(”custom exception message”,</p>
-<p><code class="docutils literal notranslate">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; </code>detail=”some info about exception”,</p>
-<p><code class="docutils literal notranslate">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; </code>hint=”hint for users”)</p>
-<p>$$ LANGUAGE plpythonu;</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>plpy.error(&quot;custom exception message&quot;,
+
+`           `detail=&quot;some info about exception&quot;,
+
+`           `hint=&quot;hint for users&quot;)
+
+$$ LANGUAGE plpythonu;
+</pre></div>
+</div>
 <p>=# <strong>SELECT</strong> raise_custom_exception();</p>
 <p>ERROR:  plpy.Error: custom <strong>exception</strong> message</p>
 <p>DETAIL:  <strong>some</strong> info about <strong>exception</strong></p>
@@ -10252,13 +10257,15 @@ Do not store it directly in the struct field by changing the live tuple. The bes
 <h2><strong>Install and Operate AgensHub</strong><a class="headerlink" href="#install-and-operate-agenshub" title="Permalink to this heading"></a></h2>
 <section id="install-agenshub">
 <h3><strong>1. Install AgensHub</strong><a class="headerlink" href="#install-agenshub" title="Permalink to this heading"></a></h3>
-<ul class="simple">
-<li><p>Create a folder to install AgensHub and copy the source file to the folder.</p>
 <ul>
+<li><p>Create a folder to install AgensHub and copy the source file to the folder.</p>
+<ul class="simple">
 <li><p>Source File : agenshub.tgz</p></li>
 </ul>
 </li>
-<li><p>Unzip the file. (Once extracted, the “AgensHub” folder is created and extracted.)<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.011.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.011.png" /></p></li>
+<li><p>Unzip the file. (Once extracted, the “AgensHub” folder is created and extracted.)</p>
+<p><img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.011.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.011.png" /></p>
+</li>
 </ul>
 </section>
 <section id="environment-variable-setting">
@@ -10283,21 +10290,23 @@ Do not store it directly in the struct field by changing the live tuple. The bes
 </section>
 <section id="program-startup-and-shutdown">
 <h3><strong>3. Program Startup and Shutdown</strong><a class="headerlink" href="#program-startup-and-shutdown" title="Permalink to this heading"></a></h3>
-<ul class="simple">
-<li><p>Execute the following command to start the AgensHub program.</p>
 <ul>
-<li><p>ah_ctl –startup<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.013.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.013.png" /></p></li>
+<li><p>Execute the following command to start the AgensHub program.</p>
+<ul class="simple">
+<li><p>ah_ctl –startup</p></li>
 </ul>
+<p><img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.013.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.013.png" /></p>
 </li>
 <li><p>Check if the screen is displayed normally by entering the following URL in the web browser.</p>
-<ul>
+<ul class="simple">
 <li><p><strong>http://&lt;<em><strong>Web Server IP</strong></em>&gt;:9671<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.014.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.014.png" /></strong></p></li>
 </ul>
 </li>
 <li><p>Execute the following command to terminate the AgensHub program.</p>
-<ul>
-<li><p>ah_ctl –shutdown<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.015.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.015.png" /></p></li>
+<ul class="simple">
+<li><p>ah_ctl –shutdown</p></li>
 </ul>
+<p><img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.015.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.015.png" /></p>
 </li>
 </ul>
 </section>
@@ -10318,13 +10327,15 @@ Do not store it directly in the struct field by changing the live tuple. The bes
 </li>
 <li><p>Before starting the program, check and change the settings in the environment configuration file (es-config.yml) if needed.</p>
 <ul>
-<li><p>Web Server Setting<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.016.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.016.png" /></p>
+<li><p>Web Server Setting
+<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.016.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.016.png" /></p>
 <ul>
 <li><p>port : Port number of the web server(default : 8080)</p></li>
 <li><p>whitelabel&gt;enabled : Enable or disable the error page. (default : false, disable)</p></li>
 </ul>
 </li>
-<li><p>ElasticSearch Setting<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.017.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.017.png" /></p>
+<li><p>ElasticSearch Setting
+<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.017.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.017.png" /></p>
 <ul>
 <li><p>host : IP address of the ElasticSearch server</p></li>
 <li><p>port : Port number of the ElasticSearch server</p></li>
@@ -10339,14 +10350,16 @@ Used when data integrity is important. Slow processing (default : false, not use
 <li><p>index-replicas : Number of copies in index-shard (default : 0, not created</p></li>
 </ul>
 </li>
-<li><p>Spark Setting<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.018.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.018.png" /></p>
+<li><p>Spark Setting
+<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.018.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.018.png" /></p>
 <ul>
 <li><p>app-name : Spark group name</p></li>
 <li><p>spark-home : Folder path of spark client’s location</p></li>
 <li><p>master-url : Spark master node’s location</p></li>
 </ul>
 </li>
-<li><p>Product Setting<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.019.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.019.png" /></p>
+<li><p>Product Setting
+<img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.019.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.019.png" /></p>
 <ul>
 <li><p>name : Item shown in the response header of the API (agens.product.name) to inform the client of the product name</p></li>
 <li><p>version : Item shown in the response header of the API (agens.product.version) to inform the client of the server version</p></li>
@@ -10359,7 +10372,7 @@ Used when data integrity is important. Slow processing (default : false, not use
 </section>
 <section id="program-startup">
 <h3><strong>2. Program Startup</strong><a class="headerlink" href="#program-startup" title="Permalink to this heading"></a></h3>
-<ul class="simple">
+<ul>
 <li><p>To start the program, JAVA must be installed.</p></li>
 <li><p>Execute below Java command to start the program.
 java -jar agenspop-es-0.7.jar –spring.conf.name=es-config.yml</p></li>
@@ -10367,7 +10380,9 @@ java -jar agenspop-es-0.7.jar –spring.conf.name=es-config.yml</p></li>
 <ul>
 <li><p><strong>http://&lt;<strong><em>Web Server IP</em>&gt;:&lt;<em>Port No</em>&gt;</strong>/index.html</strong>
 ex) <a class="reference external" href="http://192.168.0.55:8080/index.html">http://192.168.0.55:8080/index.html
-</a><a class="reference external" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a><img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.020.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.020.png" /></p></li>
+</a><a class="reference external" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a></p>
+<p><img alt="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.020.png" src="../_images/Aspose.Words.a9323959-3353-4eca-a4e6-01ba065fbfb9.020.png" /></p>
+</li>
 </ul>
 </li>
 </ul>
