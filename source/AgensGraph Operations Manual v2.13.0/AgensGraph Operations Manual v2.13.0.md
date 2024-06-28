@@ -761,28 +761,32 @@ RESET ROLE;
 `LOGIN` (role attribute), `SUPERUSER`, `CREATEDB`, and `CREATEROLE` can be thought of as special permissions, but they are not inherited as routine permissions of a database object. In order to use them, you should actually `SET ROLE` to a specific role holding one of these attributes. In the example above, it is also possible to grant CREATEDB and CREATEROLE to the admin role. However, a session connecting to joe role cannot have these permissions immediately as they will be granted only after executing SET ROLE admin.
 
 You should use DROP ROLE to drop group roles.
-
-**DROP** **ROLE** name;
+```
+DROP ROLE name;
+```
 
 Membership of the group role is automatically revoked (the member role is not affected though). Note that the objects owned by the group role should first be deleted or reassigned to another owner, and the permissions granted to the group role must be revoked.
+
 # **Backup & Recovery**
 Like in other database systems, backup is critical in AgensGraph as well. This is because most of the important data for services in general are stored in databases. The backup and restore process is relatively simple, and we will outline the technical and conceptual aspects of the process for a better understanding. Since AgensGraph was developed based on PostgreSQL, the PostgreSQL technical documents were quoted when introducing the features of the RDB side (not GDB).
 
 This chapter describes file system-based backups and archive-mode backups.
 ## **Backup**
+
 ### **File system level backup**
 `   `This is a way of backup at the file system level by directly copying the entire data storage space. It is not much different from the file system backup done by general operating systems. For instance:
+```
+tar -cf backup.tar /usr/local/pgsql/data
+```
 
-tar -cf **backup**.tar /usr/**local**/pgsql/**data**
-
-`   `Backup with a command above is possible. However, as there are two limitations as follows to this approach, this is less useful in practical terms than using pg\_dump command.
+Backup with a command above is possible. However, as there are two limitations as follows to this approach, this is less useful in practical terms than using pg\_dump command.
 
 1. You must suspend the database server for normal backup operations. Blocking all client connections and copying the file system does not guarantee a safe backup. (This is because neither tar command nor any other similar tools provide a consistent snapshot of the file system state and can accurately reflect information about the internal buffering used by the server). Likewise, when restoring, the server must be in a stopped state.
 1. If you know the locations and intended uses of various files in the database well, you may think that you will be able to copy/use only the files that correspond to individual databases or tables. Even if it is true, normal operation is not possible without commit log files. pg\_clog/\* files store the commit status of all transactions. Since these log files are processed as database clusters (not as tables), partial copying is impossible; even if you copy physical files and log files of individual tables, they may be related to other tables.
 
-`   `Another thing to consider in the file system-based backups is that if the file system provides a “consistent (and reliable) snapshot” feature, you should be careful when using the feature. A typical backup method using the file system snapshot feature: i) create a “frozen snapshot”; ii) copy all the data cluster files (as mentioned above, there is no point in back up partial files); iii) then unlock the locked snapshot. If the file system provides this feature, backup while the database server is running is possible. At this time, as backup is done while in operation, the database files are saved without properly closing the database server. When you start the database server with backup data, it will recognize the old server as a conflict and replay the WAL log. However, if you run the CHECKPOINT command before starting and keep the WAL logs generated in the course of the backup operation separately, the execution will be done without a big issue. (You may, of course, ignore the WAL logs.)   
+Another thing to consider in the file system-based backups is that if the file system provides a “consistent (and reliable) snapshot” feature, you should be careful when using the feature. A typical backup method using the file system snapshot feature: i) create a “frozen snapshot”; ii) copy all the data cluster files (as mentioned above, there is no point in back up partial files); iii) then unlock the locked snapshot. If the file system provides this feature, backup while the database server is running is possible. At this time, as backup is done while in operation, the database files are saved without properly closing the database server. When you start the database server with backup data, it will recognize the old server as a conflict and replay the WAL log. However, if you run the CHECKPOINT command before starting and keep the WAL logs generated in the course of the backup operation separately, the execution will be done without a big issue. (You may, of course, ignore the WAL logs.)   
 
-`   `The problem is that the database server uses multiple file systems. For example, if you create a tablespace that uses different partitions, you should be able to create a “frozen snapshot” of all the file systems used by the database server at the same time. To generate backups in this way, please read through the filesystem documentation carefully and conduct backups after you weigh the benefits against the risks involved.  
+The problem is that the database server uses multiple file systems. For example, if you create a tablespace that uses different partitions, you should be able to create a “frozen snapshot” of all the file systems used by the database server at the same time. To generate backups in this way, please read through the filesystem documentation carefully and conduct backups after you weigh the benefits against the risks involved.  
 
 `   `If it is not possible to create multiple file system snapshots simultaneously, you must stop the database server while creating the snapshot.
 
@@ -790,38 +794,39 @@ tar -cf **backup**.tar /usr/**local**/pgsql/**data**
 
 `   `File system backups typically require more backup space than SQL dumps. (This is because dump files created by pg\_dump do not have indexes, physically, and only contain commands to make the indexes.) For this reason, the restore operation can be done much faster in file system backups.
 ### **Archive mode backup**
+
 #### **Creating an archive of Write Ahead Logging (WAL)**
-`   `Internally, the AgensGraph system constantly creates WAL records in manipulating the database. Those records are divided into WAL segment files so they can be stored in physical disk space. A single WAL file is basically a 16MB file (this size is determined when you compile the server). The filename uses the corresponding number in the WAL order. If you set it not to create a WAL archive file, only a few of these files will be created, and you will need to find and “reuse” any log files that you no longer use. Internally, it finds the status information of WAL records, reuses it by changing the checkpoint operation to a no-longer-in-use state, and recording a new WAL record in its place. 
+Internally, the AgensGraph system constantly creates WAL records in manipulating the database. Those records are divided into WAL segment files so they can be stored in physical disk space. A single WAL file is basically a 16MB file (this size is determined when you compile the server). The filename uses the corresponding number in the WAL order. If you set it not to create a WAL archive file, only a few of these files will be created, and you will need to find and “reuse” any log files that you no longer use. Internally, it finds the status information of WAL records, reuses it by changing the checkpoint operation to a no-longer-in-use state, and recording a new WAL record in its place. 
 
-`   `If you create a WAL archive file, you archive existing WAL record information elsewhere (same host, NFS mount point, or even tape) before reusing a certain WAL segment file. The archiving method is specified directly by the administrator. Let the administrator decide even in the case where there is already a file with the same name. However, when reusing the WAL segment file, the AgensGraph server only performs operations according to the “method of archiving” set by the administrator. You may simply use the cp command for the archive, use a more complex custom shell script, or use a backup solution command. This part is entirely up to the administrator.  
+If you create a WAL archive file, you archive existing WAL record information elsewhere (same host, NFS mount point, or even tape) before reusing a certain WAL segment file. The archiving method is specified directly by the administrator. Let the administrator decide even in the case where there is already a file with the same name. However, when reusing the WAL segment file, the AgensGraph server only performs operations according to the “method of archiving” set by the administrator. You may simply use the cp command for the archive, use a more complex custom shell script, or use a backup solution command. This part is entirely up to the administrator.  
 
-`   `To create a WAL archive file, specify archive (or hot\_standby) with the value of the configuration parameter wal level. Next, set the environment configuration parameter archive mode to on, and the environment configuration parameter archive command to an appropriate system command. All of these settings are configured in the postgresql.conf file. You can use %p (absolute path to the WAL log file) and %f (the name of the log file to be archived) reserved arguments for the shell command to specify as the archive\_command value. If you need to type % literally, type %%. In general, this setting is used in the following format.
+To create a WAL archive file, specify archive (or hot\_standby) with the value of the configuration parameter wal level. Next, set the environment configuration parameter archive mode to on, and the environment configuration parameter archive command to an appropriate system command. All of these settings are configured in the postgresql.conf file. You can use %p (absolute path to the WAL log file) and %f (the name of the log file to be archived) reserved arguments for the shell command to specify as the archive\_command value. If you need to type % literally, type %%. In general, this setting is used in the following format.
 
-\# Unix
+```
+# Unix
+archive\_command = 'test ! -f /mnt/server/archivedir/%f && cp %p /mnt/server/archivedir/%f'   
 
-`  `archive\_command = 'test ! -f /mnt/server/archivedir/%f && cp %p /mnt/server/archivedir/%f'   
+# Windows
+archive\_command = 'copy "%p" "C:\\server\\archivedir\\%f"' 
+```
 
-\# Windows
-
-`  `archive\_command = 'copy "%p" "C:\\server\\archivedir\\%f"' 
-
-`   `The above configuration simply copies the WAL segment file to the /mnt/server/archivedir directory (with the same file name). The above is only an example for Unix and Windows operating systems. Actual settings should be changed to match the operating system. %p %f reserved arguments are changed as follows for the actual execution of the command.  
-
+The above configuration simply copies the WAL segment file to the /mnt/server/archivedir directory (with the same file name). The above is only an example for Unix and Windows operating systems. Actual settings should be changed to match the operating system. %p %f reserved arguments are changed as follows for the actual execution of the command.  
+```
 test ! -f /mnt/server/archivedir/00000001000000A900000065 && 
-
 cp pg\_xlog/00000001000000A900000065\ /mnt/server/archivedir/00000001000000A900000065
+```
 
-`   `This will always make the WAL log file fresh at a certain location. 
+This will always make the WAL log file fresh at a certain location. 
 
-`   `This archive command is executed by the privileges of the system user who ran the AgensGraph server. So, just like processing WAL segment files, you should consider security policies when processing archive files. It should be noted that a fatal security incident can occur if it can be read, overwritten, and deleted by anyone. 
+This archive command is executed by the privileges of the system user who ran the AgensGraph server. So, just like processing WAL segment files, you should consider security policies when processing archive files. It should be noted that a fatal security incident can occur if it can be read, overwritten, and deleted by anyone. 
 
-`   `Another thing to note is that the archive command’s shell execution return value should be 0 (zero) if the command is successful, or a different value if the command is not successful. The server will determine if the log file has been successfully archived or failed with this return value, and if successful, will either erase or reuse the original log file; if unsuccessful, it will retry until it succeeds. 
+Another thing to note is that the archive command’s shell execution return value should be 0 (zero) if the command is successful, or a different value if the command is not successful. The server will determine if the log file has been successfully archived or failed with this return value, and if successful, will either erase or reuse the original log file; if unsuccessful, it will retry until it succeeds. 
 
-`   `You should not overwrite files that already exist with this archive command. Overwriting may cause unintended errors in the restore operation. (This file may already have been created or used by another database.) It is safest for the administrator to manually process the log file because constant errors may occur if it already exists. 
+You should not overwrite files that already exist with this archive command. Overwriting may cause unintended errors in the restore operation. (This file may already have been created or used by another database.) It is safest for the administrator to manually process the log file because constant errors may occur if it already exists. 
 
-`   `It is recommended to check if the file already exists before you archive a log file. If it exists, set the command to return a non-zero value. On Unix, a test command is provided for this task. On some Unix platforms, the -i option is provided in the cp command to avoid overwriting files that already exist. You must check the return value when using this command. (The GNU cp command returns “0” if there is a log file, which is not desirable.) 
+It is recommended to check if the file already exists before you archive a log file. If it exists, set the command to return a non-zero value. On Unix, a test command is provided for this task. On some Unix platforms, the -i option is provided in the cp command to avoid overwriting files that already exist. You must check the return value when using this command. (The GNU cp command returns “0” if there is a log file, which is not desirable.) 
 
-`   `When you save a WAL file separately, operational jobs may need to be aborted manually, or saving operation may fail repeatedly because of insufficient storage space. For example, if you want to archive a WAL segment file to a tape storage device and the device does not automatically exchange tapes and there is no free space on the tape; then, the user continues to run the file write operation until an error occurs and may repeat the process. In such a case, the pg\_xlog/ directory will not delete or reuse the WAL segment file because the data has not been safely copied to the tape storage, and the new WAL segment files created later will continue to accumulate and eventually stop as there will be no more free space in the pg\_xlog/ directory and a PANIC error will occur in the server. 
+When you save a WAL file separately, operational jobs may need to be aborted manually, or saving operation may fail repeatedly because of insufficient storage space. For example, if you want to archive a WAL segment file to a tape storage device and the device does not automatically exchange tapes and there is no free space on the tape; then, the user continues to run the file write operation until an error occurs and may repeat the process. In such a case, the pg\_xlog/ directory will not delete or reuse the WAL segment file because the data has not been safely copied to the tape storage, and the new WAL segment files created later will continue to accumulate and eventually stop as there will be no more free space in the pg\_xlog/ directory and a PANIC error will occur in the server. 
 
 `   `You also have to worry about the data recording speed of the WAL file when it is stored separately. Even if the work is properly done, the same problem may occur if the speed at which the WAL file is created is faster than the speed at which the file is kept separately. If the pg\_xlog/ directory has enough free space, it will not be a problem, of course. Before using this feature, you should consider this kind of problem in this section sufficiently; the administrator should monitor whether this function works as intended as well. 
 
