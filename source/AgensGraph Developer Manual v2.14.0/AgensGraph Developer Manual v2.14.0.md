@@ -1,14 +1,14 @@
 ﻿# **AgensGraph Developer Manual**
 ## **Copyright Notice**
-### **Copyright © 2016-2022, Bitnine Inc. All Rights Reserved.**
+### **Copyright © 2016-2024, Bitnine Inc. All Rights Reserved.**
 
  Restricted Rights Legend
 
- PostgreSQL is Copyright © 1996-2022 by the PostgreSQL Global Development Group.
+ PostgreSQL is Copyright © 1996-2024 by the PostgreSQL Global Development Group.
 
  Postgres95 is Copyright © 1994-5 by the Regents of the University of California.
 
- AgensGraph is Copyright © 2016-2022 by Bitnine Inc.
+ AgensGraph is Copyright © 2016-2024 by Bitnine Inc.
 
  Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
 
@@ -29,7 +29,7 @@ Title : AgensGraph Developer Manual
 
 Published date : 11 10, 2022
 
-S/W version : AgensGraph v2.13.0
+S/W version : AgensGraph v2.14.0
 
 Technical documentation version : v1.0
 

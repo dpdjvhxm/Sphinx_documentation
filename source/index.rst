@@ -9,21 +9,21 @@ AgensGraph Guide & Manual
    :maxdepth: 2
    :caption: Quick Guide :
 
-   ../AgensGraph Quick Guide v2.13.0/AgensGraph Quick Guide v2.13.0.md
+   ../AgensGraph Quick Guide v2.14.0/AgensGraph Quick Guide v2.14.0.md
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Developer Manual :
 
-   ../AgensGraph Developer Manual v2.13.0/AgensGraph Developer Manual v2.13.0.md
+   ../AgensGraph Developer Manual v2.14.0/AgensGraph Developer Manual v2.14.0.md
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Operations Manual :
 
-   ../AgensGraph Operations Manual v2.13.0/AgensGraph Operations Manual v2.13.0.md
+   ../AgensGraph Operations Manual v2.14.0/AgensGraph Operations Manual v2.14.0.md
 
 
 .. toctree::
