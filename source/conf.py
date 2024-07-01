@@ -44,12 +44,9 @@ source_parsers = {
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_favicon = 'favicon.ico' # 파비콘
-html_logo = 'logo.png' # 로고
+html_logo = 'bitnine_logo.png' # 로고
 
 html_theme = 'sphinx_rtd_theme'
 
-html_css_files = [
-    'custom.css',
-]
 
 
