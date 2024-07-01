@@ -33,9 +33,4 @@ AgensGraph Guide & Manual
    ../AG Viewer Manual v1.0/AG Viewer Manual.md
 
 
-Indices and tables
-==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
