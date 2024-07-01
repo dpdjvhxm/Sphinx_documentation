@@ -48,3 +48,8 @@ html_logo = 'logo.png' # 로고
 
 html_theme = 'sphinx_rtd_theme'
 
+html_css_files = [
+    'custom.css',
+]
+
+
